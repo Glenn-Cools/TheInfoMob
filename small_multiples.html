@@ -75,7 +75,9 @@
 
 	//var data = loadCSV("Data/Data.csv");
 
-    var dataset = d3.csv("/TheInfoMob/Data/Data.csv", function(d){
+    var dataset;
+
+    d3.csv("/TheInfoMob/Data/Data.csv", function(d){
         return {
             series_name : d["Series Name"],
             series_code : d["Series Code"],
@@ -141,7 +143,7 @@
             }
         }
     },function(data){
-        return data
+        dataset = data;
     })
 
     console.log(dataset)
