@@ -69,13 +69,8 @@
 
 	<script type="text/javascript" src="d3/d3.js"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-    <script type="text/javascript" src="js/LoadCSV.js"></script>
 
 	<script> 
-
-	//var data = loadCSV("Data/Data.csv");
-
-    var dataset;
 
     d3.csv("/TheInfoMob/Data/Data.csv", function(d){
         return {
@@ -143,41 +138,12 @@
             }
         }
     },function(data){
-        window.dataset = data;
-        console.log(dataset)
+        console.log(data)
+        // ALL CODE INVOLVING THIS DATA COMES HERE
     })
 
-    
-    //var data2 = loadCSV("06.03.2016.csv");
-
-    //evt dataX in een lijst steken
-    // en de namen van de bestanden ook
-    // en ze dan via een functie linken
-    // zo zijn beide lijsten gemakkelijk beschikbaar
-    // ALLE data als een lijst
-    // Bestandsnamen ook als een lijst voor visualisaties
-/*
-    var datums = ["28.02.2016","06.03.2016","13.03.2016","21.03.2016"]//,"27.03.2016","03.04.2016"]
-    var mapWeekIndexToDate = d3.scale.ordinal()
-                                    .domain(d3.range(datums.length))
-                                    .range(datums)
-    var data1,data2,data3,data4,data5,data6
-    var dataList = [data1,data2,data3,data4]//,data5,data6]
-
-    loadData(); // LAAD DATA IN!!!!
-    var songDB = loadSongDB(); // LAADS de songDB in.
-
-*/
     //OWN TOOLTIP, look for bookmark and d3.mouse()
 
-    //BROKEN DATA -temp fixed
-    //jordan;28;Chapter V - (Part I); Prophecy Fullfiled(Part II) And The Dark Night Entered;Haggard;http://www.last.fm/music/Haggard/_/Chapter+V+-+(Part+I)+Prophecy+Fullfiled;+(Part+II)+And+The+Dark+Night+Entered;2344;http://img2-ak.lst.fm/i/u/300x300/f37c0bfdd9ff4eca89d3b5c26bf5cea0.png
-    //lao people's democratic republic;30;미행 (그림자; Shadow);f(x);http://www.last.fm/music/f(x)/_/%EB%AF%B8%ED%96%89+(%EA%B7%B8%EB%A6%BC%EC%9E%90;+Shadow);10283;http://img2-ak.lst.fm/i/u/300x300/e52812cc19ac5c189429d2c7b37c96f9.png
-
-
-    //console.log(mapWeekIndexToDate.domain());
-    //console.log(mapWeekIndexToDate.range());
-    //console.log(data2);
     //compareCountries(data1,"belgium","netherlands");
     //compareCountries(data2,"belgium","netherlands");
     //getCountriesForSong(dataList[0],"0","0")
@@ -196,18 +162,6 @@
     flowChartListeners("Sinner", "Arca")
 */
     //smallMultiplesListeners();
-
-
-    function loadData(){
-        for (var i = 0; i < dataList.length; i++) {
-            file = mapWeekIndexToDate(i) + ".csv"
-            dataList[i] = loadCSV(file)
-        }
-    }
-
-    function loadSongDB(){
-        return loadCSV("songDB.csv")
-    }
 
 
     function compareCountries(data, country1, country2){
