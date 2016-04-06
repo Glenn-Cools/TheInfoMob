@@ -22,9 +22,8 @@
   stroke: #000;
   shape-rendering: crispEdges;
 }
-
-.x.axis path {
-  display: none;
+.axis text{
+    display : none;
 }
 
 .d3-tip {
@@ -56,6 +55,19 @@
   left: 0;
 }
 
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.area {
+  fill: lightsteelblue;
+  stroke-width: 0;
+}
+
+
+
 </style>
 </head>
 
@@ -78,181 +90,181 @@
             series_code : d["Series Code"],
             country_name : d["Country Name"],
             country_code : d["Country Code"],
-            years : {
-                "1960" : +d["1960 [YR1960]"],
-                "1961" : +d["1961 [YR1961]"],
-                "1962" : +d["1962 [YR1962]"],
-                "1963" : +d["1963 [YR1963]"],
-                "1964" : +d["1964 [YR1964]"],
-                "1965" : +d["1965 [YR1965]"],
-                "1966" : +d["1966 [YR1966]"],
-                "1967" : +d["1967 [YR1967]"],
-                "1968" : +d["1968 [YR1968]"],
-                "1969" : +d["1969 [YR1969]"],
-                "1970" : +d["1970 [YR1970]"],
-                "1971" : +d["1971 [YR1971]"],
-                "1972" : +d["1972 [YR1972]"],
-                "1973" : +d["1973 [YR1973]"],
-                "1974" : +d["1974 [YR1974]"],
-                "1975" : +d["1975 [YR1975]"],
-                "1976" : +d["1976 [YR1976]"],
-                "1977" : +d["1977 [YR1977]"],
-                "1978" : +d["1978 [YR1978]"],
-                "1979" : +d["1979 [YR1979]"],
-                "1980" : +d["1980 [YR1980]"],
-                "1981" : +d["1981 [YR1981]"],
-                "1982" : +d["1982 [YR1982]"],
-                "1983" : +d["1983 [YR1983]"],
-                "1984" : +d["1984 [YR1984]"],
-                "1985" : +d["1985 [YR1985]"],
-                "1986" : +d["1986 [YR1986]"],
-                "1987" : +d["1987 [YR1987]"],
-                "1988" : +d["1988 [YR1988]"],
-                "1989" : +d["1989 [YR1989]"],
-                "1990" : +d["1990 [YR1990]"],
-                "1991" : +d["1991 [YR1991]"],
-                "1992" : +d["1992 [YR1992]"],
-                "1993" : +d["1993 [YR1993]"],
-                "1994" : +d["1994 [YR1994]"],
-                "1995" : +d["1995 [YR1995]"],
-                "1996" : +d["1996 [YR1996]"],
-                "1997" : +d["1997 [YR1997]"],
-                "1998" : +d["1998 [YR1998]"],
-                "1999" : +d["1999 [YR1999]"],
-                "2000" : +d["2000 [YR2000]"],
-                "2001" : +d["2001 [YR2001]"],
-                "2002" : +d["2002 [YR2002]"],
-                "2003" : +d["2003 [YR2003]"],
-                "2004" : +d["2004 [YR2004]"],
-                "2005" : +d["2005 [YR2005]"],
-                "2006" : +d["2006 [YR2006]"],
-                "2007" : +d["2007 [YR2007]"],
-                "2008" : +d["2008 [YR2008]"],
-                "2009" : +d["2009 [YR2009]"],
-                "2010" : +d["2010 [YR2010]"],
-                "2011" : +d["2011 [YR2011]"],
-                "2012" : +d["2012 [YR2012]"],
-                "2013" : +d["2013 [YR2013]"],
-                "2014" : +d["2014 [YR2014]"],
-                "2015" : +d["2015 [YR2015]"]
-            }
+            years : [
+                {year:"1960" ,"value": +d["1960 [YR1960]"]},
+                {year:"1961" ,"value": +d["1961 [YR1961]"]},
+                {year:"1962" ,"value": +d["1962 [YR1962]"]},
+                {year:"1963" ,"value": +d["1963 [YR1963]"]},
+                {year:"1964" ,"value": +d["1964 [YR1964]"]},
+                {year:"1965" ,"value": +d["1965 [YR1965]"]},
+                {year:"1966" ,"value": +d["1966 [YR1966]"]},
+                {year:"1967" ,"value": +d["1967 [YR1967]"]},
+                {year:"1968" ,"value": +d["1968 [YR1968]"]},
+                {year:"1969" ,"value": +d["1969 [YR1969]"]},
+                {year:"1970" ,"value": +d["1970 [YR1970]"]},
+                {year:"1971" ,"value": +d["1971 [YR1971]"]},
+                {year:"1972" ,"value": +d["1972 [YR1972]"]},
+                {year:"1973" ,"value": +d["1973 [YR1973]"]},
+                {year:"1974" ,"value": +d["1974 [YR1974]"]},
+                {year:"1975" ,"value": +d["1975 [YR1975]"]},
+                {year:"1976" ,"value": +d["1976 [YR1976]"]},
+                {year:"1977" ,"value": +d["1977 [YR1977]"]},
+                {year:"1978" ,"value": +d["1978 [YR1978]"]},
+                {year:"1979" ,"value": +d["1979 [YR1979]"]},
+                {year:"1980" ,"value": +d["1980 [YR1980]"]},
+                {year:"1981" ,"value": +d["1981 [YR1981]"]},
+                {year:"1982" ,"value": +d["1982 [YR1982]"]},
+                {year:"1983" ,"value": +d["1983 [YR1983]"]},
+                {year:"1984" ,"value": +d["1984 [YR1984]"]},
+                {year:"1985" ,"value": +d["1985 [YR1985]"]},
+                {year:"1986" ,"value": +d["1986 [YR1986]"]},
+                {year:"1987" ,"value": +d["1987 [YR1987]"]},
+                {year:"1988" ,"value": +d["1988 [YR1988]"]},
+                {year:"1989" ,"value": +d["1989 [YR1989]"]},
+                {year:"1990" ,"value": +d["1990 [YR1990]"]},
+                {year:"1991" ,"value": +d["1991 [YR1991]"]},
+                {year:"1992" ,"value": +d["1992 [YR1992]"]},
+                {year:"1993" ,"value": +d["1993 [YR1993]"]},
+                {year:"1994" ,"value": +d["1994 [YR1994]"]},
+                {year:"1995" ,"value": +d["1995 [YR1995]"]},
+                {year:"1996" ,"value": +d["1996 [YR1996]"]},
+                {year:"1997" ,"value": +d["1997 [YR1997]"]},
+                {year:"1998" ,"value": +d["1998 [YR1998]"]},
+                {year:"1999" ,"value": +d["1999 [YR1999]"]},
+                {year:"2000" ,"value": +d["2000 [YR2000]"]},
+                {year:"2001" ,"value": +d["2001 [YR2001]"]},
+                {year:"2002" ,"value": +d["2002 [YR2002]"]},
+                {year:"2003" ,"value": +d["2003 [YR2003]"]},
+                {year:"2004" ,"value": +d["2004 [YR2004]"]},
+                {year:"2005" ,"value": +d["2005 [YR2005]"]},
+                {year:"2006" ,"value": +d["2006 [YR2006]"]},
+                {year:"2007" ,"value": +d["2007 [YR2007]"]},
+                {year:"2008" ,"value": +d["2008 [YR2008]"]},
+                {year:"2009" ,"value": +d["2009 [YR2009]"]},
+                {year:"2010" ,"value": +d["2010 [YR2010]"]},
+                {year:"2011" ,"value": +d["2011 [YR2011]"]},
+                {year:"2012" ,"value": +d["2012 [YR2012]"]},
+                {year:"2013" ,"value": +d["2013 [YR2013]"]},
+                {year:"2014" ,"value": +d["2014 [YR2014]"]},
+                {year:"2015" ,"value": +d["2015 [YR2015]"]}
+            ]
         }
     },function(data){
-        console.log(data)
+        //console.log(data)
         // ALL CODE INVOLVING THIS DATA COMES HERE
+        smallMultiples(data,"SP.POP.GROW");
     })
 
     //OWN TOOLTIP, look for bookmark and d3.mouse()
 
-    //compareCountries(data1,"belgium","netherlands");
-    //compareCountries(data2,"belgium","netherlands");
-    //getCountriesForSong(dataList[0],"0","0")
-    //getCountriesForSong(dataList[1],"0","0")
-    //getListenersFlowForSong(dataList, "Love Yourself", "Justin Bieber")
-    //getListerersWeekForSong(data1, "Love Yourself", "Justin Bieber")
+    
 
-    //console.log(songDB[100])
-    //smallMultiplesListenersChart("song1","#area1",songDB[100].title,songDB[100].artist)
-    //smallMultiplesListenersChart("song2","#container","Love Yourself","Justin Bieber")
+    function getData(dataset,key){
+        result =[]
+        for(var i=0; i<dataset.length;i++){
+            if(dataset[i].series_code == key){
+                result.push(dataset[i]);
+            }
+        }
+        return result;
+    }
+
     /*
-    flowChartListeners("Hello", "Adele")
-    flowChartListeners("Love Yourself", "Justin Bieber")
-    flowChartListeners("Smells Like Teen Spirit", "Nirvana")
-    flowChartListeners("Faded", "Alan Walker")
-    flowChartListeners("Sinner", "Arca")
-*/
-    //smallMultiplesListeners();
-
-
     function compareCountries(data, country1, country2){
         for(var i=0;i<data.length;i++){
             if(data[i].country == country1 || data[i].country == country2){
                 console.log(data[i]);
             }     
         } 
-    }
+    }*/
 
-    function getCountriesForSong(data, title, artist){
-        countries = []
-        for(var i=0;i<data.length;i++){
-            if(data[i].title == title && data[i].artist == artist){
-                console.log(data[i].country + ":" + data[i].rank);
-                countries.push(data[i].country)
-            }
-        }
-        return countries
-    }
-
-    function getListenersFlowForSong(data_list, title, artist){
-        ListerersList = [];
-        for(var j=0;j<data_list.length;j++){
-            ListerersList.push({week:(j), listeners:getListerersWeekForSong(data_list[j],title,artist)})
-        }
-        //console.log(ListerersList)
-        return ListerersList
-
-    }
-
-    function getListerersWeekForSong(data, title, artist){
-        for(var i=0;i<data.length;i++){
-            if(data[i].title == title && data[i].artist == artist){
-                return data[i].listeners
-            }
-        }
-        return null
-    }
-
-    function smallMultiplesListeners(){
+    function smallMultiples(data,key){
 
         var color = d3.scale.category10();
 
-        for(var i=0;i<songDB.length;i++){
+        var dataset = getData(data,key);
 
-            smallMultiplesListenersChart("song"+(i),"#container",songDB[i].title, songDB[i].artist,color(i%10));
-
+        for(var i=0;i<dataset.length;i++){
+            smallMultiplesChart(dataset[i].years,"#container",color(i%10));
         }
     }
 
-    function smallMultiplesListenersChart(id,container,title, artist,color){
-        listenersFlow = getListenersFlowForSong(dataList,title,artist);
+    function smallMultiplesChart(data,container,color){
 
-        var margin = {top: 0, right: 0, bottom: 0, left: 0},
-            width = 100 - margin.left - margin.right,
-            height = 40 - margin.top - margin.bottom;
+        var parseDate = d3.time.format("%Y").parse;
 
-        var x = d3.scale.ordinal()
-            .domain(listenersFlow.map(function(d) { return mapWeekIndexToDate(d.week);}))
-            .rangeRoundBands([0, width], .1);
+        /*var checkData = function(value){
+            return !(isNaN(value));
+        }*/
 
-        var y = d3.scale.linear()
-            .domain([0, 1.1*d3.max(listenersFlow, function(d) { return d.listeners; })])
-            .range([height, 0]);
-
-        var checkListenersData = function(listeners){
-            return listeners != null && !(isNaN(listeners));
+        for(var k=0;k<data.length;k++){
+            data[k].year = parseDate(data[k].year);
         }
 
-        var tip = d3.tip()
+
+        var margin = {top: 5, right: 5, bottom: 5, left: 5},
+            width = 120 - margin.left - margin.right,
+            height = 50 - margin.top - margin.bottom;
+
+        var x = d3.time.scale()
+            .domain(d3.extent(data,function(d){ return d.year;}))
+            .range([0, width]);
+
+        var y = d3.scale.linear()
+            .domain(d3.extent(data,function(d){ return d.value;}))
+            .range([height, 0]);
+
+        var xAxis = d3.svg.axis()
+            .scale(x)
+            .tickSize(0)
+            .orient("bottom");
+
+        var line = d3.svg.line()
+            .x(function(d) {return x(d.year); })
+            .y(function(d) {return y(d.value); });
+
+        var area = d3.svg.area()
+            .x(function(d) { return x(d.year); })
+            .y0(y(0))
+            .y1(function(d) { return y(d.value); });
+
+
+        /*var tip = d3.tip()
             .attr('class', 'd3-tip')
             .offset([-5, 0])
             .html(function(d) { return "<strong>Song:</strong> <span style='color:orange'>" + title + " - " + artist + "</span>";
                 })
             .style("top", 100 +"px")
-            .style("left", 200 +"px")
+            .style("left", 200 +"px")*/
 
         var svg = d3.select(container).append("svg")
-            .attr("id", id)
+            .attr("id", data.country_code)
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
-            .on('mouseover', function(d) {tip.show(d, document.getElementById(id)); })
-            .on('mouseout', tip.hide)
+            //.on('mouseover', function(d) {tip.show(d, document.getElementById(id)); })
+            //.on('mouseout', tip.hide)
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
             
 
-        svg.call(tip);
+        //svg.call(tip);
 
-        svg.selectAll(".bar")
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0,"+ y(0) +")")
+            .call(xAxis);
+
+        svg.append("path")
+            .datum(data)
+            .attr("class", "area")
+            .attr("d", area);
+
+        svg.append("path")
+            .datum(data)
+            .attr("class","line")
+            .attr("d", line);
+
+        /*svg.selectAll(".bar")
             .data(listenersFlow)
             .enter().append("rect")
             .attr("class", "bar")
@@ -266,9 +278,7 @@
                 return height - y(d.listeners);}
                 else{return height;} })
             .style("fill",function(d){if(checkListenersData(d.listeners)){return color;}
-                                    else{return 'white'}});
-
-
+                                    else{return 'white'}});*/
     }
 
 
@@ -377,8 +387,6 @@
                 });
                 tip.hide(d);
             });
-
-
     }
 
     </script>
