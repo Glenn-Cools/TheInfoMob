@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+  <title>Small multiples</title>
+<style>
+#container {
+    position: absolute;
+    top: 50px;
+    text-align: center;
+    padding: 10px;
+}
+
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 1px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 6px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+</style>
+</head>
+
+<body>
+	<h1 id="output">
+	</h1>
+    <div id="container">
+    </div>
+
+    <div id="FlowChart"></div>
+
+	<script type="text/javascript" src="d3/d3.js"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <script type="text/javascript" src="LoadCSV.js"></script>
+
+	<script> 
+
+	var data = loadCSV("Data/Data.csv");
+
+    console.log(data)
+    //var data2 = loadCSV("06.03.2016.csv");
+
+    //evt dataX in een lijst steken
+    // en de namen van de bestanden ook
+    // en ze dan via een functie linken
+    // zo zijn beide lijsten gemakkelijk beschikbaar
+    // ALLE data als een lijst
+    // Bestandsnamen ook als een lijst voor visualisaties
+/*
+    var datums = ["28.02.2016","06.03.2016","13.03.2016","21.03.2016"]//,"27.03.2016","03.04.2016"]
+    var mapWeekIndexToDate = d3.scale.ordinal()
+                                    .domain(d3.range(datums.length))
+                                    .range(datums)
+    var data1,data2,data3,data4,data5,data6
+    var dataList = [data1,data2,data3,data4]//,data5,data6]
+
+    loadData(); // LAAD DATA IN!!!!
+    var songDB = loadSongDB(); // LAADS de songDB in.
+
+*/
+    //OWN TOOLTIP, look for bookmark and d3.mouse()
+
+    //BROKEN DATA -temp fixed
+    //jordan;28;Chapter V - (Part I); Prophecy Fullfiled(Part II) And The Dark Night Entered;Haggard;http://www.last.fm/music/Haggard/_/Chapter+V+-+(Part+I)+Prophecy+Fullfiled;+(Part+II)+And+The+Dark+Night+Entered;2344;http://img2-ak.lst.fm/i/u/300x300/f37c0bfdd9ff4eca89d3b5c26bf5cea0.png
+    //lao people's democratic republic;30;미행 (그림자; Shadow);f(x);http://www.last.fm/music/f(x)/_/%EB%AF%B8%ED%96%89+(%EA%B7%B8%EB%A6%BC%EC%9E%90;+Shadow);10283;http://img2-ak.lst.fm/i/u/300x300/e52812cc19ac5c189429d2c7b37c96f9.png
+
+
+    //console.log(mapWeekIndexToDate.domain());
+    //console.log(mapWeekIndexToDate.range());
+    //console.log(data2);
+    //compareCountries(data1,"belgium","netherlands");
+    //compareCountries(data2,"belgium","netherlands");
+    //getCountriesForSong(dataList[0],"0","0")
+    //getCountriesForSong(dataList[1],"0","0")
+    //getListenersFlowForSong(dataList, "Love Yourself", "Justin Bieber")
+    //getListerersWeekForSong(data1, "Love Yourself", "Justin Bieber")
+
+    //console.log(songDB[100])
+    //smallMultiplesListenersChart("song1","#area1",songDB[100].title,songDB[100].artist)
+    //smallMultiplesListenersChart("song2","#container","Love Yourself","Justin Bieber")
+    /*
+    flowChartListeners("Hello", "Adele")
+    flowChartListeners("Love Yourself", "Justin Bieber")
+    flowChartListeners("Smells Like Teen Spirit", "Nirvana")
+    flowChartListeners("Faded", "Alan Walker")
+    flowChartListeners("Sinner", "Arca")
+*/
+    //smallMultiplesListeners();
+
+
+    function loadData(){
+        for (var i = 0; i < dataList.length; i++) {
+            file = mapWeekIndexToDate(i) + ".csv"
+            dataList[i] = loadCSV(file)
+        }
+    }
+
+    function loadSongDB(){
+        return loadCSV("songDB.csv")
+    }
+
+
+    function compareCountries(data, country1, country2){
+        for(var i=0;i<data.length;i++){
+            if(data[i].country == country1 || data[i].country == country2){
+                console.log(data[i]);
+            }     
+        } 
+    }
+
+    function getCountriesForSong(data, title, artist){
+        countries = []
+        for(var i=0;i<data.length;i++){
+            if(data[i].title == title && data[i].artist == artist){
+                console.log(data[i].country + ":" + data[i].rank);
+                countries.push(data[i].country)
+            }
+        }
+        return countries
+    }
+
+    function getListenersFlowForSong(data_list, title, artist){
+        ListerersList = [];
+        for(var j=0;j<data_list.length;j++){
+            ListerersList.push({week:(j), listeners:getListerersWeekForSong(data_list[j],title,artist)})
+        }
+        //console.log(ListerersList)
+        return ListerersList
+
+    }
+
+    function getListerersWeekForSong(data, title, artist){
+        for(var i=0;i<data.length;i++){
+            if(data[i].title == title && data[i].artist == artist){
+                return data[i].listeners
+            }
+        }
+        return null
+    }
+
+    function smallMultiplesListeners(){
+
+        var color = d3.scale.category10();
+
+        for(var i=0;i<songDB.length;i++){
+
+            smallMultiplesListenersChart("song"+(i),"#container",songDB[i].title, songDB[i].artist,color(i%10));
+
+        }
+    }
+
+    function smallMultiplesListenersChart(id,container,title, artist,color){
+        listenersFlow = getListenersFlowForSong(dataList,title,artist);
+
+        var margin = {top: 0, right: 0, bottom: 0, left: 0},
+            width = 100 - margin.left - margin.right,
+            height = 40 - margin.top - margin.bottom;
+
+        var x = d3.scale.ordinal()
+            .domain(listenersFlow.map(function(d) { return mapWeekIndexToDate(d.week);}))
+            .rangeRoundBands([0, width], .1);
+
+        var y = d3.scale.linear()
+            .domain([0, 1.1*d3.max(listenersFlow, function(d) { return d.listeners; })])
+            .range([height, 0]);
+
+        var checkListenersData = function(listeners){
+            return listeners != null && !(isNaN(listeners));
+        }
+
+        var tip = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-5, 0])
+            .html(function(d) { return "<strong>Song:</strong> <span style='color:orange'>" + title + " - " + artist + "</span>";
+                })
+            .style("top", 100 +"px")
+            .style("left", 200 +"px")
+
+        var svg = d3.select(container).append("svg")
+            .attr("id", id)
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .on('mouseover', function(d) {tip.show(d, document.getElementById(id)); })
+            .on('mouseout', tip.hide)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            
+
+        svg.call(tip);
+
+        svg.selectAll(".bar")
+            .data(listenersFlow)
+            .enter().append("rect")
+            .attr("class", "bar")
+            .attr("x", function(d) { return x(d.week); })
+            .attr("width", x.rangeBand())
+            .attr("y", function(d) { if(checkListenersData(d.listeners)){
+                return y(d.listeners);
+            }else{return 0;}
+            })
+            .attr("height", function(d) {if(checkListenersData(d.listeners)){
+                return height - y(d.listeners);}
+                else{return height;} })
+            .style("fill",function(d){if(checkListenersData(d.listeners)){return color;}
+                                    else{return 'white'}});
+
+
+    }
+
+
+    function flowChartListeners(title, artist){
+        listenersFlow = getListenersFlowForSong(dataList,title,artist);
+
+        var margin = {top: 20, right: 80, bottom: 20, left: 80},
+            width = 960 - margin.left - margin.right,
+            height = 100 - margin.top - margin.bottom;
+
+        var x = d3.scale.ordinal()
+            .domain(listenersFlow.map(function(d) { return mapWeekIndexToDate(d.week);}))
+            .rangeRoundBands([0, width], .1);
+
+        var yMax = d3.max(listenersFlow, function(d){return d.listeners;})
+
+        var y = d3.scale.linear()
+            .domain([0, 1.5*yMax])
+            .range([height, 0]);
+
+        var xAxis = d3.svg.axis()
+            .scale(x)
+            .orient("bottom");
+
+        var yAxis = d3.svg.axis()
+            .scale(y)
+            .orient("left")
+            .ticks(6, "%");
+
+        var checkListenersData = function(listeners){
+            return listeners != null;
+        }
+
+        var tip = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-10, 0])
+            .html(function(d) { if(checkListenersData(d.listeners)){
+                return "<strong>Listeners:</strong> <span style='color:orange'>" + d.listeners + "</span>";
+            } else{
+                return "<strong>Listeners:</strong> <span style='color:orange'>" + "NO DATA" + "</span>";
+            }
+                })
+
+        var svg = d3.select("#FlowChart").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        svg.call(tip);
+
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis);
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", ".71em")
+            .style("text-anchor", "end")
+            .text("Listeners");
+
+        svg.append("text")
+            .attr("x", (width / 2))             
+            .attr("y", margin.top/2)
+            .attr("text-anchor", "middle")  
+            .style("font-size", "16px")
+            .text(title + " - " + artist);
+
+        svg.selectAll(".bar")
+            .data(listenersFlow)
+            .enter().append("rect")
+            .attr("class", "bar")
+            .attr("x", function(d) { return x(d.week); })
+            .attr("width", x.rangeBand())
+            .attr("y", function(d) { if(checkListenersData(d.listeners)){
+                return y(d.listeners);
+            }else{return y(yMax);}
+            })
+            .attr("height", function(d) {if(checkListenersData(d.listeners)){
+                return height - y(d.listeners);}
+                else{return height- y(yMax);} })
+            .style("fill",function(d){if(checkListenersData(d.listeners)){return "#006d2c";
+            }else{return "#ffffff";}
+            })
+            .on('mouseover', function(d){
+                d3.select(this)
+                .attr("height",function(d) {if(checkListenersData(d.listeners)){
+                        return height - y(d.listeners);}
+                    else{return height-y(yMax);} })
+                .style("fill", "#009CCC");
+                tip.show(d);
+                
+            })
+            .on('mouseout', function(d){
+                d3.select(this)
+                .attr("height",function(d) {if(checkListenersData(d.listeners)){
+                        return height - y(d.listeners);}
+                    else{return height-y(yMax);} })
+                .style("fill",function(d){if(checkListenersData(d.listeners)){return "#006d2c";
+                    }else{return "#ffffff";}
+                });
+                tip.hide(d);
+            });
+
+
+    }
+
+    </script>
+
+
+</body>
+</html>
