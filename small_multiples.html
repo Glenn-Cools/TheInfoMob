@@ -72,15 +72,20 @@
 </head>
 
 <body>
-	<h1 id="output">
-	</h1>
-    <div id="container">
+ 
+
+    <div id="smallMultiples1">
+        <div id="keySelector"></div>
+    </div>
+    <div id="smallMultiples2">
+        <div id="keySelector"></div>
     </div>
 
-    <div id="FlowChart"></div>
+    
 
 	<script type="text/javascript" src="d3/d3.js"></script>
-    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <script type="text/javascript" src="js/lodash.min.js"></script>
+    <!--<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>--> 
 
 	<script> 
 
@@ -150,56 +155,91 @@
             ]
         }
     },function(data){
+
+        var parseDate = d3.time.format("%Y").parse;
+
+        for(var j=0;j<data.length;j++){
+            var years = data[j].years
+            for(var k=0;k<years.length;k++){
+            years[k].year = parseDate(years[k].year.toString());
+            }
+        }
+
         //console.log(data)
         // ALL CODE INVOLVING THIS DATA COMES HERE
-        smallMultiples(data,"SP.POP.GROW");
+        createVisualisation(data,"#smallMultiples1");
+        //createVisualisation(data,"#smallMultiples2");
     })
 
     //OWN TOOLTIP, look for bookmark and d3.mouse()
+    //TODO DEFAULT FILL DROPDOWN
 
-    
 
     function getData(dataset,key){
-        result =[]
+        var result =[];
         for(var i=0; i<dataset.length;i++){
             if(dataset[i].series_code == key){
                 result.push(dataset[i]);
-            }
+            } 
         }
         return result;
     }
 
-    /*
-    function compareCountries(data, country1, country2){
-        for(var i=0;i<data.length;i++){
-            if(data[i].country == country1 || data[i].country == country2){
-                console.log(data[i]);
-            }     
-        } 
-    }*/
+    function getAllCodes(dataset){
 
-    function smallMultiples(data,key){
+        var result = [];
+        var NBOfExtraLines = 5;
+        for(var i=0; i<(dataset.length-NBOfExtraLines);i++){
+            result.push({series_name : dataset[i].series_name, series_code: dataset[i].series_code});
+            }
+
+        result = _.uniqWith(result, _.isEqual);
+
+        return result;
+    }
+
+    function createVisualisation(dataset,container){
+
+        //default vis
+        smallMultiplesKey(dataset,"SP.POP.GROW",container); // 2015 always NA, mss vermelden of niet visualiseren
+
+        keys = getAllCodes(dataset);
+
+        var dropdown = d3.select(container).select("#keySelector").append("select")
+                            .attr("name", "key_list")
+                            .on("change", function(){   console.log(this.value);
+                                                        d3.select(container).selectAll("svg").remove();
+                                                        smallMultiplesKey(dataset,this.value,container); });
+
+        var options = dropdown.selectAll("option")
+                        .data(keys)
+                        .enter()
+                        .append("option");
+
+        options.text(function(d){ return d.series_name; })
+                .attr("value", function (d){ return d.series_code; });
+
+
+    }
+
+    function smallMultiplesKey(data,key,container){
 
         var color = d3.scale.category10();
 
         var dataset = getData(data,key);
 
+        console.log(dataset);
+
         for(var i=0;i<dataset.length;i++){
-            smallMultiplesChart(dataset[i].years,"#container",color(i%10));
+            smallMultiplesChart(dataset[i].years,container,color(i%10));
         }
     }
 
     function smallMultiplesChart(data,container,color){
 
-        var parseDate = d3.time.format("%Y").parse;
-
         /*var checkData = function(value){
             return !(isNaN(value));
         }*/
-
-        for(var k=0;k<data.length;k++){
-            data[k].year = parseDate(data[k].year);
-        }
 
         var margin = {top: 5, right: 5, bottom: 5, left: 5},
             width = 120 - margin.left - margin.right,
