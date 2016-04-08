@@ -35,24 +35,17 @@
   border-radius: 1px;
 }
 
-/* Creates a small triangle extender for the tooltip */
-.d3-tip:after {
-  box-sizing: border-box;
-  display: inline;
-  font-size: 6px;
-  width: 100%;
-  line-height: 1;
-  color: rgba(0, 0, 0, 0.8);
-  content: "\25BC";
-  position: absolute;
-  text-align: center;
-}
-
-/* Style northward tooltips differently */
-.d3-tip.n:after {
-  margin: -1px 0 0 0;
-  top: 100%;
-  left: 0;
+div.tooltip {   
+    position: absolute;         
+    text-align: center;
+    color: white;
+    height: 20px;                
+    padding: 2px;               
+    font: 12px sans-serif;      
+    background: #335E82; 
+    border: 0px;        
+    border-radius: 8px;         
+    pointer-events: none;           
 }
 
 .line {
@@ -200,21 +193,32 @@
 
     function createVisualisation(dataset,container){
 
+        default_code = sessionStorage.getItem("code");
+
+        if(default_code === null){
+            default_code ="SP.POP.GROW";
+            sessionStorage.setItem("code","SP.POP.GROW");
+            //console.log(sessionStorage.getItem("code"))
+        }
+
         //default vis
-        smallMultiplesKey(dataset,"SP.POP.GROW",container); // 2015 always NA, mss vermelden of niet visualiseren
+        smallMultiplesKey(dataset,default_code,container); // 2015 always NA, mss vermelden of niet visualiseren
 
         keys = getAllCodes(dataset);
 
         var dropdown = d3.select(container).select("#keySelector").append("select")
                             .attr("name", "key_list")
-                            .on("change", function(){   console.log(this.value);
+                            .on("change", function(){   sessionStorage.setItem("code",this.value)
+                                                        //console.log(sessionStorage.getItem("code"))
                                                         d3.select(container).selectAll("svg").remove();
                                                         smallMultiplesKey(dataset,this.value,container); });
 
         var options = dropdown.selectAll("option")
                         .data(keys)
                         .enter()
-                        .append("option");
+                        .append("option")
+                        .property("selected",function(d){ return ((d.series_code === default_code) ? "selected" : "");});
+
 
         options.text(function(d){ return d.series_name; })
                 .attr("value", function (d){ return d.series_code; });
@@ -228,18 +232,16 @@
 
         var dataset = getData(data,key);
 
-        console.log(dataset);
-
         for(var i=0;i<dataset.length;i++){
-            smallMultiplesChart(dataset[i].years,container,color(i%10));
+            smallMultiplesChart(dataset[i],container,color(i%10));
         }
     }
 
-    function smallMultiplesChart(data,container,color){
+    function smallMultiplesChart(dataset,container,color){
 
-        /*var checkData = function(value){
-            return !(isNaN(value));
-        }*/
+        var data = dataset.years
+
+        var formatTime = d3.time.format("%e %B");
 
         var margin = {top: 5, right: 5, bottom: 5, left: 5},
             width = 120 - margin.left - margin.right,
@@ -267,26 +269,33 @@
             .y0(y(0))
             .y1(function(d) { return y(d.value); });
 
-
-        /*var tip = d3.tip()
-            .attr('class', 'd3-tip')
-            .offset([-5, 0])
-            .html(function(d) { return "<strong>Song:</strong> <span style='color:orange'>" + title + " - " + artist + "</span>";
-                })
-            .style("top", 100 +"px")
-            .style("left", 200 +"px")*/
+        
 
         var svg = d3.select(container).append("svg")
-            .attr("id", data.country_code)
+            .attr("id", dataset.country_code)
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
-            //.on('mouseover', function(d) {tip.show(d, document.getElementById(id)); })
-            //.on('mouseout', tip.hide)
             .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-            
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+            .on("mouseover", function() { 
+                var position = this.getBoundingClientRect();    
+                div.transition()        
+                    .duration(200)      
+                    .style("opacity", .9);      
+                div.html(dataset.country_name)
+                    .style("left", (position.left) + "px")   
+                    .style("top" , (position.top -22) + "px");
+            })                  
+            .on("mouseout", function(d) {       
+                div.transition()        
+                    .duration(500)      
+                    .style("opacity", 0);
+            });
 
-        //svg.call(tip);
+        // Define the div for the tooltip
+        var div = d3.select(container).append("div")   
+            .attr("class", "tooltip")               
+            .style("opacity", 0);
 
         svg.append("g")
             .attr("class", "x axis")
@@ -303,21 +312,26 @@
             .attr("class","line")
             .attr("d", line);
 
-        /*svg.selectAll(".bar")
-            .data(listenersFlow)
-            .enter().append("rect")
-            .attr("class", "bar")
-            .attr("x", function(d) { return x(d.week); })
-            .attr("width", x.rangeBand())
-            .attr("y", function(d) { if(checkListenersData(d.listeners)){
-                return y(d.listeners);
-            }else{return 0;}
-            })
-            .attr("height", function(d) {if(checkListenersData(d.listeners)){
-                return height - y(d.listeners);}
-                else{return height;} })
-            .style("fill",function(d){if(checkListenersData(d.listeners)){return color;}
-                                    else{return 'white'}});*/
+        /*
+        svg.selectAll("dot")    
+            .data(data)         
+            .enter().append("circle")                               
+            .attr("r", 1)       
+            .attr("cx", function(d) { return x(d.year); })       
+            .attr("cy", function(d) { return y(d.value); })
+            .on("mouseover", function(d) {      
+                div.transition()        
+                    .duration(200)      
+                    .style("opacity", .9);      
+                div.html(formatTime(d.year) + "<br/>"  + d.value)
+                    .style("left", (d3.event.pageX) + "px")     
+                    .style("top", (d3.event.pageY - 28) + "px");    
+            })                  
+            .on("mouseout", function(d) {       
+                div.transition()        
+                    .duration(500)      
+                    style("opacity", 0);
+            });*/
     }
 
 
