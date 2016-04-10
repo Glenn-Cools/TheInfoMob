@@ -16,9 +16,6 @@
   stroke: #000;
   shape-rendering: crispEdges;
 }
-.axis text{
-    display : none;
-}
 
 .d3-tip {
   line-height: 1;
@@ -33,7 +30,7 @@ div.tooltip {
     position: absolute;         
     text-align: center;
     color: white;
-    height: 20px;                
+    height: 32px;                
     padding: 2px;               
     font: 12px sans-serif;      
     background: #335E82; 
@@ -59,8 +56,8 @@ div.tooltip {
 <body>
  
 
-    <div id="smallMultiples1">
-        <div id="keySelector"></div>
+    <div id="countryOverview1">
+        <div id="countrySelector"></div>
     </div>
     <div id="smallMultiples2">
         <div id="keySelector"></div>
@@ -151,29 +148,30 @@ div.tooltip {
 
         //console.log(data)
         // ALL CODE INVOLVING THIS DATA COMES HERE
-        createVisualisation(data,"#smallMultiples1");
+        createVisualisation(data,"#countryOverview1");
         //createVisualisation(data,"#smallMultiples2");
     })
 
     //OWN TOOLTIP, look for bookmark and d3.mouse()
-    // => make tooltips appear on the right place when scrolled!!
+    //TODO DEFAULT FILL DROPDOWN
+
 
     function getData(dataset,key){
         var result =[];
         for(var i=0; i<dataset.length;i++){
-            if(dataset[i].series_code == key){
+            if(dataset[i].country_code == key){
                 result.push(dataset[i]);
             } 
         }
         return result;
     }
 
-    function getAllCodes(dataset){
+    function getAllCountries(dataset){
 
         var result = [];
         var NBOfExtraLines = 5;
         for(var i=0; i<(dataset.length-NBOfExtraLines);i++){
-            result.push({series_name : dataset[i].series_name, series_code: dataset[i].series_code});
+            result.push({country_name : dataset[i].country_name, country_code: dataset[i].country_code});
             }
 
         result = _.uniqWith(result, _.isEqual);
@@ -183,72 +181,76 @@ div.tooltip {
 
     function createVisualisation(dataset,container){
 
-        default_code = sessionStorage.getItem("series_code");
+        default_code = sessionStorage.getItem("country_code");
 
         if(default_code === null){
-            default_code ="SP.POP.GROW";
-            sessionStorage.setItem("series_code","SP.POP.GROW");
-            //console.log(sessionStorage.getItem("code"))
+            default_code ="BEL";
+            sessionStorage.setItem("country_code","BEL");
+            //console.log(sessionStorage.getItem("country_code"))
         }
 
         //default vis
-        smallMultiplesKey(dataset,default_code,container); // 2015 always NA, mss vermelden of niet visualiseren
+        CountryOverviewKey(dataset,default_code,container); // 2015 always NA, mss vermelden of niet visualiseren
 
-        keys = getAllCodes(dataset);
+        keys = getAllCountries(dataset);
 
-        var dropdown = d3.select(container).select("#keySelector").append("select")
+        var dropdown = d3.select(container).select("#countrySelector").append("select")
                             .attr("name", "key_list")
-                            .on("change", function(){   sessionStorage.setItem("series_code",this.value)
-                                                        //console.log(sessionStorage.getItem("code"))
+                            .on("change", function(){   sessionStorage.setItem("country_code",this.value)
+                                                        //console.log(sessionStorage.getItem("country_code"))
                                                         d3.select(container).selectAll("svg").remove();
-                                                        smallMultiplesKey(dataset,this.value,container); });
+                                                        CountryOverviewKey(dataset,this.value,container); });
 
         var options = dropdown.selectAll("option")
                         .data(keys)
                         .enter()
                         .append("option")
-                        .property("selected",function(d){ return ((d.series_code === default_code) ? "selected" : "");});
+                        .property("selected",function(d){ return ((d.country_code === default_code) ? "selected" : "");});
 
 
-        options.text(function(d){ return d.series_name; })
-                .attr("value", function (d){ return d.series_code; });
+        options.text(function(d){ return d.country_name; })
+                .attr("value", function (d){ return d.country_code; });
 
 
     }
 
-    function smallMultiplesKey(data,key,container){
+    function CountryOverviewKey(data,key,container){
 
         var color = d3.scale.category10();
 
         var dataset = getData(data,key);
 
         for(var i=0;i<dataset.length;i++){
-            smallMultiplesChart(dataset[i],container,color(i%10));
+            CountryOverviewChart(dataset[i],container,color(i%10));
         }
     }
 
-    function smallMultiplesChart(dataset,container,color){
+    function CountryOverviewChart(dataset,container,color){
 
         var data = dataset.years
 
-        var formatTime = d3.time.format("%e %B");
+        var formatTime = d3.time.format("%Y");
 
-        var margin = {top: 5, right: 5, bottom: 5, left: 5},
-            width = 120 - margin.left - margin.right,
-            height = 50 - margin.top - margin.bottom;
+        var margin = {top: 15, right: 15, bottom: 15, left: 20},
+            width = 360 - margin.left - margin.right,
+            height = 150 - margin.top - margin.bottom;
 
         var x = d3.time.scale()
             .domain(d3.extent(data,function(d){ return d.year;}))
-            .range([0, width]);
+            .range([margin.left, width-margin.right]);
 
         var y = d3.scale.linear()
             .domain(d3.extent(data,function(d){ return d.value;}))
-            .range([height, 0]);
+            .range([height-margin.bottom, margin.top]);
 
         var xAxis = d3.svg.axis()
             .scale(x)
-            .tickSize(0)
+            .tickFormat(formatTime)
             .orient("bottom");
+
+        var yAxis = d3.svg.axis()
+            .scale(y)
+            .orient("left");
 
         var line = d3.svg.line()
             .x(function(d) {return x(d.year); })
@@ -262,42 +264,23 @@ div.tooltip {
         
 
         var svg = d3.select(container).append("svg")
-            .attr("id", dataset.country_code)
+            .attr("id", dataset.series_code)
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
-            .on("mouseover", function() { 
-                var position = this.getBoundingClientRect();    
-                div.transition()        
-                    .duration(200)      
-                    .style("opacity", .9);      
-                div.html(dataset.country_name)
-                    .style("left", (position.left) + "px")   
-                    .style("top" , (position.top -22) + "px");
-            })                  
-            .on("mouseout", function(d) {       
-                div.transition()        
-                    .duration(500)      
-                    .style("opacity", 0);
-            })
             .on("click", function(){
-                sessionStorage.setItem("country_code",dataset.country_code);
-                window.location="country_overview.html";
-                //console.log(sessionStorage.getItem("country_code"));
+                sessionStorage.setItem("series_code",dataset.series_code);
+                window.location="small_multiples.html"
+                //console.log(sessionStorage.getItem("series_code"));
                 })
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-            
+
         // Define the div for the tooltip
         var div = d3.select(container).append("div")   
             .attr("class", "tooltip")               
             .style("opacity", 0);
 
-        svg.append("g")
-            .attr("class", "x axis")
-            .attr("transform", "translate(0,"+ y(0) +")")
-            .call(xAxis);
-
-        svg.append("path")
+         svg.append("path")
             .datum(data)
             .attr("class", "area")
             .attr("d", area);
@@ -307,29 +290,58 @@ div.tooltip {
             .attr("class","line")
             .attr("d", line);
 
-        /*
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0,"+ y(0) +")")
+            .call(xAxis);
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .attr("transform", "translate(" + margin.left + ",0)")
+            .call(yAxis);
+    
+        // now add titles to the axes
+        svg.append("text")
+            .style("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+            .attr("transform", "translate("+ (width/2) +","+(height+(margin.bottom))+")")  // centre below axis
+            .text("Year");
+
+        svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - margin.left)
+            .attr("x",0 - (height / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle");
+            //.text(dataset.series_name);
+
+        svg.append("text")
+            .style("text-anchor", "middle")
+            .attr("transform", "translate(" + (width/2) + ",0)")
+            .text(dataset.series_name);
+        
         svg.selectAll("dot")    
             .data(data)         
             .enter().append("circle")                               
-            .attr("r", 1)       
+            .attr("r", 2.5)       
             .attr("cx", function(d) { return x(d.year); })       
             .attr("cy", function(d) { return y(d.value); })
+            .style("fill", "steelblue")
             .on("mouseover", function(d) {      
                 div.transition()        
                     .duration(200)      
                     .style("opacity", .9);      
-                div.html(formatTime(d.year) + "<br/>"  + d.value)
+                div.html("Year: " + formatTime(d.year) + "<br/>"  + "Value: " + d.value)
                     .style("left", (d3.event.pageX) + "px")     
                     .style("top", (d3.event.pageY - 28) + "px");    
             })                  
             .on("mouseout", function(d) {       
                 div.transition()        
                     .duration(500)      
-                    style("opacity", 0);
-            });*/
+                    .style("opacity", 0);
+            });
     }
 
-
+/*
     function flowChartListeners(title, artist){
         listenersFlow = getListenersFlowForSong(dataList,title,artist);
 
@@ -435,7 +447,7 @@ div.tooltip {
                 });
                 tip.hide(d);
             });
-    }
+    }*/
 
     </script>
 
