@@ -169,13 +169,11 @@ div.tooltip {
     function getAllCountries(dataset){
 
         var result = [];
-        var NBOfExtraLines = 5;
-        for(var i=0; i<(dataset.length-NBOfExtraLines);i++){
-            result.push({country_name : dataset[i].country_name, country_code: dataset[i].country_code});
+        for(var i=0; i<(dataset.length);i++){
+            if(dataset[i].series_code=="SP.POP.GROW"){
+                result.push({country_name : dataset[i].country_name, country_code: dataset[i].country_code});
             }
-
-        result = _.uniqWith(result, _.isEqual);
-
+        }
         return result;
     }
 
