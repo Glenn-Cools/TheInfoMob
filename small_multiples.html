@@ -74,80 +74,83 @@ div.tooltip {
 	<script> 
 
     d3.csv("/TheInfoMob/Data/Data.csv", function(d){
+
+        var parseDate = d3.time.format("%Y").parse;
+
         return {
             series_name : d["Series Name"],
             series_code : d["Series Code"],
             country_name : d["Country Name"],
             country_code : d["Country Code"],
             years : [
-                {year:"1960" ,"value": +d["1960 [YR1960]"]},
-                {year:"1961" ,"value": +d["1961 [YR1961]"]},
-                {year:"1962" ,"value": +d["1962 [YR1962]"]},
-                {year:"1963" ,"value": +d["1963 [YR1963]"]},
-                {year:"1964" ,"value": +d["1964 [YR1964]"]},
-                {year:"1965" ,"value": +d["1965 [YR1965]"]},
-                {year:"1966" ,"value": +d["1966 [YR1966]"]},
-                {year:"1967" ,"value": +d["1967 [YR1967]"]},
-                {year:"1968" ,"value": +d["1968 [YR1968]"]},
-                {year:"1969" ,"value": +d["1969 [YR1969]"]},
-                {year:"1970" ,"value": +d["1970 [YR1970]"]},
-                {year:"1971" ,"value": +d["1971 [YR1971]"]},
-                {year:"1972" ,"value": +d["1972 [YR1972]"]},
-                {year:"1973" ,"value": +d["1973 [YR1973]"]},
-                {year:"1974" ,"value": +d["1974 [YR1974]"]},
-                {year:"1975" ,"value": +d["1975 [YR1975]"]},
-                {year:"1976" ,"value": +d["1976 [YR1976]"]},
-                {year:"1977" ,"value": +d["1977 [YR1977]"]},
-                {year:"1978" ,"value": +d["1978 [YR1978]"]},
-                {year:"1979" ,"value": +d["1979 [YR1979]"]},
-                {year:"1980" ,"value": +d["1980 [YR1980]"]},
-                {year:"1981" ,"value": +d["1981 [YR1981]"]},
-                {year:"1982" ,"value": +d["1982 [YR1982]"]},
-                {year:"1983" ,"value": +d["1983 [YR1983]"]},
-                {year:"1984" ,"value": +d["1984 [YR1984]"]},
-                {year:"1985" ,"value": +d["1985 [YR1985]"]},
-                {year:"1986" ,"value": +d["1986 [YR1986]"]},
-                {year:"1987" ,"value": +d["1987 [YR1987]"]},
-                {year:"1988" ,"value": +d["1988 [YR1988]"]},
-                {year:"1989" ,"value": +d["1989 [YR1989]"]},
-                {year:"1990" ,"value": +d["1990 [YR1990]"]},
-                {year:"1991" ,"value": +d["1991 [YR1991]"]},
-                {year:"1992" ,"value": +d["1992 [YR1992]"]},
-                {year:"1993" ,"value": +d["1993 [YR1993]"]},
-                {year:"1994" ,"value": +d["1994 [YR1994]"]},
-                {year:"1995" ,"value": +d["1995 [YR1995]"]},
-                {year:"1996" ,"value": +d["1996 [YR1996]"]},
-                {year:"1997" ,"value": +d["1997 [YR1997]"]},
-                {year:"1998" ,"value": +d["1998 [YR1998]"]},
-                {year:"1999" ,"value": +d["1999 [YR1999]"]},
-                {year:"2000" ,"value": +d["2000 [YR2000]"]},
-                {year:"2001" ,"value": +d["2001 [YR2001]"]},
-                {year:"2002" ,"value": +d["2002 [YR2002]"]},
-                {year:"2003" ,"value": +d["2003 [YR2003]"]},
-                {year:"2004" ,"value": +d["2004 [YR2004]"]},
-                {year:"2005" ,"value": +d["2005 [YR2005]"]},
-                {year:"2006" ,"value": +d["2006 [YR2006]"]},
-                {year:"2007" ,"value": +d["2007 [YR2007]"]},
-                {year:"2008" ,"value": +d["2008 [YR2008]"]},
-                {year:"2009" ,"value": +d["2009 [YR2009]"]},
-                {year:"2010" ,"value": +d["2010 [YR2010]"]},
-                {year:"2011" ,"value": +d["2011 [YR2011]"]},
-                {year:"2012" ,"value": +d["2012 [YR2012]"]},
-                {year:"2013" ,"value": +d["2013 [YR2013]"]},
-                {year:"2014" ,"value": +d["2014 [YR2014]"]},
-                {year:"2015" ,"value": +d["2015 [YR2015]"]}
+                {year:parseDate("1960") ,"value": +d["1960 [YR1960]"]},
+                {year:parseDate("1961") ,"value": +d["1961 [YR1961]"]},
+                {year:parseDate("1962") ,"value": +d["1962 [YR1962]"]},
+                {year:parseDate("1963") ,"value": +d["1963 [YR1963]"]},
+                {year:parseDate("1964") ,"value": +d["1964 [YR1964]"]},
+                {year:parseDate("1965") ,"value": +d["1965 [YR1965]"]},
+                {year:parseDate("1966") ,"value": +d["1966 [YR1966]"]},
+                {year:parseDate("1967") ,"value": +d["1967 [YR1967]"]},
+                {year:parseDate("1968") ,"value": +d["1968 [YR1968]"]},
+                {year:parseDate("1969") ,"value": +d["1969 [YR1969]"]},
+                {year:parseDate("1970") ,"value": +d["1970 [YR1970]"]},
+                {year:parseDate("1971") ,"value": +d["1971 [YR1971]"]},
+                {year:parseDate("1972") ,"value": +d["1972 [YR1972]"]},
+                {year:parseDate("1973") ,"value": +d["1973 [YR1973]"]},
+                {year:parseDate("1974") ,"value": +d["1974 [YR1974]"]},
+                {year:parseDate("1975") ,"value": +d["1975 [YR1975]"]},
+                {year:parseDate("1976") ,"value": +d["1976 [YR1976]"]},
+                {year:parseDate("1977") ,"value": +d["1977 [YR1977]"]},
+                {year:parseDate("1978") ,"value": +d["1978 [YR1978]"]},
+                {year:parseDate("1979") ,"value": +d["1979 [YR1979]"]},
+                {year:parseDate("1980") ,"value": +d["1980 [YR1980]"]},
+                {year:parseDate("1981") ,"value": +d["1981 [YR1981]"]},
+                {year:parseDate("1982") ,"value": +d["1982 [YR1982]"]},
+                {year:parseDate("1983") ,"value": +d["1983 [YR1983]"]},
+                {year:parseDate("1984") ,"value": +d["1984 [YR1984]"]},
+                {year:parseDate("1985") ,"value": +d["1985 [YR1985]"]},
+                {year:parseDate("1986") ,"value": +d["1986 [YR1986]"]},
+                {year:parseDate("1987") ,"value": +d["1987 [YR1987]"]},
+                {year:parseDate("1988") ,"value": +d["1988 [YR1988]"]},
+                {year:parseDate("1989") ,"value": +d["1989 [YR1989]"]},
+                {year:parseDate("1990") ,"value": +d["1990 [YR1990]"]},
+                {year:parseDate("1991") ,"value": +d["1991 [YR1991]"]},
+                {year:parseDate("1992") ,"value": +d["1992 [YR1992]"]},
+                {year:parseDate("1993") ,"value": +d["1993 [YR1993]"]},
+                {year:parseDate("1994") ,"value": +d["1994 [YR1994]"]},
+                {year:parseDate("1995") ,"value": +d["1995 [YR1995]"]},
+                {year:parseDate("1996") ,"value": +d["1996 [YR1996]"]},
+                {year:parseDate("1997") ,"value": +d["1997 [YR1997]"]},
+                {year:parseDate("1998") ,"value": +d["1998 [YR1998]"]},
+                {year:parseDate("1999") ,"value": +d["1999 [YR1999]"]},
+                {year:parseDate("2000") ,"value": +d["2000 [YR2000]"]},
+                {year:parseDate("2001") ,"value": +d["2001 [YR2001]"]},
+                {year:parseDate("2002") ,"value": +d["2002 [YR2002]"]},
+                {year:parseDate("2003") ,"value": +d["2003 [YR2003]"]},
+                {year:parseDate("2004") ,"value": +d["2004 [YR2004]"]},
+                {year:parseDate("2005") ,"value": +d["2005 [YR2005]"]},
+                {year:parseDate("2006") ,"value": +d["2006 [YR2006]"]},
+                {year:parseDate("2007") ,"value": +d["2007 [YR2007]"]},
+                {year:parseDate("2008") ,"value": +d["2008 [YR2008]"]},
+                {year:parseDate("2009") ,"value": +d["2009 [YR2009]"]},
+                {year:parseDate("2010") ,"value": +d["2010 [YR2010]"]},
+                {year:parseDate("2011") ,"value": +d["2011 [YR2011]"]},
+                {year:parseDate("2012") ,"value": +d["2012 [YR2012]"]},
+                {year:parseDate("2013") ,"value": +d["2013 [YR2013]"]},
+                {year:parseDate("2014") ,"value": +d["2014 [YR2014]"]},
+                {year:parseDate("2015") ,"value": +d["2015 [YR2015]"]}
             ]
         }
     },function(data){
 
-        var parseDate = d3.time.format("%Y").parse;
+        /*var parseDate = d3.time.format("%Y").parse;
 
         for(var j=0;j<data.length;j++){
             var years = data[j].years
             for(var k=0;k<years.length;k++){
             years[k].year = parseDate(years[k].year.toString());
             }
-        }
+        }*/
 
         //console.log(data)
         // ALL CODE INVOLVING THIS DATA COMES HERE
@@ -283,6 +286,7 @@ div.tooltip {
                 window.location="country_overview.html";
                 //console.log(sessionStorage.getItem("country_code"));
                 })
+            .style("cursor","pointer")
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
             

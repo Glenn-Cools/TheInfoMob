@@ -270,6 +270,7 @@ div.tooltip {
                 window.location="small_multiples.html"
                 //console.log(sessionStorage.getItem("series_code"));
                 })
+            .style("cursor","pointer")
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -321,7 +322,7 @@ div.tooltip {
                     .style("opacity", .9);      
                 div.html(function(){return (d.value != "")?("Year: " + formatTime(d.year) + "<br/>"  + "Value: " + d.value):("Year: " + formatTime(d.year) + "<br/>"  + "NO DATA");})
                     .style("left", (d3.event.pageX) + "px")     
-                    .style("top", (d3.event.pageY - 28) + "px");    
+                    .style("top", (d3.event.pageY - 28) + "px");
             })                  
             .on("mouseout", function(d) {       
                 div.transition()        
