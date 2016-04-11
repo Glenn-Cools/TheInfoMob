@@ -229,7 +229,7 @@ div.tooltip {
 
         var formatTime = d3.time.format("%Y");
 
-        var margin = {top: 15, right: 15, bottom: 15, left: 20},
+        var margin = {top: 15, right: 15, bottom: 20, left: 20},
             width = 360 - margin.left - margin.right,
             height = 150 - margin.top - margin.bottom;
 
@@ -291,7 +291,13 @@ div.tooltip {
         svg.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0,"+ y(0) +")")
-            .call(xAxis);
+            .call(xAxis)
+            .selectAll("text")  
+                .style("text-anchor", "end")
+                .attr("dx", "-.8em")
+                .attr("dy", ".15em")
+                .attr("transform", "translate(0,"+((height-margin.bottom)-y(0)) +")rotate(-65)");
+                //.attr("transform", "" );
 
         svg.append("g")
             .attr("class", "y axis")
@@ -299,10 +305,10 @@ div.tooltip {
             .call(yAxis);
     
         // now add titles to the axes
-        svg.append("text")
+        /*svg.append("text")
             .style("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
             .attr("transform", "translate("+ (width/2) +","+(height+(margin.bottom))+")")  // centre below axis
-            .text("Year");
+            .text("Year");*/
 
         svg.append("text")
             .attr("transform", "rotate(-90)")
@@ -323,12 +329,12 @@ div.tooltip {
             .attr("r", 2.5)       
             .attr("cx", function(d) { return x(d.year); })       
             .attr("cy", function(d) { return y(d.value); })
-            .style("fill", "steelblue")
+            .style("fill", function(d){ return d.value != ""? "steelblue":"grey";})
             .on("mouseover", function(d) {      
                 div.transition()        
                     .duration(200)      
                     .style("opacity", .9);      
-                div.html("Year: " + formatTime(d.year) + "<br/>"  + "Value: " + d.value)
+                div.html(function(){return (d.value != "")?("Year: " + formatTime(d.year) + "<br/>"  + "Value: " + d.value):("Year: " + formatTime(d.year) + "<br/>"  + "NO DATA");})
                     .style("left", (d3.event.pageX) + "px")     
                     .style("top", (d3.event.pageY - 28) + "px");    
             })                  
