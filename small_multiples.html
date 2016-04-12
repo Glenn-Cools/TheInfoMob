@@ -6,27 +6,38 @@
   <title>Small multiples</title>
 <style>
 
+#defaultText{
+    position: relative;
+    top: 100px;
+    text-align: center;
+    font: 30px sans-serif;
+}
+
+#vis{
+    position: absolute;
+    top: 50px;
+    left: 20px;
+}
+
+#keySelector{
+    position: fixed;
+    left: 20px;
+    background: white;
+    z-index: 1
+}
+
 .axis {
-  font: 10px sans-serif;
+    font: 10px sans-serif;
 }
 
 .axis path,
 .axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
 }
 .axis text{
     display : none;
-}
-
-.d3-tip {
-  line-height: 1;
-  font-weight: bold;
-  padding: 8px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  border-radius: 1px;
 }
 
 div.tooltip {   
@@ -43,15 +54,15 @@ div.tooltip {
 }
 
 .line {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 1.5px;
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 1.5px;
 }
 
 .area {
-  fill: lightsteelblue;
-  opacity: 0.5;
-  stroke-width: 0;
+    fill: lightsteelblue;
+     opacity: 0.5;
+     stroke-width: 0;
 }
 
 </style>
@@ -59,12 +70,14 @@ div.tooltip {
 
 <body>
  
-
+    <div id="defaultText" align="center">The data is being loaded.<br>Please wait.</div>
     <div id="smallMultiples1">
         <div id="keySelector"></div>
+        <div id="vis"></div>
     </div>
     <div id="smallMultiples2">
         <div id="keySelector"></div>
+        <div id="vis"></div>
     </div>
 
     
@@ -144,16 +157,7 @@ div.tooltip {
         }
     },function(data){
 
-        /*var parseDate = d3.time.format("%Y").parse;
-
-        for(var j=0;j<data.length;j++){
-            var years = data[j].years
-            for(var k=0;k<years.length;k++){
-            years[k].year = parseDate(years[k].year.toString());
-            }
-        }*/
-
-        //console.log(data)
+        document.getElementById("defaultText").innerHTML = "";
         // ALL CODE INVOLVING THIS DATA COMES HERE
         createVisualisation(data,"#smallMultiples1");
         //createVisualisation(data,"#smallMultiples2");
@@ -264,7 +268,7 @@ div.tooltip {
 
         
 
-        var svg = d3.select(container).append("svg")
+        var svg = d3.select(container).select("#vis").append("svg")
             .attr("id", dataset.country_code)
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
