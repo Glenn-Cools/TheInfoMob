@@ -37,15 +37,6 @@
   shape-rendering: crispEdges;
 }
 
-.d3-tip {
-  line-height: 1;
-  font-weight: bold;
-  padding: 8px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  border-radius: 1px;
-}
-
 div.tooltip {   
     position: absolute;         
     text-align: center;
@@ -93,81 +84,179 @@ div.tooltip {
 
 	<script> 
 
-    d3.csv("/TheInfoMob/Data/Data.csv", function(d){
+    d3.csv("/TheInfoMob/Data/Country_Metadata.csv", function(error, Country_Metadata){
+        d3.csv("/TheInfoMob/Data/Aggregate_Data.csv",function(d){
 
-        var parseDate = d3.time.format("%Y").parse;
+                var parseDate = d3.time.format("%Y").parse;
 
-        return {
-            series_name : d["Series Name"],
-            series_code : d["Series Code"],
-            country_name : d["Country Name"],
-            country_code : d["Country Code"],
-            years : [
-                {year:parseDate("1960") ,"value": +d["1960 [YR1960]"]},
-                {year:parseDate("1961") ,"value": +d["1961 [YR1961]"]},
-                {year:parseDate("1962") ,"value": +d["1962 [YR1962]"]},
-                {year:parseDate("1963") ,"value": +d["1963 [YR1963]"]},
-                {year:parseDate("1964") ,"value": +d["1964 [YR1964]"]},
-                {year:parseDate("1965") ,"value": +d["1965 [YR1965]"]},
-                {year:parseDate("1966") ,"value": +d["1966 [YR1966]"]},
-                {year:parseDate("1967") ,"value": +d["1967 [YR1967]"]},
-                {year:parseDate("1968") ,"value": +d["1968 [YR1968]"]},
-                {year:parseDate("1969") ,"value": +d["1969 [YR1969]"]},
-                {year:parseDate("1970") ,"value": +d["1970 [YR1970]"]},
-                {year:parseDate("1971") ,"value": +d["1971 [YR1971]"]},
-                {year:parseDate("1972") ,"value": +d["1972 [YR1972]"]},
-                {year:parseDate("1973") ,"value": +d["1973 [YR1973]"]},
-                {year:parseDate("1974") ,"value": +d["1974 [YR1974]"]},
-                {year:parseDate("1975") ,"value": +d["1975 [YR1975]"]},
-                {year:parseDate("1976") ,"value": +d["1976 [YR1976]"]},
-                {year:parseDate("1977") ,"value": +d["1977 [YR1977]"]},
-                {year:parseDate("1978") ,"value": +d["1978 [YR1978]"]},
-                {year:parseDate("1979") ,"value": +d["1979 [YR1979]"]},
-                {year:parseDate("1980") ,"value": +d["1980 [YR1980]"]},
-                {year:parseDate("1981") ,"value": +d["1981 [YR1981]"]},
-                {year:parseDate("1982") ,"value": +d["1982 [YR1982]"]},
-                {year:parseDate("1983") ,"value": +d["1983 [YR1983]"]},
-                {year:parseDate("1984") ,"value": +d["1984 [YR1984]"]},
-                {year:parseDate("1985") ,"value": +d["1985 [YR1985]"]},
-                {year:parseDate("1986") ,"value": +d["1986 [YR1986]"]},
-                {year:parseDate("1987") ,"value": +d["1987 [YR1987]"]},
-                {year:parseDate("1988") ,"value": +d["1988 [YR1988]"]},
-                {year:parseDate("1989") ,"value": +d["1989 [YR1989]"]},
-                {year:parseDate("1990") ,"value": +d["1990 [YR1990]"]},
-                {year:parseDate("1991") ,"value": +d["1991 [YR1991]"]},
-                {year:parseDate("1992") ,"value": +d["1992 [YR1992]"]},
-                {year:parseDate("1993") ,"value": +d["1993 [YR1993]"]},
-                {year:parseDate("1994") ,"value": +d["1994 [YR1994]"]},
-                {year:parseDate("1995") ,"value": +d["1995 [YR1995]"]},
-                {year:parseDate("1996") ,"value": +d["1996 [YR1996]"]},
-                {year:parseDate("1997") ,"value": +d["1997 [YR1997]"]},
-                {year:parseDate("1998") ,"value": +d["1998 [YR1998]"]},
-                {year:parseDate("1999") ,"value": +d["1999 [YR1999]"]},
-                {year:parseDate("2000") ,"value": +d["2000 [YR2000]"]},
-                {year:parseDate("2001") ,"value": +d["2001 [YR2001]"]},
-                {year:parseDate("2002") ,"value": +d["2002 [YR2002]"]},
-                {year:parseDate("2003") ,"value": +d["2003 [YR2003]"]},
-                {year:parseDate("2004") ,"value": +d["2004 [YR2004]"]},
-                {year:parseDate("2005") ,"value": +d["2005 [YR2005]"]},
-                {year:parseDate("2006") ,"value": +d["2006 [YR2006]"]},
-                {year:parseDate("2007") ,"value": +d["2007 [YR2007]"]},
-                {year:parseDate("2008") ,"value": +d["2008 [YR2008]"]},
-                {year:parseDate("2009") ,"value": +d["2009 [YR2009]"]},
-                {year:parseDate("2010") ,"value": +d["2010 [YR2010]"]},
-                {year:parseDate("2011") ,"value": +d["2011 [YR2011]"]},
-                {year:parseDate("2012") ,"value": +d["2012 [YR2012]"]},
-                {year:parseDate("2013") ,"value": +d["2013 [YR2013]"]},
-                {year:parseDate("2014") ,"value": +d["2014 [YR2014]"]},
-                {year:parseDate("2015") ,"value": +d["2015 [YR2015]"]}
-            ]
-        }
-    },function(data){
+                return {
+                    series_name : d["Series Name"],
+                    series_code : d["Series Code"],
+                    country_name : d["Country Name"],
+                    country_code : d["Country Code"],
+                    years : [
+                    {year:parseDate("1960") ,"value": +d["1960 [YR1960]"]},
+                    {year:parseDate("1961") ,"value": +d["1961 [YR1961]"]},
+                    {year:parseDate("1962") ,"value": +d["1962 [YR1962]"]},
+                    {year:parseDate("1963") ,"value": +d["1963 [YR1963]"]},
+                    {year:parseDate("1964") ,"value": +d["1964 [YR1964]"]},
+                    {year:parseDate("1965") ,"value": +d["1965 [YR1965]"]},
+                    {year:parseDate("1966") ,"value": +d["1966 [YR1966]"]},
+                    {year:parseDate("1967") ,"value": +d["1967 [YR1967]"]},
+                    {year:parseDate("1968") ,"value": +d["1968 [YR1968]"]},
+                    {year:parseDate("1969") ,"value": +d["1969 [YR1969]"]},
+                    {year:parseDate("1970") ,"value": +d["1970 [YR1970]"]},
+                    {year:parseDate("1971") ,"value": +d["1971 [YR1971]"]},
+                    {year:parseDate("1972") ,"value": +d["1972 [YR1972]"]},
+                    {year:parseDate("1973") ,"value": +d["1973 [YR1973]"]},
+                    {year:parseDate("1974") ,"value": +d["1974 [YR1974]"]},
+                    {year:parseDate("1975") ,"value": +d["1975 [YR1975]"]},
+                    {year:parseDate("1976") ,"value": +d["1976 [YR1976]"]},
+                    {year:parseDate("1977") ,"value": +d["1977 [YR1977]"]},
+                    {year:parseDate("1978") ,"value": +d["1978 [YR1978]"]},
+                    {year:parseDate("1979") ,"value": +d["1979 [YR1979]"]},
+                    {year:parseDate("1980") ,"value": +d["1980 [YR1980]"]},
+                    {year:parseDate("1981") ,"value": +d["1981 [YR1981]"]},
+                    {year:parseDate("1982") ,"value": +d["1982 [YR1982]"]},
+                    {year:parseDate("1983") ,"value": +d["1983 [YR1983]"]},
+                    {year:parseDate("1984") ,"value": +d["1984 [YR1984]"]},
+                    {year:parseDate("1985") ,"value": +d["1985 [YR1985]"]},
+                    {year:parseDate("1986") ,"value": +d["1986 [YR1986]"]},
+                    {year:parseDate("1987") ,"value": +d["1987 [YR1987]"]},
+                    {year:parseDate("1988") ,"value": +d["1988 [YR1988]"]},
+                    {year:parseDate("1989") ,"value": +d["1989 [YR1989]"]},
+                    {year:parseDate("1990") ,"value": +d["1990 [YR1990]"]},
+                    {year:parseDate("1991") ,"value": +d["1991 [YR1991]"]},
+                    {year:parseDate("1992") ,"value": +d["1992 [YR1992]"]},
+                    {year:parseDate("1993") ,"value": +d["1993 [YR1993]"]},
+                    {year:parseDate("1994") ,"value": +d["1994 [YR1994]"]},
+                    {year:parseDate("1995") ,"value": +d["1995 [YR1995]"]},
+                    {year:parseDate("1996") ,"value": +d["1996 [YR1996]"]},
+                    {year:parseDate("1997") ,"value": +d["1997 [YR1997]"]},
+                    {year:parseDate("1998") ,"value": +d["1998 [YR1998]"]},
+                    {year:parseDate("1999") ,"value": +d["1999 [YR1999]"]},
+                    {year:parseDate("2000") ,"value": +d["2000 [YR2000]"]},
+                    {year:parseDate("2001") ,"value": +d["2001 [YR2001]"]},
+                    {year:parseDate("2002") ,"value": +d["2002 [YR2002]"]},
+                    {year:parseDate("2003") ,"value": +d["2003 [YR2003]"]},
+                    {year:parseDate("2004") ,"value": +d["2004 [YR2004]"]},
+                    {year:parseDate("2005") ,"value": +d["2005 [YR2005]"]},
+                    {year:parseDate("2006") ,"value": +d["2006 [YR2006]"]},
+                    {year:parseDate("2007") ,"value": +d["2007 [YR2007]"]},
+                    {year:parseDate("2008") ,"value": +d["2008 [YR2008]"]},
+                    {year:parseDate("2009") ,"value": +d["2009 [YR2009]"]},
+                    {year:parseDate("2010") ,"value": +d["2010 [YR2010]"]},
+                    {year:parseDate("2011") ,"value": +d["2011 [YR2011]"]},
+                    {year:parseDate("2012") ,"value": +d["2012 [YR2012]"]},
+                    {year:parseDate("2013") ,"value": +d["2013 [YR2013]"]},
+                    {year:parseDate("2014") ,"value": +d["2014 [YR2014]"]},
+                    {year:parseDate("2015") ,"value": +d["2015 [YR2015]"]}
+                    ]
+                }
+            },function(Aggregate_Data){
+                d3.csv("/TheInfoMob/Data/Data.csv", function(d){
 
-        document.getElementById("defaultText").innerHTML = "";
-        // ALL CODE INVOLVING THIS DATA COMES HERE
-        createVisualisation(data,"#countryOverview1");
-        //createVisualisation(data,"#smallMultiples2");
-        
+                    var parseDate = d3.time.format("%Y").parse;
+
+                    return {
+                        series_name : d["Series Name"],
+                        series_code : d["Series Code"],
+                        country_name : d["Country Name"],
+                        country_code : d["Country Code"],
+                        years : [
+                        {year:parseDate("1960") ,"value": +d["1960 [YR1960]"]},
+                        {year:parseDate("1961") ,"value": +d["1961 [YR1961]"]},
+                        {year:parseDate("1962") ,"value": +d["1962 [YR1962]"]},
+                        {year:parseDate("1963") ,"value": +d["1963 [YR1963]"]},
+                        {year:parseDate("1964") ,"value": +d["1964 [YR1964]"]},
+                        {year:parseDate("1965") ,"value": +d["1965 [YR1965]"]},
+                        {year:parseDate("1966") ,"value": +d["1966 [YR1966]"]},
+                        {year:parseDate("1967") ,"value": +d["1967 [YR1967]"]},
+                        {year:parseDate("1968") ,"value": +d["1968 [YR1968]"]},
+                        {year:parseDate("1969") ,"value": +d["1969 [YR1969]"]},
+                        {year:parseDate("1970") ,"value": +d["1970 [YR1970]"]},
+                        {year:parseDate("1971") ,"value": +d["1971 [YR1971]"]},
+                        {year:parseDate("1972") ,"value": +d["1972 [YR1972]"]},
+                        {year:parseDate("1973") ,"value": +d["1973 [YR1973]"]},
+                        {year:parseDate("1974") ,"value": +d["1974 [YR1974]"]},
+                        {year:parseDate("1975") ,"value": +d["1975 [YR1975]"]},
+                        {year:parseDate("1976") ,"value": +d["1976 [YR1976]"]},
+                        {year:parseDate("1977") ,"value": +d["1977 [YR1977]"]},
+                        {year:parseDate("1978") ,"value": +d["1978 [YR1978]"]},
+                        {year:parseDate("1979") ,"value": +d["1979 [YR1979]"]},
+                        {year:parseDate("1980") ,"value": +d["1980 [YR1980]"]},
+                        {year:parseDate("1981") ,"value": +d["1981 [YR1981]"]},
+                        {year:parseDate("1982") ,"value": +d["1982 [YR1982]"]},
+                        {year:parseDate("1983") ,"value": +d["1983 [YR1983]"]},
+                        {year:parseDate("1984") ,"value": +d["1984 [YR1984]"]},
+                        {year:parseDate("1985") ,"value": +d["1985 [YR1985]"]},
+                        {year:parseDate("1986") ,"value": +d["1986 [YR1986]"]},
+                        {year:parseDate("1987") ,"value": +d["1987 [YR1987]"]},
+                        {year:parseDate("1988") ,"value": +d["1988 [YR1988]"]},
+                        {year:parseDate("1989") ,"value": +d["1989 [YR1989]"]},
+                        {year:parseDate("1990") ,"value": +d["1990 [YR1990]"]},
+                        {year:parseDate("1991") ,"value": +d["1991 [YR1991]"]},
+                        {year:parseDate("1992") ,"value": +d["1992 [YR1992]"]},
+                        {year:parseDate("1993") ,"value": +d["1993 [YR1993]"]},
+                        {year:parseDate("1994") ,"value": +d["1994 [YR1994]"]},
+                        {year:parseDate("1995") ,"value": +d["1995 [YR1995]"]},
+                        {year:parseDate("1996") ,"value": +d["1996 [YR1996]"]},
+                        {year:parseDate("1997") ,"value": +d["1997 [YR1997]"]},
+                        {year:parseDate("1998") ,"value": +d["1998 [YR1998]"]},
+                        {year:parseDate("1999") ,"value": +d["1999 [YR1999]"]},
+                        {year:parseDate("2000") ,"value": +d["2000 [YR2000]"]},
+                        {year:parseDate("2001") ,"value": +d["2001 [YR2001]"]},
+                        {year:parseDate("2002") ,"value": +d["2002 [YR2002]"]},
+                        {year:parseDate("2003") ,"value": +d["2003 [YR2003]"]},
+                        {year:parseDate("2004") ,"value": +d["2004 [YR2004]"]},
+                        {year:parseDate("2005") ,"value": +d["2005 [YR2005]"]},
+                        {year:parseDate("2006") ,"value": +d["2006 [YR2006]"]},
+                        {year:parseDate("2007") ,"value": +d["2007 [YR2007]"]},
+                        {year:parseDate("2008") ,"value": +d["2008 [YR2008]"]},
+                        {year:parseDate("2009") ,"value": +d["2009 [YR2009]"]},
+                        {year:parseDate("2010") ,"value": +d["2010 [YR2010]"]},
+                        {year:parseDate("2011") ,"value": +d["2011 [YR2011]"]},
+                        {year:parseDate("2012") ,"value": +d["2012 [YR2012]"]},
+                        {year:parseDate("2013") ,"value": +d["2013 [YR2013]"]},
+                        {year:parseDate("2014") ,"value": +d["2014 [YR2014]"]},
+                        {year:parseDate("2015") ,"value": +d["2015 [YR2015]"]}
+                        ]
+                    }
+                },function(data){
+
+                    //fix total pop for countries
+                    for(var i=0;i<data.length;i++){
+                        if(data[i].series_code=="SP.POP.TOTL"){
+                            data[i].series_name = data[i].series_name +" (In thousands)";
+                            var years = data[i].years;
+                            for(var j=0;j<years.length;j++){
+                                if(years[j].value != ""){
+                                    years[j].value = years[j].value/1000;
+                                }
+                            }
+                        }
+                    }
+
+                    //fix total pop for aggregates
+                    for(var i=0;i<Aggregate_Data.length;i++){
+                        if(Aggregate_Data[i].series_code=="SP.POP.TOTL"){
+                            Aggregate_Data[i].series_name = Aggregate_Data[i].series_name +" (In thousands)";
+                            var years = Aggregate_Data[i].years;
+                            for(var j=0;j<years.length;j++){
+                                if(years[j].value != ""){
+                                    years[j].value = years[j].value/1000;
+                                }
+                            }
+                        }
+                    }
+
+                    document.getElementById("defaultText").innerHTML = "";
+                    // ALL CODE INVOLVING THIS DATA COMES HERE
+                    createVisualisation(data,Country_Metadata,Aggregate_Data,"#countryOverview1");
+                    //createVisualisation(data,"#smallMultiples2");
+            
+            })
+        })
     })
 
     //OWN TOOLTIP, look for bookmark and d3.mouse()
@@ -195,27 +284,44 @@ div.tooltip {
         return result;
     }
 
-    function createVisualisation(dataset,container){
+    function getRegion(Country_Metadata, country_code){
+        for (var i=0; i<(Country_Metadata.length);i++){
+            if (country_code==Country_Metadata[i].CountryCode){
+                return Country_Metadata[i].Region;
+            }
+        }
+    }
+
+    function getCountries(Country_Metadata, region){
+        var result = [];
+
+        for (var i=0; i<(Country_Metadata.length); i++){
+            if (region==Country_Metadata[i].Region){
+                result.push(Country_Metadata[i].CountryCode);
+            }
+        }
+        return result;
+    }
+
+    function createVisualisation(dataset,country_metadata,aggregate_data,container){
 
         default_code = sessionStorage.getItem("country_code");
 
         if(default_code === null){
             default_code ="BEL";
             sessionStorage.setItem("country_code","BEL");
-            //console.log(sessionStorage.getItem("country_code"))
         }
 
         //default vis
-        CountryOverviewKey(dataset,default_code,container); // 2015 always NA, mss vermelden of niet visualiseren
+        CountryOverviewKey(dataset,country_metadata,aggregate_data,default_code,container); // 2015 always NA, mss vermelden of niet visualiseren
 
         keys = getAllCountries(dataset);
 
         var dropdown = d3.select(container).select("#countrySelector").append("select")
                             .attr("name", "key_list")
-                            .on("change", function(){   sessionStorage.setItem("country_code",this.value)
-                                                        //console.log(sessionStorage.getItem("country_code"))
-                                                        d3.select(container).selectAll("svg").remove();
-                                                        CountryOverviewKey(dataset,this.value,container); });
+                            .on("change", function(){   sessionStorage.setItem("country_code",this.value);
+                                                        d3.select(container).select("#vis").selectAll("svg").remove();
+                                                        CountryOverviewKey(dataset,country_metadata,aggregate_data,this.value,container); });
 
         var options = dropdown.selectAll("option")
                         .data(keys)
@@ -230,25 +336,27 @@ div.tooltip {
 
     }
 
-    function CountryOverviewKey(data,key,container){
+    function CountryOverviewKey(data,country_metadata,aggregate_data,key,container){
 
         var color = d3.scale.category10();
 
         var dataset = getData(data,key);
 
+        var world_data = getData(aggregate_data,"WLD");
+
         for(var i=0;i<dataset.length;i++){
-            CountryOverviewChart(dataset[i],container,color(i%10));
+            CountryOverviewChart(dataset[i],world_data,container,color(i%10));
         }
     }
 
-    function CountryOverviewChart(dataset,container,color){
+    function CountryOverviewChart(dataset,world_data,container,color){
 
         var data = dataset.years
 
         var formatTime = d3.time.format("%Y");
 
-        var margin = {top: 15, right: 15, bottom: 20, left: 20},
-            width = 440 - margin.left - margin.right,
+        var margin = {top: 15, right: 15, bottom: 20, left: 30},
+            width = 450 - margin.left - margin.right,
             height = 180 - margin.top - margin.bottom;
 
         var x = d3.time.scale()
@@ -285,8 +393,7 @@ div.tooltip {
             .attr("height", height + margin.top + margin.bottom)
             .on("click", function(){
                 sessionStorage.setItem("series_code",dataset.series_code);
-                window.location="small_multiples.html"
-                //console.log(sessionStorage.getItem("series_code"));
+                window.location="small_multiples.html";
                 })
             .style("cursor","pointer")
             .append("g")
@@ -348,114 +455,6 @@ div.tooltip {
                     .style("opacity", 0);
             });
     }
-
-/*
-    function flowChartListeners(title, artist){
-        listenersFlow = getListenersFlowForSong(dataList,title,artist);
-
-        var margin = {top: 20, right: 80, bottom: 20, left: 80},
-            width = 960 - margin.left - margin.right,
-            height = 100 - margin.top - margin.bottom;
-
-        var x = d3.scale.ordinal()
-            .domain(listenersFlow.map(function(d) { return mapWeekIndexToDate(d.week);}))
-            .rangeRoundBands([0, width], .1);
-
-        var yMax = d3.max(listenersFlow, function(d){return d.listeners;})
-
-        var y = d3.scale.linear()
-            .domain([0, 1.5*yMax])
-            .range([height, 0]);
-
-        var xAxis = d3.svg.axis()
-            .scale(x)
-            .orient("bottom");
-
-        var yAxis = d3.svg.axis()
-            .scale(y)
-            .orient("left")
-            .ticks(6, "%");
-
-        var checkListenersData = function(listeners){
-            return listeners != null;
-        }
-
-        var tip = d3.tip()
-            .attr('class', 'd3-tip')
-            .offset([-10, 0])
-            .html(function(d) { if(checkListenersData(d.listeners)){
-                return "<strong>Listeners:</strong> <span style='color:orange'>" + d.listeners + "</span>";
-            } else{
-                return "<strong>Listeners:</strong> <span style='color:orange'>" + "NO DATA" + "</span>";
-            }
-                })
-
-        var svg = d3.select("#FlowChart").append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-        svg.call(tip);
-
-        svg.append("g")
-            .attr("class", "x axis")
-            .attr("transform", "translate(0," + height + ")")
-            .call(xAxis);
-
-        svg.append("g")
-            .attr("class", "y axis")
-            .call(yAxis)
-            .append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("y", 6)
-            .attr("dy", ".71em")
-            .style("text-anchor", "end")
-            .text("Listeners");
-
-        svg.append("text")
-            .attr("x", (width / 2))             
-            .attr("y", margin.top/2)
-            .attr("text-anchor", "middle")  
-            .style("font-size", "16px")
-            .text(title + " - " + artist);
-
-        svg.selectAll(".bar")
-            .data(listenersFlow)
-            .enter().append("rect")
-            .attr("class", "bar")
-            .attr("x", function(d) { return x(d.week); })
-            .attr("width", x.rangeBand())
-            .attr("y", function(d) { if(checkListenersData(d.listeners)){
-                return y(d.listeners);
-            }else{return y(yMax);}
-            })
-            .attr("height", function(d) {if(checkListenersData(d.listeners)){
-                return height - y(d.listeners);}
-                else{return height- y(yMax);} })
-            .style("fill",function(d){if(checkListenersData(d.listeners)){return "#006d2c";
-            }else{return "#ffffff";}
-            })
-            .on('mouseover', function(d){
-                d3.select(this)
-                .attr("height",function(d) {if(checkListenersData(d.listeners)){
-                        return height - y(d.listeners);}
-                    else{return height-y(yMax);} })
-                .style("fill", "#009CCC");
-                tip.show(d);
-                
-            })
-            .on('mouseout', function(d){
-                d3.select(this)
-                .attr("height",function(d) {if(checkListenersData(d.listeners)){
-                        return height - y(d.listeners);}
-                    else{return height-y(yMax);} })
-                .style("fill",function(d){if(checkListenersData(d.listeners)){return "#006d2c";
-                    }else{return "#ffffff";}
-                });
-                tip.hide(d);
-            });
-    }*/
 
     </script>
 
