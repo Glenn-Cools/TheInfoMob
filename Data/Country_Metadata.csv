@@ -1,215 +1,215 @@
-CountryCode,CountryName,Region,Region_code
-AFG,Afghanistan,South Asia,SA
-DZA,Algeria,Middle East & North Africa,MENA
-ALB,Albania,Europe & Central Asia,ECA
-ASM,American Samoa,East Asia & Pacific,EAP
-ADO,Andorra,Europe & Central Asia,ECA
-AGO,Angola,Sub-Saharan Africa,SSA
-ATG,Antigua and Barbuda,Latin America & Caribbean,LAC
-ARG,Argentina,Latin America & Caribbean,LAC
-ARM,Armenia,Europe & Central Asia,ECA
-ABW,Aruba,Latin America & Caribbean,LAC
-AUS,Australia,East Asia & Pacific,EAP
-AUT,Austria,Europe & Central Asia,ECA
-AZE,Azerbaijan,Europe & Central Asia,ECA
-BHS,Bahamas, The,Latin America & Caribbean,LAC
-BHR,Bahrain,Middle East & North Africa,MENA
-BGD,Bangladesh,South Asia,SA
-BRB,Barbados,Latin America & Caribbean,LAC
-BLR,Belarus,Europe & Central Asia,ECA
-BEL,Belgium,Europe & Central Asia,ECA
-BLZ,Belize,Latin America & Caribbean,LAC
-BEN,Benin,Sub-Saharan Africa,SSA
-BMU,Bermuda,North America,NAM
-BTN,Bhutan,South Asia,SA
-BOL,Bolivia,Latin America & Caribbean,LAC
-BIH,Bosnia and Herzegovina,Europe & Central Asia,ECA
-BWA,Botswana,Sub-Saharan Africa,SSA
-BRA,Brazil,Latin America & Caribbean,LAC
-BRN,Brunei Darussalam,East Asia & Pacific,EAP
-BGR,Bulgaria,Europe & Central Asia,ECA
-BFA,Burkina Faso,Sub-Saharan Africa,SSA
-BDI,Burundi,Sub-Saharan Africa,SSA
-CPV,Cabo Verde,Sub-Saharan Africa,SSA
-KHM,Cambodia,East Asia & Pacific,EAP
-CMR,Cameroon,Sub-Saharan Africa,SSA
-CAN,Canada,North America,NAM
-CYM,Cayman Islands,Latin America & Caribbean,LAC
-CAF,Central African Republic,Sub-Saharan Africa,SSA
-TCD,Chad,Sub-Saharan Africa,SSA
-CHI,Channel Islands,Europe & Central Asia,ECA
-CHL,Chile,Latin America & Caribbean,LAC
-CHN,China,East Asia & Pacific,EAP
-COL,Colombia,Latin America & Caribbean,LAC
-COM,Comoros,Sub-Saharan Africa,SSA
-ZAR,Congo, Dem. Rep.,Sub-Saharan Africa,SSA
-COG,Congo, Rep.,Sub-Saharan Africa,SSA
-CRI,Costa Rica,Latin America & Caribbean,LAC
-CIV,C?te d'Ivoire,Sub-Saharan Africa,SSA
-HRV,Croatia,Europe & Central Asia,ECA
-CUB,Cuba,Latin America & Caribbean,LAC
-CUW,Curaçao,Latin America & Caribbean,LAC
-CYP,Cyprus,Europe & Central Asia,ECA
-CZE,Czech Republic,Europe & Central Asia,ECA
-DNK,Denmark,Europe & Central Asia,ECA
-DJI,Djibouti,Middle East & North Africa,MENA
-DMA,Dominica,Latin America & Caribbean,LAC
-DOM,Dominican Republic,Latin America & Caribbean,LAC
-ECU,Ecuador,Latin America & Caribbean,LAC
-EGY,Egypt, Arab Rep.,Middle East & North Africa,MENA
-SLV,El Salvador,Latin America & Caribbean,LAC
-GNQ,Equatorial Guinea,Sub-Saharan Africa,SSA
-ERI,Eritrea,Sub-Saharan Africa,SSA
-EST,Estonia,Europe & Central Asia,ECA
-ETH,Ethiopia,Sub-Saharan Africa,SSA
-FRO,Faroe Islands,Europe & Central Asia,ECA
-FJI,Fiji,East Asia & Pacific,EAP
-FIN,Finland,Europe & Central Asia,ECA
-FRA,France,Europe & Central Asia,ECA
-PYF,French Polynesia,East Asia & Pacific,EAP
-GAB,Gabon,Sub-Saharan Africa,SSA
-GMB,Gambia, The,Sub-Saharan Africa,SSA
-GEO,Georgia,Europe & Central Asia,ECA
-DEU,Germany,Europe & Central Asia,ECA
-GHA,Ghana,Sub-Saharan Africa,SSA
-GRC,Greece,Europe & Central Asia,ECA
-GRL,Greenland,Europe & Central Asia,ECA
-GRD,Grenada,Latin America & Caribbean,LAC
-GUM,Guam,East Asia & Pacific,EAP
-GTM,Guatemala,Latin America & Caribbean,LAC
-GIN,Guinea,Sub-Saharan Africa,SSA
-GNB,Guinea-Bissau,Sub-Saharan Africa,SSA
-GUY,Guyana,Latin America & Caribbean,LAC
-HTI,Haiti,Latin America & Caribbean,LAC
-HND,Honduras,Latin America & Caribbean,LAC
-HKG,Hong Kong SAR, China,East Asia & Pacific,EAP
-HUN,Hungary,Europe & Central Asia,ECA
-ISL,Iceland,Europe & Central Asia,ECA
-IND,India,South Asia,SA
-IDN,Indonesia,East Asia & Pacific,EAP
-IRN,Iran, Islamic Rep.,Middle East & North Africa,MENA
-IRQ,Iraq,Middle East & North Africa,MENA
-IRL,Ireland,Europe & Central Asia,ECA
-IMY,Isle of Man,Europe & Central Asia,ECA
-ISR,Israel,Middle East & North Africa,MENA
-ITA,Italy,Europe & Central Asia,ECA
-JAM,Jamaica,Latin America & Caribbean,LAC
-JPN,Japan,East Asia & Pacific,EAP
-JOR,Jordan,Middle East & North Africa,MENA
-KAZ,Kazakhstan,Europe & Central Asia,ECA
-KEN,Kenya,Sub-Saharan Africa,SSA
-KIR,Kiribati,East Asia & Pacific,EAP
-PRK,Korea, Dem. People's Rep.,East Asia & Pacific,EAP
-KOR,Korea, Rep.,East Asia & Pacific,EAP
-KSV,Kosovo,Europe & Central Asia,ECA
-KWT,Kuwait,Middle East & North Africa,MENA
-KGZ,Kyrgyz Republic,Europe & Central Asia,ECA
-LAO,Lao PDR,East Asia & Pacific,EAP
-LVA,Latvia,Europe & Central Asia,ECA
-LBN,Lebanon,Middle East & North Africa,MENA
-LSO,Lesotho,Sub-Saharan Africa,SSA
-LBR,Liberia,Sub-Saharan Africa,SSA
-LBY,Libya,Middle East & North Africa,MENA
-LIE,Liechtenstein,Europe & Central Asia,ECA
-LTU,Lithuania,Europe & Central Asia,ECA
-LUX,Luxembourg,Europe & Central Asia,ECA
-MAC,Macao SAR, China,East Asia & Pacific,EAP
-MKD,Macedonia, FYR,Europe & Central Asia,ECA
-MDG,Madagascar,Sub-Saharan Africa,SSA
-MWI,Malawi,Sub-Saharan Africa,SSA
-MYS,Malaysia,East Asia & Pacific,EAP
-MDV,Maldives,South Asia,SA
-MLI,Mali,Sub-Saharan Africa,SSA
-MLT,Malta,Middle East & North Africa,MENA
-MHL,Marshall Islands,East Asia & Pacific,EAP
-MRT,Mauritania,Sub-Saharan Africa,SSA
-MUS,Mauritius,Sub-Saharan Africa,SSA
-MEX,Mexico,Latin America & Caribbean,LAC
-FSM,Micronesia, Fed. Sts.,East Asia & Pacific,EAP
-MDA,Moldova,Europe & Central Asia,ECA
-MCO,Monaco,Europe & Central Asia,ECA
-MNG,Mongolia,East Asia & Pacific,EAP
-MNE,Montenegro,Europe & Central Asia,ECA
-MAR,Morocco,Middle East & North Africa,MENA
-MOZ,Mozambique,Sub-Saharan Africa,SSA
-MMR,Myanmar,East Asia & Pacific,EAP
-NAM,Namibia,Sub-Saharan Africa,SSA
-NPL,Nepal,South Asia,SA
-NLD,Netherlands,Europe & Central Asia,ECA
-NCL,New Caledonia,East Asia & Pacific,EAP
-NZL,New Zealand,East Asia & Pacific,EAP
-NIC,Nicaragua,Latin America & Caribbean,LAC
-NER,Niger,Sub-Saharan Africa,SSA
-NGA,Nigeria,Sub-Saharan Africa,SSA
-MNP,Northern Mariana Islands,East Asia & Pacific,EAP
-NOR,Norway,Europe & Central Asia,ECA
-OMN,Oman,Middle East & North Africa,MENA
-PAK,Pakistan,South Asia,SA
-PLW,Palau,East Asia & Pacific,EAP
-PAN,Panama,Latin America & Caribbean,LAC
-PNG,Papua New Guinea,East Asia & Pacific,EAP
-PRY,Paraguay,Latin America & Caribbean,LAC
-PER,Peru,Latin America & Caribbean,LAC
-PHL,Philippines,East Asia & Pacific,EAP
-POL,Poland,Europe & Central Asia,ECA
-PRT,Portugal,Europe & Central Asia,ECA
-PRI,Puerto Rico,Latin America & Caribbean,LAC,
-QAT,Qatar,Middle East & North Africa,MENA
-ROM,Romania,Europe & Central Asia,ECA
-RUS,Russian Federation,Europe & Central Asia,ECA
-RWA,Rwanda,Sub-Saharan Africa,SSA
-WSM,Samoa,East Asia & Pacific,EAP
-SMR,San Marino,Europe & Central Asia,ECA
-STP,S?o Tom? and Principe,Sub-Saharan Africa,SSA
-SAU,Saudi Arabia,Middle East & North Africa,MENA
-SEN,Senegal,Sub-Saharan Africa,SSA
-SRB,Serbia,Europe & Central Asia,ECA
-SYC,Seychelles,Sub-Saharan Africa,SSA
-SLE,Sierra Leone,Sub-Saharan Africa,SSA
-SGP,Singapore,East Asia & Pacific,EAP
-SXM,Sint Maarten (Dutch part),Latin America & Caribbean,LAC
-SVK,Slovak Republic,Europe & Central Asia,ECA
-SVN,Slovenia,Europe & Central Asia,ECA
-SLB,Solomon Islands,East Asia & Pacific,EAP
-SOM,Somalia,Sub-Saharan Africa,SSA
-ZAF,South Africa,Sub-Saharan Africa,SSA
-SSD,South Sudan,Sub-Saharan Africa,SSA
-ESP,Spain,Europe & Central Asia,ECA
-LKA,Sri Lanka,South Asia,SA
-KNA,St. Kitts and Nevis,Latin America & Caribbean,LAC
-LCA,St. Lucia,Latin America & Caribbean,LAC
-MAF,St. Martin (French part),Latin America & Caribbean,LAC
-VCT,St. Vincent and the Grenadines,Latin America & Caribbean,LAC
-SDN,Sudan,Sub-Saharan Africa,SSA
-SUR,Suriname,Latin America & Caribbean,LAC
-SWZ,Swaziland,Sub-Saharan Africa,SSA
-SWE,Sweden,Europe & Central Asia,ECA
-CHE,Switzerland,Europe & Central Asia,ECA
-SYR,Syrian Arab Republic,Middle East & North Africa,MENA
-TJK,Tajikistan,Europe & Central Asia,ECA
-TZA,Tanzania,Sub-Saharan Africa,SSA
-THA,Thailand,East Asia & Pacific,EAP
-TMP,Timor-Leste,East Asia & Pacific,EAP
-TGO,Togo,Sub-Saharan Africa,SSA
-TON,Tonga,East Asia & Pacific,EAP
-TTO,Trinidad and Tobago,Latin America & Caribbean,LAC
-TUN,Tunisia,Middle East & North Africa,MENA
-TUR,Turkey,Europe & Central Asia,ECA
-TKM,Turkmenistan,Europe & Central Asia,ECA
-TCA,Turks and Caicos Islands,Latin America & Caribbean,LAC
-TUV,Tuvalu,East Asia & Pacific,EAP
-UGA,Uganda,Sub-Saharan Africa,SSA
-UKR,Ukraine,Europe & Central Asia,ECA
-ARE,United Arab Emirates,Middle East & North Africa,MENA
-GBR,United Kingdom,Europe & Central Asia,ECA
-USA,United States,North America,NAM
-URY,Uruguay,Latin America & Caribbean,LAC
-UZB,Uzbekistan,Europe & Central Asia,ECA
-VUT,Vanuatu,East Asia & Pacific,EAP
-VEN,Venezuela, RB,Latin America & Caribbean,LAC
-VNM,Vietnam,East Asia & Pacific,EAP
-VIR,Virgin Islands (U.S.),Latin America & Caribbean,LAC
-WBG,West Bank and Gaza,Middle East & North Africa,MENA
-YEM,Yemen, Rep.,Middle East & North Africa,MENA
-ZMB,Zambia,Sub-Saharan Africa,SSA
-ZWE,Zimbabwe,Sub-Saharan Africa,SSA
+CountryCode,CountryNACe,Region,Region_code
+AFG,Afghanistan,South Asia,SAS
+DZA,Algeria,Middle East & North Africa,MEA
+ALB,Albania,Europe & Central Asia,ECS
+ASM,American SASmoa,East Asia & Pacific,EAS
+ADO,Andorra,Europe & Central Asia,ECS
+AGO,Angola,Sub-SASharan Africa,SSFS
+ATG,Antigua and Barbuda,Latin America & Caribbean,LCN
+ARG,Argentina,Latin America & Caribbean,LCN
+ARM,Armenia,Europe & Central Asia,ECS
+ABW,Aruba,Latin America & Caribbean,LCN
+AUS,Australia,East Asia & Pacific,EAS
+AUT,Austria,Europe & Central Asia,ECS
+AZE,Azerbaijan,Europe & Central Asia,ECS
+BHS,Bahamas, The,Latin America & Caribbean,LCN
+BHR,Bahrain,Middle East & North Africa,MEA
+BGD,Bangladesh,South Asia,SAS
+BRB,Barbados,Latin America & Caribbean,LCN
+BLR,Belarus,Europe & Central Asia,ECS
+BEL,Belgium,Europe & Central Asia,ECS
+BLZ,Belize,Latin America & Caribbean,LCN
+BEN,Benin,Sub-SASharan Africa,SSFS
+BMU,Bermuda,North America,NAC
+BTN,Bhutan,South Asia,SAS
+BOL,Bolivia,Latin America & Caribbean,LCN
+BIH,Bosnia and Herzegovina,Europe & Central Asia,ECS
+BWA,Botswana,Sub-SASharan Africa,SSFS
+BRA,Brazil,Latin America & Caribbean,LCN
+BRN,Brunei DaruSSFSlam,East Asia & Pacific,EAS
+BGR,Bulgaria,Europe & Central Asia,ECS
+BFA,Burkina Faso,Sub-SASharan Africa,SSFS
+BDI,Burundi,Sub-SASharan Africa,SSFS
+CPV,Cabo Verde,Sub-SASharan Africa,SSFS
+KHM,Cambodia,East Asia & Pacific,EAS
+CMR,Cameroon,Sub-SASharan Africa,SSFS
+CAN,Canada,North America,NAC
+CYM,Cayman Islands,Latin America & Caribbean,LCN
+CAF,Central African Republic,Sub-SASharan Africa,SSFS
+TCD,Chad,Sub-SASharan Africa,SSFS
+CHI,Channel Islands,Europe & Central Asia,ECS
+CHL,Chile,Latin America & Caribbean,LCN
+CHN,China,East Asia & Pacific,EAS
+COL,Colombia,Latin America & Caribbean,LCN
+COM,Comoros,Sub-SASharan Africa,SSFS
+ZAR,Congo, Dem. Rep.,Sub-SASharan Africa,SSFS
+COG,Congo, Rep.,Sub-SASharan Africa,SSFS
+CRI,Costa Rica,Latin America & Caribbean,LCN
+CIV,C?te d'Ivoire,Sub-SASharan Africa,SSFS
+HRV,Croatia,Europe & Central Asia,ECS
+CUB,Cuba,Latin America & Caribbean,LCN
+CUW,Curaçao,Latin America & Caribbean,LCN
+CYP,Cyprus,Europe & Central Asia,ECS
+CZE,Czech Republic,Europe & Central Asia,ECS
+DNK,Denmark,Europe & Central Asia,ECS
+DJI,Djibouti,Middle East & North Africa,MEA
+DMA,Dominica,Latin America & Caribbean,LCN
+DOM,Dominican Republic,Latin America & Caribbean,LCN
+ECU,Ecuador,Latin America & Caribbean,LCN
+EGY,Egypt, Arab Rep.,Middle East & North Africa,MEA
+SLV,El SASlvador,Latin America & Caribbean,LCN
+GNQ,Equatorial Guinea,Sub-SASharan Africa,SSFS
+ERI,Eritrea,Sub-SASharan Africa,SSFS
+EST,Estonia,Europe & Central Asia,ECS
+ETH,Ethiopia,Sub-SASharan Africa,SSFS
+FRO,Faroe Islands,Europe & Central Asia,ECS
+FJI,Fiji,East Asia & Pacific,EAS
+FIN,Finland,Europe & Central Asia,ECS
+FRA,France,Europe & Central Asia,ECS
+PYF,French Polynesia,East Asia & Pacific,EAS
+GAB,Gabon,Sub-SASharan Africa,SSFS
+GMB,Gambia, The,Sub-SASharan Africa,SSFS
+GEO,Georgia,Europe & Central Asia,ECS
+DEU,Germany,Europe & Central Asia,ECS
+GHA,Ghana,Sub-SASharan Africa,SSFS
+GRC,Greece,Europe & Central Asia,ECS
+GRL,Greenland,Europe & Central Asia,ECS
+GRD,Grenada,Latin America & Caribbean,LCN
+GUM,Guam,East Asia & Pacific,EAS
+GTM,Guatemala,Latin America & Caribbean,LCN
+GIN,Guinea,Sub-SASharan Africa,SSFS
+GNB,Guinea-BiSSFSu,Sub-SASharan Africa,SSFS
+GUY,Guyana,Latin America & Caribbean,LCN
+HTI,Haiti,Latin America & Caribbean,LCN
+HND,Honduras,Latin America & Caribbean,LCN
+HKG,Hong Kong SASR, China,East Asia & Pacific,EAS
+HUN,Hungary,Europe & Central Asia,ECS
+ISL,Iceland,Europe & Central Asia,ECS
+IND,India,South Asia,SAS
+IDN,Indonesia,East Asia & Pacific,EAS
+IRN,Iran, Islamic Rep.,Middle East & North Africa,MEA
+IRQ,Iraq,Middle East & North Africa,MEA
+IRL,Ireland,Europe & Central Asia,ECS
+IMY,Isle of Man,Europe & Central Asia,ECS
+ISR,Israel,Middle East & North Africa,MEA
+ITA,Italy,Europe & Central Asia,ECS
+JAM,Jamaica,Latin America & Caribbean,LCN
+JPN,Japan,East Asia & Pacific,EAS
+JOR,Jordan,Middle East & North Africa,MEA
+KAZ,Kazakhstan,Europe & Central Asia,ECS
+KEN,Kenya,Sub-SASharan Africa,SSFS
+KIR,Kiribati,East Asia & Pacific,EAS
+PRK,Korea, Dem. People's Rep.,East Asia & Pacific,EAS
+KOR,Korea, Rep.,East Asia & Pacific,EAS
+KSV,Kosovo,Europe & Central Asia,ECS
+KWT,Kuwait,Middle East & North Africa,MEA
+KGZ,Kyrgyz Republic,Europe & Central Asia,ECS
+LAO,Lao PDR,East Asia & Pacific,EAS
+LVA,Latvia,Europe & Central Asia,ECS
+LBN,Lebanon,Middle East & North Africa,MEA
+LSO,Lesotho,Sub-SASharan Africa,SSFS
+LBR,Liberia,Sub-SASharan Africa,SSFS
+LBY,Libya,Middle East & North Africa,MEA
+LIE,Liechtenstein,Europe & Central Asia,ECS
+LTU,Lithuania,Europe & Central Asia,ECS
+LUX,Luxembourg,Europe & Central Asia,ECS
+MAC,Macao SASR, China,East Asia & Pacific,EAS
+MKD,Macedonia, FYR,Europe & Central Asia,ECS
+MDG,Madagascar,Sub-SASharan Africa,SSFS
+MWI,Malawi,Sub-SASharan Africa,SSFS
+MYS,Malaysia,East Asia & Pacific,EAS
+MDV,Maldives,South Asia,SAS
+MLI,Mali,Sub-SASharan Africa,SSFS
+MLT,Malta,Middle East & North Africa,MEA
+MHL,Marshall Islands,East Asia & Pacific,EAS
+MRT,Mauritania,Sub-SASharan Africa,SSFS
+MUS,Mauritius,Sub-SASharan Africa,SSFS
+MEX,Mexico,Latin America & Caribbean,LCN
+FSM,Micronesia, Fed. Sts.,East Asia & Pacific,EAS
+MDA,Moldova,Europe & Central Asia,ECS
+MCO,Monaco,Europe & Central Asia,ECS
+MNG,Mongolia,East Asia & Pacific,EAS
+MNE,Montenegro,Europe & Central Asia,ECS
+MAR,Morocco,Middle East & North Africa,MEA
+MOZ,Mozambique,Sub-SASharan Africa,SSFS
+MMR,Myanmar,East Asia & Pacific,EAS
+NAC,NACibia,Sub-SASharan Africa,SSFS
+NPL,Nepal,South Asia,SAS
+NLD,Netherlands,Europe & Central Asia,ECS
+NCL,New Caledonia,East Asia & Pacific,EAS
+NZL,New Zealand,East Asia & Pacific,EAS
+NIC,Nicaragua,Latin America & Caribbean,LCN
+NER,Niger,Sub-SASharan Africa,SSFS
+NGA,Nigeria,Sub-SASharan Africa,SSFS
+MNP,Northern Mariana Islands,East Asia & Pacific,EAS
+NOR,Norway,Europe & Central Asia,ECS
+OMN,Oman,Middle East & North Africa,MEA
+PAK,Pakistan,South Asia,SAS
+PLW,Palau,East Asia & Pacific,EAS
+PAN,PaNACa,Latin America & Caribbean,LCN
+PNG,Papua New Guinea,East Asia & Pacific,EAS
+PRY,Paraguay,Latin America & Caribbean,LCN
+PER,Peru,Latin America & Caribbean,LCN
+PHL,Philippines,East Asia & Pacific,EAS
+POL,Poland,Europe & Central Asia,ECS
+PRT,Portugal,Europe & Central Asia,ECS
+PRI,Puerto Rico,Latin America & Caribbean,LCN,
+QAT,Qatar,Middle East & North Africa,MEA
+ROM,Romania,Europe & Central Asia,ECS
+RUS,Russian Federation,Europe & Central Asia,ECS
+RWA,Rwanda,Sub-SASharan Africa,SSFS
+WSM,SASmoa,East Asia & Pacific,EAS
+SMR,SASn Marino,Europe & Central Asia,ECS
+STP,S?o Tom? and Principe,Sub-SASharan Africa,SSFS
+SASU,SASudi Arabia,Middle East & North Africa,MEA
+SEN,Senegal,Sub-SASharan Africa,SSFS
+SRB,Serbia,Europe & Central Asia,ECS
+SYC,Seychelles,Sub-SASharan Africa,SSFS
+SLE,Sierra Leone,Sub-SASharan Africa,SSFS
+SGP,Singapore,East Asia & Pacific,EAS
+SXM,Sint Maarten (Dutch part),Latin America & Caribbean,LCN
+SVK,Slovak Republic,Europe & Central Asia,ECS
+SVN,Slovenia,Europe & Central Asia,ECS
+SLB,Solomon Islands,East Asia & Pacific,EAS
+SOM,Somalia,Sub-SASharan Africa,SSFS
+ZAF,South Africa,Sub-SASharan Africa,SSFS
+SSD,South Sudan,Sub-SASharan Africa,SSFS
+ESP,Spain,Europe & Central Asia,ECS
+LKA,Sri Lanka,South Asia,SAS
+KNA,St. Kitts and Nevis,Latin America & Caribbean,LCN
+LCA,St. Lucia,Latin America & Caribbean,LCN
+MAF,St. Martin (French part),Latin America & Caribbean,LCN
+VCT,St. Vincent and the Grenadines,Latin America & Caribbean,LCN
+SDN,Sudan,Sub-SASharan Africa,SSFS
+SUR,SuriNACe,Latin America & Caribbean,LCN
+SWZ,Swaziland,Sub-SASharan Africa,SSFS
+SWE,Sweden,Europe & Central Asia,ECS
+CHE,Switzerland,Europe & Central Asia,ECS
+SYR,Syrian Arab Republic,Middle East & North Africa,MEA
+TJK,Tajikistan,Europe & Central Asia,ECS
+TZA,Tanzania,Sub-SASharan Africa,SSFS
+THA,Thailand,East Asia & Pacific,EAS
+TMP,Timor-Leste,East Asia & Pacific,EAS
+TGO,Togo,Sub-SASharan Africa,SSFS
+TON,Tonga,East Asia & Pacific,EAS
+TTO,Trinidad and Tobago,Latin America & Caribbean,LCN
+TUN,Tunisia,Middle East & North Africa,MEA
+TUR,Turkey,Europe & Central Asia,ECS
+TKM,Turkmenistan,Europe & Central Asia,ECS
+TCA,Turks and Caicos Islands,Latin America & Caribbean,LCN
+TUV,Tuvalu,East Asia & Pacific,EAS
+UGA,Uganda,Sub-SASharan Africa,SSFS
+UKR,Ukraine,Europe & Central Asia,ECS
+ARE,United Arab Emirates,Middle East & North Africa,MEA
+GBR,United Kingdom,Europe & Central Asia,ECS
+USAS,United States,North America,NAC
+URY,Uruguay,Latin America & Caribbean,LCN
+UZB,Uzbekistan,Europe & Central Asia,ECS
+VUT,Vanuatu,East Asia & Pacific,EAS
+VEN,Venezuela, RB,Latin America & Caribbean,LCN
+VNM,VietNAC,East Asia & Pacific,EAS
+VIR,Virgin Islands (U.S.),Latin America & Caribbean,LCN
+WBG,West Bank and Gaza,Middle East & North Africa,MEA
+YEM,Yemen, Rep.,Middle East & North Africa,MEA
+ZMB,Zambia,Sub-SASharan Africa,SSFS
+ZWE,Zimbabwe,Sub-SASharan Africa,SSFS
