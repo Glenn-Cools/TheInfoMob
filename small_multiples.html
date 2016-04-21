@@ -43,8 +43,7 @@ div.tooltip {
     color: white;
     height: 32px;                
     padding: 2px;               
-    font: 12px sans-serif;      
-    background: #335E82; 
+    font: 12px sans-serif;
     border: 0px;        
     border-radius: 8px;         
     pointer-events: none;           
@@ -516,7 +515,8 @@ div.tooltip {
             .on("mouseover", function(d) {      
                 div.transition()        
                     .duration(200)      
-                    .style("opacity", .9);      
+                    .style("opacity", .9)
+                    .style("background","#B7384F");      
                 div.html(function(){return ((isNaN(d.value)||d.value=="")?("Year: " + formatTime(d.year) + "<br/>"  + "NO DATA"):("Year: " + formatTime(d.year) + "<br/>"  + "Value: " + d.value));})
                     .style("left", (d3.event.pageX) + "px")     
                     .style("top", (d3.event.pageY - 28) + "px");
@@ -538,7 +538,8 @@ div.tooltip {
                 .on("mouseover", function(d) {      
                     div.transition()        
                         .duration(200)      
-                        .style("opacity", .9);      
+                        .style("opacity", .9)
+                        .style("background","#CC8433");      
                     div.html(function(){return ((isNaN(d.value)||d.value=="")?("Year: " + formatTime(d.year) + "<br/>"  + "NO DATA"):("Year: " + formatTime(d.year) + "<br/>"  + "Value: " + d.value));})
                         .style("left", (d3.event.pageX) + "px")     
                         .style("top", (d3.event.pageY - 28) + "px");
@@ -560,10 +561,12 @@ div.tooltip {
             .on("mouseover", function(d) {      
                 div.transition()        
                     .duration(200)      
-                    .style("opacity", .9);      
+                    .style("opacity", .9)
+                    .style("background","#335E82");      
                 div.html(function(){return ((isNaN(d.value)||d.value=="")?("Year: " + formatTime(d.year) + "<br/>"  + "NO DATA"):("Year: " + formatTime(d.year) + "<br/>"  + "Value: " + d.value));})
                     .style("left", (d3.event.pageX) + "px")     
                     .style("top", (d3.event.pageY - 28) + "px");
+                    
             })                  
             .on("mouseout", function(d) {       
                 div.transition()        
