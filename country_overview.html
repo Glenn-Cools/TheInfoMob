@@ -26,6 +26,14 @@
     z-index: 1
 }
 
+#legend{
+    position: fixed;
+    z-index:1;
+    left:50%;
+    font-weight: bold;
+    background:white;
+}
+
 .axis {
   font: 10px sans-serif;
 }
@@ -63,10 +71,12 @@ div.tooltip {
     <div id="defaultText" align="center">The data is being loaded.<br>Please wait.</div>
     <div id="countryOverview1">
         <div id="countrySelector"></div>
+        <div id="legend"></div>
         <div id="vis"></div>
     </div>
     <div id="smallMultiples2">
         <div id="countrySelector"></div>
+        <div id="legend"></div>
         <div id="vis"></div>
     </div>
 
@@ -312,6 +322,11 @@ div.tooltip {
                             .on("change", function(){   sessionStorage.setItem("country_code",this.value);
                                                         d3.select(container).select("#vis").selectAll("svg").remove();
                                                         CountryOverviewKey(dataset,country_metadata,aggregate_data,this.value,container); });
+
+        legend = d3.select(container).select("#legend")
+        .append("text").style("color", "steelblue").text("Country")
+        .append("text").style("color", "orange").text("  Region")
+        .append("text").style("color", "crimson").text("  World");
 
         var options = dropdown.selectAll("option")
                         .data(keys)
