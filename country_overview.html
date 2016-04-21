@@ -55,11 +55,6 @@ div.tooltip {
   stroke-width: 1.5px;
 }
 
-.area {
-  fill: lightsteelblue;
-  opacity: 0.5;
-  stroke-width: 0;
-}
 
 </style>
 </head>
@@ -259,8 +254,6 @@ div.tooltip {
     })
 
     //OWN TOOLTIP, look for bookmark and d3.mouse()
-    //TODO DEFAULT FILL DROPDOWN
-
 
     function getDataCountry(dataset,country_code){
         var result =[];
@@ -296,22 +289,10 @@ div.tooltip {
     function getRegionCode(country_metadata, country_code){
         for (var i=0; i<(country_metadata.length);i++){
             if (country_code==country_metadata[i].Country_Code){
-                return country_metadata[i].Region_code;
+                return country_metadata[i].Region_Code;
             }
         }
     }
-
-    /*
-    function getCountriesInRegion(country_metadata, region_code){
-        var result = [];
-
-        for (var i=0; i<(country_metadata.length); i++){
-            if (region==country_metadata[i].Region_code){
-                result.push(country_metadata[i].Country_Code);
-            }
-        }
-        return result;
-    }*/
 
     function createVisualisation(dataset,country_metadata,aggregate_data,container){
 
@@ -400,12 +381,7 @@ div.tooltip {
 
         var line = d3.svg.line()
             .x(function(d) {return x(d.year); })
-            .y(function(d) {return (isNaN(d.value)?y(0):y(d.value)); });
-
-        var area = d3.svg.area()
-            .x(function(d) { return x(d.year); })
-            .y0(y(0))
-            .y1(function(d) { return (isNaN(d.value)?y(0):y(d.value)); });        
+            .y(function(d) {return (isNaN(d.value)?y(0):y(d.value)); });  
 
         var svg = d3.select(container).select("#vis").append("svg")
             .attr("id", dataset.series_code)
@@ -423,11 +399,6 @@ div.tooltip {
         var div = d3.select(container).append("div")   
             .attr("class", "tooltip")               
             .style("opacity", 0);
-
-        /*svg.append("path")
-            .datum(data)
-            .attr("class", "area")
-            .attr("d", area);*/
 
         svg.append("path")
             .datum(world_data)
@@ -470,7 +441,7 @@ div.tooltip {
         svg.selectAll("dot")    
             .data(world_data)         
             .enter().append("circle")                               
-            .attr("r", 2.5)       
+            .attr("r", 3)       
             .attr("cx", function(d) { return x(d.year); })       
             .attr("cy", function(d) { return(isNaN(d.value)?y(0):y(d.value)); })
             .style("fill", function(d){ return d.value != ""? "crimson":"grey";})
@@ -491,7 +462,7 @@ div.tooltip {
         svg.selectAll("dot")    
             .data(region_data)         
             .enter().append("circle")                               
-            .attr("r", 2.5)       
+            .attr("r", 3)       
             .attr("cx", function(d) { return x(d.year); })       
             .attr("cy", function(d) { return(isNaN(d.value)?y(0):y(d.value)); })
             .style("fill", function(d){ return d.value != ""? "orange":"grey";})
@@ -512,7 +483,7 @@ div.tooltip {
         svg.selectAll("dot")    
             .data(data)         
             .enter().append("circle")                               
-            .attr("r", 2.5)       
+            .attr("r", 3)       
             .attr("cx", function(d) { return x(d.year); })       
             .attr("cy", function(d) { return (isNaN(d.value)?y(0):y(d.value)); })
             .style("fill", function(d){ return d.value != ""? "steelblue":"grey";})

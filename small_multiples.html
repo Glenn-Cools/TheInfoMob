@@ -52,14 +52,7 @@ div.tooltip {
 
 .line {
     fill: none;
-    stroke: steelblue;
     stroke-width: 1.5px;
-}
-
-.area {
-    fill: lightsteelblue;
-     opacity: 0.5;
-     stroke-width: 0;
 }
 
 </style>
@@ -262,12 +255,21 @@ div.tooltip {
     })
 
     //OWN TOOLTIP, look for bookmark and d3.mouse()
-    //REVIEW PARSE DATA!!
 
-    function getData(dataset,key){
+    function getDataCountry(dataset,country_code){
         var result =[];
         for(var i=0; i<dataset.length;i++){
-            if(dataset[i].series_code == key){
+            if(dataset[i].country_code == country_code){
+                result.push(dataset[i]);
+            } 
+        }
+        return result;
+    }
+
+    function getDataSeries(dataset,series_code){
+        var result =[];
+        for(var i=0; i<dataset.length;i++){
+            if(dataset[i].series_code == series_code){
                 result.push(dataset[i]);
             } 
         }
@@ -286,10 +288,22 @@ div.tooltip {
         return result;
     }
 
-    function getRegion(Country_Metadata, country_code){
-        for (var i=0; i<(Country_Metadata.length);i++){
-            if (country_code==Country_Metadata[i].CountryCode){
-                return Country_Metadata[i].Region;
+    function getAllRegions(dataset){
+
+        var result = [];
+        for(var i=0; i<(dataset.length);i++){
+            if(dataset[i].series_code=="SP.POP.GROW"){
+                result.push({region_name : dataset[i].country_name, region_code: dataset[i].country_code});
+            }
+        }
+
+        return result;
+    }
+
+    function getRegionCode(country_metadata, country_code){
+        for (var i=0; i<(country_metadata.length);i++){
+            if (country_code==country_metadata[i].Country_Code){
+                return country_metadata[i].Region_Code;
             }
         }
     }
@@ -314,46 +328,95 @@ div.tooltip {
             sessionStorage.setItem("series_code","SP.POP.GROW");
         }
 
+        region_code = sessionStorage.getItem("region_code");
+
+        if(region_code === null){
+            region_code ="WLD";
+            sessionStorage.setItem("region_code","WLD");
+        }
+
+
         //default vis
-        smallMultiplesKey(dataset,country_metadata,aggregate_data,default_code,container); // 2015 always NA, mss vermelden of niet visualiseren
+        smallMultiplesKey(dataset,country_metadata,aggregate_data,default_code,region_code,container); // 2015 always NA, mss vermelden of niet visualiseren
 
         keys = getAllCodes(dataset);
 
-        var dropdown = d3.select(container).select("#keySelector").append("select")
+        var dropdown_series = d3.select(container).select("#keySelector").append("select")
                             .attr("name", "key_list")
                             .on("change", function(){   sessionStorage.setItem("series_code",this.value);
                                                         d3.select(container).select("#vis").selectAll("svg").remove();
-                                                        smallMultiplesKey(dataset,country_metadata,aggregate_data,this.value,container); });
+                                                        smallMultiplesKey(dataset,country_metadata,aggregate_data,this.value,sessionStorage.getItem("region_code"),container); });
 
-        var options = dropdown.selectAll("option")
+        var options_series = dropdown_series.selectAll("option")
                         .data(keys)
                         .enter()
                         .append("option")
                         .property("selected",function(d){ return ((d.series_code === default_code) ? "selected" : "");});
 
 
-        options.text(function(d){ return d.series_name; })
+        options_series.text(function(d){ return d.series_name; })
                 .attr("value", function (d){ return d.series_code; });
+
+        regions = getAllRegions(aggregate_data);
+
+        var dropdown_region = d3.select(container).select("#keySelector").append("select")
+                            .attr("name", "key_list")
+                            .on("change", function(){   sessionStorage.setItem("region_code",this.value);
+                                                        d3.select(container).select("#vis").selectAll("svg").remove();
+                                                        smallMultiplesKey(dataset,country_metadata,aggregate_data,sessionStorage.getItem("series_code"),this.value,container); });
+
+        var options_region = dropdown_region.selectAll("option")
+                        .data(regions)
+                        .enter()
+                        .append("option")
+                        .property("selected",function(d){ return ((d.region_code === region_code) ? "selected" : "");});
+
+
+        options_region.text(function(d){ return d.region_name; })
+                .attr("value", function (d){ return d.region_code; });
 
 
     }
 
-    function smallMultiplesKey(data,country_metadata,aggregate_data,key,container){
+    function smallMultiplesKey(data,country_metadata,aggregate_data,series,region,container){
 
         var color = d3.scale.category10();
 
-        var dataset = getData(data,key);
+        var dataset = getDataSeries(data,series);
 
-        var world_data = getData(aggregate_data,"WLD");
+        var world_data = getDataCountry(getDataSeries(aggregate_data,series),"WLD");
+
+        var region_data =  getDataCountry(aggregate_data, region);
+        var region_series_data = ((region == "WLD")? [null] : getDataSeries(region_data,series));
 
         for(var i=0;i<dataset.length;i++){
-            smallMultiplesChart(dataset[i],world_data,container,color(i%10));
+                if(getRegionCode(country_metadata,dataset[i].country_code)==region || region =="WLD"){
+                    smallMultiplesChart(dataset[i],world_data[0],region_series_data[0],container,color(i%10),dataset);
+                }
         }
     }
 
-    function smallMultiplesChart(dataset,world_data,container,color){
+    function getAllYears(data){
+        result = []
+        for(var i = 0;i<data.length;i++){
+            for(var j =0;j<data[i].years.length;j++){
+                result.push(data[i].years[j])
+            }
+        }
 
-        var data = dataset.years
+        return result;
+    }
+
+    function smallMultiplesChart(dataset,world_series_data,region_series_data,container,color,alldata){
+
+        var all_data = getAllYears(alldata);
+
+        var data = dataset.years;
+        var world_data = world_series_data.years;
+        
+        if(region_series_data != null){
+            var region_data = region_series_data.years;
+        }
 
         var formatTime = d3.time.format("%Y");
 
@@ -366,7 +429,7 @@ div.tooltip {
             .range([margin.left, width-margin.right]);
 
         var y = d3.scale.linear()
-            .domain(d3.extent(data,function(d){ return d.value;}))
+            .domain(d3.extent(all_data,function(d){ return d.value;}))
             .range([height-margin.bottom, margin.top]);
 
         var xAxis = d3.svg.axis()
@@ -379,12 +442,12 @@ div.tooltip {
 
         var line = d3.svg.line()
             .x(function(d) {return x(d.year); })
-            .y(function(d) {return y(d.value); });
+            .y(function(d) {return (isNaN(d.value)?y(0):y(d.value)); });
 
         var area = d3.svg.area()
             .x(function(d) { return x(d.year); })
             .y0(y(0))
-            .y1(function(d) { return y(d.value); });
+            .y1(function(d) { return (isNaN(d.value)?y(0):y(d.value)); });
 
         var svg = d3.select(container).select("#vis").append("svg")
             .attr("id", dataset.country_code)
@@ -404,14 +467,24 @@ div.tooltip {
             .style("opacity", 0);
 
         svg.append("path")
-            .datum(data)
-            .attr("class", "area")
-            .attr("d", area);
+            .datum(world_data)
+            .attr("class", "line")
+            .attr("d", line)
+            .style("stroke","crimson");
+
+        if(region_series_data != null){
+            svg.append("path")
+                .datum(region_data)
+                .attr("class", "line")
+                .attr("d", line)
+                .style("stroke","orange");
+        }
 
         svg.append("path")
             .datum(data)
             .attr("class","line")
-            .attr("d", line);
+            .attr("d", line)
+            .style("stroke","steelblue");
 
         svg.append("g")
             .attr("class", "x axis")
@@ -434,17 +507,61 @@ div.tooltip {
             .text(dataset.country_name);
 
         svg.selectAll("dot")    
+            .data(world_data)         
+            .enter().append("circle")                               
+            .attr("r", 3)       
+            .attr("cx", function(d) { return x(d.year); })       
+            .attr("cy", function(d) { return(isNaN(d.value)?y(0):y(d.value)); })
+            .style("fill", function(d){ return d.value != ""? "crimson":"grey";})
+            .on("mouseover", function(d) {      
+                div.transition()        
+                    .duration(200)      
+                    .style("opacity", .9);      
+                div.html(function(){return ((isNaN(d.value)||d.value=="")?("Year: " + formatTime(d.year) + "<br/>"  + "NO DATA"):("Year: " + formatTime(d.year) + "<br/>"  + "Value: " + d.value));})
+                    .style("left", (d3.event.pageX) + "px")     
+                    .style("top", (d3.event.pageY - 28) + "px");
+            })                  
+            .on("mouseout", function(d) {       
+                div.transition()        
+                    .duration(500)      
+                    .style("opacity", 0);
+            });
+
+        if(region_series_data != null){
+            svg.selectAll("dot")    
+                .data(region_data)         
+                .enter().append("circle")                               
+                .attr("r", 3)       
+                .attr("cx", function(d) { return x(d.year); })       
+                .attr("cy", function(d) { return(isNaN(d.value)?y(0):y(d.value)); })
+                .style("fill", function(d){ return d.value != ""? "orange":"grey";})
+                .on("mouseover", function(d) {      
+                    div.transition()        
+                        .duration(200)      
+                        .style("opacity", .9);      
+                    div.html(function(){return ((isNaN(d.value)||d.value=="")?("Year: " + formatTime(d.year) + "<br/>"  + "NO DATA"):("Year: " + formatTime(d.year) + "<br/>"  + "Value: " + d.value));})
+                        .style("left", (d3.event.pageX) + "px")     
+                        .style("top", (d3.event.pageY - 28) + "px");
+                })                  
+                .on("mouseout", function(d) {       
+                    div.transition()        
+                        .duration(500)      
+                        .style("opacity", 0);
+                });
+        }
+
+        svg.selectAll("dot")    
             .data(data)         
             .enter().append("circle")                               
-            .attr("r", 2.5)       
+            .attr("r", 3)       
             .attr("cx", function(d) { return x(d.year); })       
-            .attr("cy", function(d) { return y(d.value); })
+            .attr("cy", function(d) { return (isNaN(d.value)?y(0):y(d.value)); })
             .style("fill", function(d){ return d.value != ""? "steelblue":"grey";})
             .on("mouseover", function(d) {      
                 div.transition()        
                     .duration(200)      
                     .style("opacity", .9);      
-                div.html(function(){return (d.value != "")?("Year: " + formatTime(d.year) + "<br/>"  + "Value: " + d.value):("Year: " + formatTime(d.year) + "<br/>"  + "NO DATA");})
+                div.html(function(){return ((isNaN(d.value)||d.value=="")?("Year: " + formatTime(d.year) + "<br/>"  + "NO DATA"):("Year: " + formatTime(d.year) + "<br/>"  + "Value: " + d.value));})
                     .style("left", (d3.event.pageX) + "px")     
                     .style("top", (d3.event.pageY - 28) + "px");
             })                  
@@ -455,114 +572,6 @@ div.tooltip {
             });
 
     }
-
-/*
-    function flowChartListeners(title, artist){
-        listenersFlow = getListenersFlowForSong(dataList,title,artist);
-
-        var margin = {top: 20, right: 80, bottom: 20, left: 80},
-            width = 960 - margin.left - margin.right,
-            height = 100 - margin.top - margin.bottom;
-
-        var x = d3.scale.ordinal()
-            .domain(listenersFlow.map(function(d) { return mapWeekIndexToDate(d.week);}))
-            .rangeRoundBands([0, width], .1);
-
-        var yMax = d3.max(listenersFlow, function(d){return d.listeners;})
-
-        var y = d3.scale.linear()
-            .domain([0, 1.5*yMax])
-            .range([height, 0]);
-
-        var xAxis = d3.svg.axis()
-            .scale(x)
-            .orient("bottom");
-
-        var yAxis = d3.svg.axis()
-            .scale(y)
-            .orient("left")
-            .ticks(6, "%");
-
-        var checkListenersData = function(listeners){
-            return listeners != null;
-        }
-
-        var tip = d3.tip()
-            .attr('class', 'd3-tip')
-            .offset([-10, 0])
-            .html(function(d) { if(checkListenersData(d.listeners)){
-                return "<strong>Listeners:</strong> <span style='color:orange'>" + d.listeners + "</span>";
-            } else{
-                return "<strong>Listeners:</strong> <span style='color:orange'>" + "NO DATA" + "</span>";
-            }
-                })
-
-        var svg = d3.select("#FlowChart").append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-        svg.call(tip);
-
-        svg.append("g")
-            .attr("class", "x axis")
-            .attr("transform", "translate(0," + height + ")")
-            .call(xAxis);
-
-        svg.append("g")
-            .attr("class", "y axis")
-            .call(yAxis)
-            .append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("y", 6)
-            .attr("dy", ".71em")
-            .style("text-anchor", "end")
-            .text("Listeners");
-
-        svg.append("text")
-            .attr("x", (width / 2))             
-            .attr("y", margin.top/2)
-            .attr("text-anchor", "middle")  
-            .style("font-size", "16px")
-            .text(title + " - " + artist);
-
-        svg.selectAll(".bar")
-            .data(listenersFlow)
-            .enter().append("rect")
-            .attr("class", "bar")
-            .attr("x", function(d) { return x(d.week); })
-            .attr("width", x.rangeBand())
-            .attr("y", function(d) { if(checkListenersData(d.listeners)){
-                return y(d.listeners);
-            }else{return y(yMax);}
-            })
-            .attr("height", function(d) {if(checkListenersData(d.listeners)){
-                return height - y(d.listeners);}
-                else{return height- y(yMax);} })
-            .style("fill",function(d){if(checkListenersData(d.listeners)){return "#006d2c";
-            }else{return "#ffffff";}
-            })
-            .on('mouseover', function(d){
-                d3.select(this)
-                .attr("height",function(d) {if(checkListenersData(d.listeners)){
-                        return height - y(d.listeners);}
-                    else{return height-y(yMax);} })
-                .style("fill", "#009CCC");
-                tip.show(d);
-                
-            })
-            .on('mouseout', function(d){
-                d3.select(this)
-                .attr("height",function(d) {if(checkListenersData(d.listeners)){
-                        return height - y(d.listeners);}
-                    else{return height-y(yMax);} })
-                .style("fill",function(d){if(checkListenersData(d.listeners)){return "#006d2c";
-                    }else{return "#ffffff";}
-                });
-                tip.hide(d);
-            });
-    }*/
 
     </script>
 

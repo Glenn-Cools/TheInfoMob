@@ -1,10 +1,10 @@
-Country_Code,Country_Name,Region,Region_code
+Country_Code,Country_Name,Region,Region_Code
 AFG,Afghanistan,South Asia,SAS
 DZA,Algeria,Middle East & North Africa,MEA
 ALB,Albania,Europe & Central Asia,ECS
 ASM,American SASmoa,East Asia & Pacific,EAS
 ADO,Andorra,Europe & Central Asia,ECS
-AGO,Angola,Sub-SASharan Africa,SSFS
+AGO,Angola,Sub-Saharan Africa,SSF
 ATG,Antigua and Barbuda,Latin America & Caribbean,LCN
 ARG,Argentina,Latin America & Caribbean,LCN
 ARM,Armenia,Europe & Central Asia,ECS
@@ -12,40 +12,40 @@ ABW,Aruba,Latin America & Caribbean,LCN
 AUS,Australia,East Asia & Pacific,EAS
 AUT,Austria,Europe & Central Asia,ECS
 AZE,Azerbaijan,Europe & Central Asia,ECS
-BHS,Bahamas, The,Latin America & Caribbean,LCN
+BHS,"Bahamas, The",Latin America & Caribbean,LCN
 BHR,Bahrain,Middle East & North Africa,MEA
 BGD,Bangladesh,South Asia,SAS
 BRB,Barbados,Latin America & Caribbean,LCN
 BLR,Belarus,Europe & Central Asia,ECS
 BEL,Belgium,Europe & Central Asia,ECS
 BLZ,Belize,Latin America & Caribbean,LCN
-BEN,Benin,Sub-SASharan Africa,SSFS
+BEN,Benin,Sub-Saharan Africa,SSF
 BMU,Bermuda,North America,NAC
 BTN,Bhutan,South Asia,SAS
 BOL,Bolivia,Latin America & Caribbean,LCN
 BIH,Bosnia and Herzegovina,Europe & Central Asia,ECS
-BWA,Botswana,Sub-SASharan Africa,SSFS
+BWA,Botswana,Sub-Saharan Africa,SSF
 BRA,Brazil,Latin America & Caribbean,LCN
-BRN,Brunei DaruSSFSlam,East Asia & Pacific,EAS
+BRN,Brunei DaruSSFlam,East Asia & Pacific,EAS
 BGR,Bulgaria,Europe & Central Asia,ECS
-BFA,Burkina Faso,Sub-SASharan Africa,SSFS
-BDI,Burundi,Sub-SASharan Africa,SSFS
-CPV,Cabo Verde,Sub-SASharan Africa,SSFS
+BFA,Burkina Faso,Sub-Saharan Africa,SSF
+BDI,Burundi,Sub-Saharan Africa,SSF
+CPV,Cabo Verde,Sub-Saharan Africa,SSF
 KHM,Cambodia,East Asia & Pacific,EAS
-CMR,Cameroon,Sub-SASharan Africa,SSFS
+CMR,Cameroon,Sub-Saharan Africa,SSF
 CAN,Canada,North America,NAC
 CYM,Cayman Islands,Latin America & Caribbean,LCN
-CAF,Central African Republic,Sub-SASharan Africa,SSFS
-TCD,Chad,Sub-SASharan Africa,SSFS
+CAF,Central African Republic,Sub-Saharan Africa,SSF
+TCD,Chad,Sub-Saharan Africa,SSF
 CHI,Channel Islands,Europe & Central Asia,ECS
 CHL,Chile,Latin America & Caribbean,LCN
 CHN,China,East Asia & Pacific,EAS
 COL,Colombia,Latin America & Caribbean,LCN
-COM,Comoros,Sub-SASharan Africa,SSFS
-ZAR,Congo, Dem. Rep.,Sub-SASharan Africa,SSFS
-COG,Congo, Rep.,Sub-SASharan Africa,SSFS
+COM,Comoros,Sub-Saharan Africa,SSF
+ZAR,"Congo, Dem. Rep.",Sub-Saharan Africa,SSF
+COG,"Congo, Rep.",Sub-Saharan Africa,SSF
 CRI,Costa Rica,Latin America & Caribbean,LCN
-CIV,C?te d'Ivoire,Sub-SASharan Africa,SSFS
+CIV,Cote d'Ivoire,Sub-Saharan Africa,SSF
 HRV,Croatia,Europe & Central Asia,ECS
 CUB,Cuba,Latin America & Caribbean,LCN
 CUW,Curaçao,Latin America & Caribbean,LCN
@@ -56,38 +56,38 @@ DJI,Djibouti,Middle East & North Africa,MEA
 DMA,Dominica,Latin America & Caribbean,LCN
 DOM,Dominican Republic,Latin America & Caribbean,LCN
 ECU,Ecuador,Latin America & Caribbean,LCN
-EGY,Egypt, Arab Rep.,Middle East & North Africa,MEA
-SLV,El SASlvador,Latin America & Caribbean,LCN
-GNQ,Equatorial Guinea,Sub-SASharan Africa,SSFS
-ERI,Eritrea,Sub-SASharan Africa,SSFS
+EGY,"Egypt, Arab Rep.",Middle East & North Africa,MEA
+SLV,El Salvador,Latin America & Caribbean,LCN
+GNQ,Equatorial Guinea,Sub-Saharan Africa,SSF
+ERI,Eritrea,Sub-Saharan Africa,SSF
 EST,Estonia,Europe & Central Asia,ECS
-ETH,Ethiopia,Sub-SASharan Africa,SSFS
+ETH,Ethiopia,Sub-Saharan Africa,SSF
 FRO,Faroe Islands,Europe & Central Asia,ECS
 FJI,Fiji,East Asia & Pacific,EAS
 FIN,Finland,Europe & Central Asia,ECS
 FRA,France,Europe & Central Asia,ECS
 PYF,French Polynesia,East Asia & Pacific,EAS
-GAB,Gabon,Sub-SASharan Africa,SSFS
-GMB,Gambia, The,Sub-SASharan Africa,SSFS
+GAB,Gabon,Sub-Saharan Africa,SSF
+GMB,"Gambia, The",Sub-Saharan Africa,SSF
 GEO,Georgia,Europe & Central Asia,ECS
 DEU,Germany,Europe & Central Asia,ECS
-GHA,Ghana,Sub-SASharan Africa,SSFS
+GHA,Ghana,Sub-Saharan Africa,SSF
 GRC,Greece,Europe & Central Asia,ECS
 GRL,Greenland,Europe & Central Asia,ECS
 GRD,Grenada,Latin America & Caribbean,LCN
 GUM,Guam,East Asia & Pacific,EAS
 GTM,Guatemala,Latin America & Caribbean,LCN
-GIN,Guinea,Sub-SASharan Africa,SSFS
-GNB,Guinea-BiSSFSu,Sub-SASharan Africa,SSFS
+GIN,Guinea,Sub-Saharan Africa,SSF
+GNB,Guinea-BiSSFu,Sub-Saharan Africa,SSF
 GUY,Guyana,Latin America & Caribbean,LCN
 HTI,Haiti,Latin America & Caribbean,LCN
 HND,Honduras,Latin America & Caribbean,LCN
-HKG,Hong Kong SASR, China,East Asia & Pacific,EAS
+HKG,"Hong Kong SAR, China",East Asia & Pacific,EAS
 HUN,Hungary,Europe & Central Asia,ECS
 ISL,Iceland,Europe & Central Asia,ECS
 IND,India,South Asia,SAS
 IDN,Indonesia,East Asia & Pacific,EAS
-IRN,Iran, Islamic Rep.,Middle East & North Africa,MEA
+IRN,"Iran, Islamic Rep.",Middle East & North Africa,MEA
 IRQ,Iraq,Middle East & North Africa,MEA
 IRL,Ireland,Europe & Central Asia,ECS
 IMY,Isle of Man,Europe & Central Asia,ECS
@@ -97,50 +97,50 @@ JAM,Jamaica,Latin America & Caribbean,LCN
 JPN,Japan,East Asia & Pacific,EAS
 JOR,Jordan,Middle East & North Africa,MEA
 KAZ,Kazakhstan,Europe & Central Asia,ECS
-KEN,Kenya,Sub-SASharan Africa,SSFS
+KEN,Kenya,Sub-Saharan Africa,SSF
 KIR,Kiribati,East Asia & Pacific,EAS
-PRK,Korea, Dem. People's Rep.,East Asia & Pacific,EAS
-KOR,Korea, Rep.,East Asia & Pacific,EAS
+PRK,"Korea, Dem. People's Rep.",East Asia & Pacific,EAS
+KOR,"Korea, Rep.",East Asia & Pacific,EAS
 KSV,Kosovo,Europe & Central Asia,ECS
 KWT,Kuwait,Middle East & North Africa,MEA
 KGZ,Kyrgyz Republic,Europe & Central Asia,ECS
 LAO,Lao PDR,East Asia & Pacific,EAS
 LVA,Latvia,Europe & Central Asia,ECS
 LBN,Lebanon,Middle East & North Africa,MEA
-LSO,Lesotho,Sub-SASharan Africa,SSFS
-LBR,Liberia,Sub-SASharan Africa,SSFS
+LSO,Lesotho,Sub-Saharan Africa,SSF
+LBR,Liberia,Sub-Saharan Africa,SSF
 LBY,Libya,Middle East & North Africa,MEA
 LIE,Liechtenstein,Europe & Central Asia,ECS
 LTU,Lithuania,Europe & Central Asia,ECS
 LUX,Luxembourg,Europe & Central Asia,ECS
-MAC,Macao SASR, China,East Asia & Pacific,EAS
-MKD,Macedonia, FYR,Europe & Central Asia,ECS
-MDG,Madagascar,Sub-SASharan Africa,SSFS
-MWI,Malawi,Sub-SASharan Africa,SSFS
+MAC,"Macao SAR, China",East Asia & Pacific,EAS
+MKD,"Macedonia, FYR",Europe & Central Asia,ECS
+MDG,Madagascar,Sub-Saharan Africa,SSF
+MWI,Malawi,Sub-Saharan Africa,SSF
 MYS,Malaysia,East Asia & Pacific,EAS
 MDV,Maldives,South Asia,SAS
-MLI,Mali,Sub-SASharan Africa,SSFS
+MLI,Mali,Sub-Saharan Africa,SSF
 MLT,Malta,Middle East & North Africa,MEA
 MHL,Marshall Islands,East Asia & Pacific,EAS
-MRT,Mauritania,Sub-SASharan Africa,SSFS
-MUS,Mauritius,Sub-SASharan Africa,SSFS
+MRT,Mauritania,Sub-Saharan Africa,SSF
+MUS,Mauritius,Sub-Saharan Africa,SSF
 MEX,Mexico,Latin America & Caribbean,LCN
-FSM,Micronesia, Fed. Sts.,East Asia & Pacific,EAS
+FSM,"Micronesia, Fed. Sts.",East Asia & Pacific,EAS
 MDA,Moldova,Europe & Central Asia,ECS
 MCO,Monaco,Europe & Central Asia,ECS
 MNG,Mongolia,East Asia & Pacific,EAS
 MNE,Montenegro,Europe & Central Asia,ECS
 MAR,Morocco,Middle East & North Africa,MEA
-MOZ,Mozambique,Sub-SASharan Africa,SSFS
+MOZ,Mozambique,Sub-Saharan Africa,SSF
 MMR,Myanmar,East Asia & Pacific,EAS
-NAC,NACibia,Sub-SASharan Africa,SSFS
+NAM,Namibia,Sub-Saharan Africa,SSF
 NPL,Nepal,South Asia,SAS
 NLD,Netherlands,Europe & Central Asia,ECS
 NCL,New Caledonia,East Asia & Pacific,EAS
 NZL,New Zealand,East Asia & Pacific,EAS
 NIC,Nicaragua,Latin America & Caribbean,LCN
-NER,Niger,Sub-SASharan Africa,SSFS
-NGA,Nigeria,Sub-SASharan Africa,SSFS
+NER,Niger,Sub-Saharan Africa,SSF
+NGA,Nigeria,Sub-Saharan Africa,SSF
 MNP,Northern Mariana Islands,East Asia & Pacific,EAS
 NOR,Norway,Europe & Central Asia,ECS
 OMN,Oman,Middle East & North Africa,MEA
@@ -157,40 +157,40 @@ PRI,Puerto Rico,Latin America & Caribbean,LCN,
 QAT,Qatar,Middle East & North Africa,MEA
 ROM,Romania,Europe & Central Asia,ECS
 RUS,Russian Federation,Europe & Central Asia,ECS
-RWA,Rwanda,Sub-SASharan Africa,SSFS
-WSM,SASmoa,East Asia & Pacific,EAS
-SMR,SASn Marino,Europe & Central Asia,ECS
-STP,S?o Tom? and Principe,Sub-SASharan Africa,SSFS
-SASU,SASudi Arabia,Middle East & North Africa,MEA
-SEN,Senegal,Sub-SASharan Africa,SSFS
+RWA,Rwanda,Sub-Saharan Africa,SSF
+WSM,Samoa,East Asia & Pacific,EAS
+SMR,San Marino,Europe & Central Asia,ECS
+STP,Sao Tome and Principe,Sub-Saharan Africa,SSF
+SAU,Saudi Arabia,Middle East & North Africa,MEA
+SEN,Senegal,Sub-Saharan Africa,SSF
 SRB,Serbia,Europe & Central Asia,ECS
-SYC,Seychelles,Sub-SASharan Africa,SSFS
-SLE,Sierra Leone,Sub-SASharan Africa,SSFS
+SYC,Seychelles,Sub-Saharan Africa,SSF
+SLE,Sierra Leone,Sub-Saharan Africa,SSF
 SGP,Singapore,East Asia & Pacific,EAS
 SXM,Sint Maarten (Dutch part),Latin America & Caribbean,LCN
 SVK,Slovak Republic,Europe & Central Asia,ECS
 SVN,Slovenia,Europe & Central Asia,ECS
 SLB,Solomon Islands,East Asia & Pacific,EAS
-SOM,Somalia,Sub-SASharan Africa,SSFS
-ZAF,South Africa,Sub-SASharan Africa,SSFS
-SSD,South Sudan,Sub-SASharan Africa,SSFS
+SOM,Somalia,Sub-Saharan Africa,SSF
+ZAF,South Africa,Sub-Saharan Africa,SSF
+SSD,South Sudan,Sub-Saharan Africa,SSF
 ESP,Spain,Europe & Central Asia,ECS
 LKA,Sri Lanka,South Asia,SAS
 KNA,St. Kitts and Nevis,Latin America & Caribbean,LCN
 LCA,St. Lucia,Latin America & Caribbean,LCN
 MAF,St. Martin (French part),Latin America & Caribbean,LCN
 VCT,St. Vincent and the Grenadines,Latin America & Caribbean,LCN
-SDN,Sudan,Sub-SASharan Africa,SSFS
+SDN,Sudan,Sub-Saharan Africa,SSF
 SUR,SuriNACe,Latin America & Caribbean,LCN
-SWZ,Swaziland,Sub-SASharan Africa,SSFS
+SWZ,Swaziland,Sub-Saharan Africa,SSF
 SWE,Sweden,Europe & Central Asia,ECS
 CHE,Switzerland,Europe & Central Asia,ECS
 SYR,Syrian Arab Republic,Middle East & North Africa,MEA
 TJK,Tajikistan,Europe & Central Asia,ECS
-TZA,Tanzania,Sub-SASharan Africa,SSFS
+TZA,Tanzania,Sub-Saharan Africa,SSF
 THA,Thailand,East Asia & Pacific,EAS
 TMP,Timor-Leste,East Asia & Pacific,EAS
-TGO,Togo,Sub-SASharan Africa,SSFS
+TGO,Togo,Sub-Saharan Africa,SSF
 TON,Tonga,East Asia & Pacific,EAS
 TTO,Trinidad and Tobago,Latin America & Caribbean,LCN
 TUN,Tunisia,Middle East & North Africa,MEA
@@ -198,18 +198,18 @@ TUR,Turkey,Europe & Central Asia,ECS
 TKM,Turkmenistan,Europe & Central Asia,ECS
 TCA,Turks and Caicos Islands,Latin America & Caribbean,LCN
 TUV,Tuvalu,East Asia & Pacific,EAS
-UGA,Uganda,Sub-SASharan Africa,SSFS
+UGA,Uganda,Sub-Saharan Africa,SSF
 UKR,Ukraine,Europe & Central Asia,ECS
 ARE,United Arab Emirates,Middle East & North Africa,MEA
 GBR,United Kingdom,Europe & Central Asia,ECS
-USAS,United States,North America,NAC
+USA,United States,North America,NAC
 URY,Uruguay,Latin America & Caribbean,LCN
 UZB,Uzbekistan,Europe & Central Asia,ECS
 VUT,Vanuatu,East Asia & Pacific,EAS
-VEN,Venezuela, RB,Latin America & Caribbean,LCN
-VNM,VietNAC,East Asia & Pacific,EAS
+VEN,"Venezuela, RB",Latin America & Caribbean,LCN
+VNM,VietNam,East Asia & Pacific,EAS
 VIR,Virgin Islands (U.S.),Latin America & Caribbean,LCN
 WBG,West Bank and Gaza,Middle East & North Africa,MEA
-YEM,Yemen, Rep.,Middle East & North Africa,MEA
-ZMB,Zambia,Sub-SASharan Africa,SSFS
-ZWE,Zimbabwe,Sub-SASharan Africa,SSFS
+YEM,"Yemen, Rep.",Middle East & North Africa,MEA
+ZMB,Zambia,Sub-Saharan Africa,SSF
+ZWE,Zimbabwe,Sub-Saharan Africa,SSF
