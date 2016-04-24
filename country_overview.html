@@ -29,7 +29,8 @@
 #legend{
     position: fixed;
     z-index:1;
-    left:50%;
+    left:20px;
+    top:20px;
     font-weight: bold;
     background:white;
 }
@@ -82,10 +83,10 @@ div.tooltip {
 
     
 
-	<script type="text/javascript" src="d3/d3.js"></script>
+    <script type="text/javascript" src="d3/d3.js"></script>
     <script type="text/javascript" src="js/lodash.min.js"></script>
 
-	<script> 
+    <script> 
 
     d3.csv("/TheInfoMob/Data/Country_Metadata.csv", function(error, Country_Metadata){
         d3.csv("/TheInfoMob/Data/Aggregate_Data.csv",function(d){
@@ -323,11 +324,6 @@ div.tooltip {
                                                         d3.select(container).select("#vis").selectAll("svg").remove();
                                                         CountryOverviewKey(dataset,country_metadata,aggregate_data,this.value,container); });
 
-        legend = d3.select(container).select("#legend")
-        .append("text").style("color", "steelblue").text("Country")
-        .append("text").style("color", "orange").text("  Region")
-        .append("text").style("color", "crimson").text("  World");
-
         var options = dropdown.selectAll("option")
                         .data(keys)
                         .enter()
@@ -338,7 +334,10 @@ div.tooltip {
         options.text(function(d){ return d.country_name; })
                 .attr("value", function (d){ return d.country_code; });
 
-
+        legend = d3.select(container).select("#legend")
+        .append("text").style("color", "steelblue").text("Country")
+        .append("text").style("color", "orange").text("  Region")
+        .append("text").style("color", "crimson").text("  World");
     }
 
     function CountryOverviewKey(data,country_metadata,aggregate_data,key,container){

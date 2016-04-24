@@ -26,6 +26,15 @@
     z-index: 1
 }
 
+#legend{
+    position: fixed;
+    z-index:1;
+    left:20px;
+    top:20px;
+    font-weight: bold;
+    background:white;
+}
+
 .axis {
     font: 10px sans-serif;
 }
@@ -62,10 +71,12 @@ div.tooltip {
     <div id="defaultText" align="center">The data is being loaded.<br>Please wait.</div>
     <div id="smallMultiples1">
         <div id="keySelector"></div>
+        <div id="legend"></div>
         <div id="vis"></div>
     </div>
     <div id="smallMultiples2">
         <div id="keySelector"></div>
+        <div id="legend"></div>
         <div id="vis"></div>
     </div>
 
@@ -352,7 +363,6 @@ div.tooltip {
                         .append("option")
                         .property("selected",function(d){ return ((d.series_code === default_code) ? "selected" : "");});
 
-
         options_series.text(function(d){ return d.series_name; })
                 .attr("value", function (d){ return d.series_code; });
 
@@ -362,6 +372,9 @@ div.tooltip {
                             .attr("name", "key_list")
                             .on("change", function(){   sessionStorage.setItem("region_code",this.value);
                                                         d3.select(container).select("#vis").selectAll("svg").remove();
+                                                        d3.select(container).select("#legend").selectAll("text").remove();
+                                                        drawlegend(sessionStorage.getItem("region_code"),container);
+                                                        console.log(sessionStorage.getItem("region_code"));
                                                         smallMultiplesKey(dataset,country_metadata,aggregate_data,sessionStorage.getItem("series_code"),this.value,container); });
 
         var options_region = dropdown_region.selectAll("option")
@@ -370,11 +383,23 @@ div.tooltip {
                         .append("option")
                         .property("selected",function(d){ return ((d.region_code === region_code) ? "selected" : "");});
 
-
         options_region.text(function(d){ return d.region_name; })
                 .attr("value", function (d){ return d.region_code; });
 
+        drawlegend(sessionStorage.getItem("region_code"), container);
+    }
 
+    function drawlegend(region, container){
+        if (region == "WLD"){
+            legend = d3.select(container).select("#legend")
+            .append("text").style("color", "steelblue").text("Country")
+            .append("text").style("color", "crimson").text(" World");
+        } else {
+            legend = d3.select(container).select("#legend")
+            .append("text").style("color", "steelblue").text("Country")
+            .append("text").style("color", "orange").text(" Region")
+            .append("text").style("color", "crimson").text(" World");
+        }
     }
 
     function smallMultiplesKey(data,country_metadata,aggregate_data,series,region,container){
