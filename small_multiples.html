@@ -30,9 +30,12 @@
     position: fixed;
     z-index:1;
     left:20px;
-    top:20px;
-    font-weight: bold;
+    top:25px;
     background:white;
+    border:solid;
+    border-width: 0.5px;
+    border-color: #b6b6b6;
+    padding-right: 2px;
 }
 
 .axis {
@@ -355,6 +358,8 @@ div.tooltip {
                             .attr("name", "key_list")
                             .on("change", function(){   sessionStorage.setItem("series_code",this.value);
                                                         d3.select(container).select("#vis").selectAll("svg").remove();
+                                                        d3.select(container).select("#legend").selectAll("text").remove();
+                                                        d3.select(container).select("#legend").selectAll("svg").remove();
                                                         smallMultiplesKey(dataset,country_metadata,aggregate_data,this.value,sessionStorage.getItem("region_code"),container); });
 
         var options_series = dropdown_series.selectAll("option")
@@ -373,8 +378,7 @@ div.tooltip {
                             .on("change", function(){   sessionStorage.setItem("region_code",this.value);
                                                         d3.select(container).select("#vis").selectAll("svg").remove();
                                                         d3.select(container).select("#legend").selectAll("text").remove();
-                                                        drawlegend(sessionStorage.getItem("region_code"),container);
-                                                        console.log(sessionStorage.getItem("region_code"));
+                                                        d3.select(container).select("#legend").selectAll("svg").remove();
                                                         smallMultiplesKey(dataset,country_metadata,aggregate_data,sessionStorage.getItem("series_code"),this.value,container); });
 
         var options_region = dropdown_region.selectAll("option")
@@ -385,22 +389,9 @@ div.tooltip {
 
         options_region.text(function(d){ return d.region_name; })
                 .attr("value", function (d){ return d.region_code; });
-
-        drawlegend(sessionStorage.getItem("region_code"), container);
     }
 
-    function drawlegend(region, container){
-        if (region == "WLD"){
-            legend = d3.select(container).select("#legend")
-            .append("text").style("color", "steelblue").text("Country")
-            .append("text").style("color", "crimson").text(" World");
-        } else {
-            legend = d3.select(container).select("#legend")
-            .append("text").style("color", "steelblue").text("Country")
-            .append("text").style("color", "orange").text(" Region")
-            .append("text").style("color", "crimson").text(" World");
-        }
-    }
+
 
     function smallMultiplesKey(data,country_metadata,aggregate_data,series,region,container){
 
@@ -417,6 +408,38 @@ div.tooltip {
                 if(getRegionCode(country_metadata,dataset[i].country_code)==region || region =="WLD"){
                     smallMultiplesChart(dataset[i],world_data[0],region_series_data[0],container,color(i%10),dataset);
                 }
+        }
+
+        drawLegend(region, container);
+    }
+
+    function drawLegend(region,container){
+
+        var legend = d3.select(container).select("#legend");
+        var lineWidth = 30;
+        var lineHeight = 10;
+        var margin = 2;
+
+        for(var i=1; i<=3; i++){
+            if (i == 1) {
+                var color = "steelblue";
+                var text = "Country";
+            } else if (i == 2){
+                var color = "orange";
+                var text = "Region";
+            } else if (i == 3){
+                var color = "crimson";
+                var text = "World";
+            }
+
+            if (region == "WLD" && i == 2) {
+
+            } else {
+                var svg = legend.append("svg").attr("width", lineWidth).attr("height", lineHeight);
+                svg.append("line").attr("x1",margin).attr("x2", lineWidth-margin).attr("y1",lineHeight/2).attr("y2",lineHeight/2).attr("stroke-width", 2).attr("stroke", color);
+                svg.append("circle").attr("r", 3).attr("cx", lineWidth/2).attr("cy", lineHeight/2).style("fill", color);
+                legend.append("text").text(text);
+            }
         }
     }
 
@@ -467,11 +490,6 @@ div.tooltip {
         var line = d3.svg.line()
             .x(function(d) {return x(d.year); })
             .y(function(d) {return (isNaN(d.value)?y(0):y(d.value)); });
-
-        var area = d3.svg.area()
-            .x(function(d) { return x(d.year); })
-            .y0(y(0))
-            .y1(function(d) { return (isNaN(d.value)?y(0):y(d.value)); });
 
         var svg = d3.select(container).select("#vis").append("svg")
             .attr("id", dataset.country_code)
@@ -536,7 +554,7 @@ div.tooltip {
             .attr("r", 3)       
             .attr("cx", function(d) { return x(d.year); })       
             .attr("cy", function(d) { return(isNaN(d.value)?y(0):y(d.value)); })
-            .style("fill", function(d){ return d.value != ""? "crimson":"grey";})
+            .style("fill", function(d){ return (isNaN(d.value)||d.value=="")? "grey":"crimson";})
             .on("mouseover", function(d) {      
                 div.transition()        
                     .duration(200)      
@@ -559,7 +577,7 @@ div.tooltip {
                 .attr("r", 3)       
                 .attr("cx", function(d) { return x(d.year); })       
                 .attr("cy", function(d) { return(isNaN(d.value)?y(0):y(d.value)); })
-                .style("fill", function(d){ return d.value != ""? "orange":"grey";})
+                .style("fill", function(d){ return (isNaN(d.value)||d.value=="")? "grey":"orange";})
                 .on("mouseover", function(d) {      
                     div.transition()        
                         .duration(200)      
@@ -582,7 +600,7 @@ div.tooltip {
             .attr("r", 3)       
             .attr("cx", function(d) { return x(d.year); })       
             .attr("cy", function(d) { return (isNaN(d.value)?y(0):y(d.value)); })
-            .style("fill", function(d){ return d.value != ""? "steelblue":"grey";})
+            .style("fill", function(d){ return (isNaN(d.value)||d.value=="")? "grey":"steelblue";})
             .on("mouseover", function(d) {      
                 div.transition()        
                     .duration(200)      
