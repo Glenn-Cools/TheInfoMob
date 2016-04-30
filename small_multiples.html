@@ -229,45 +229,14 @@ div.tooltip {
                         ]
                     }
                 },function(data){
-
-                    //fix total pop for countries
-                    for(var i=0;i<data.length;i++){
-                        if(data[i].series_code=="SP.POP.TOTL"){
-                            data[i].series_name = data[i].series_name +" (In thousands)";
-                            var years = data[i].years;
-                            for(var j=0;j<years.length;j++){
-                                if(years[j].value != ""){
-                                    years[j].value = years[j].value/1000;
-                                }
-                            }
-                        }
-                    }
-
-                    //fix total pop for aggregates
-                    for(var i=0;i<Aggregate_Data.length;i++){
-                        if(Aggregate_Data[i].series_code=="SP.POP.TOTL"){
-                            Aggregate_Data[i].series_name = Aggregate_Data[i].series_name +" (In thousands)";
-                            var years = Aggregate_Data[i].years;
-                            for(var j=0;j<years.length;j++){
-                                if(years[j].value != ""){
-                                    years[j].value = years[j].value/1000;
-                                }
-                            }
-                        }
-                    }
-
-                    //console.log(getData(Aggregate_Data,"SP.POP.TOTL"))
-
+                    
                     document.getElementById("defaultText").innerHTML = "";
                     // ALL CODE INVOLVING THIS DATA COMES HERE
                     createVisualisation(data,Country_Metadata,Aggregate_Data,"#smallMultiples1");
-                    //createVisualisation(data,"#smallMultiples2");
             
             })
         })
     })
-
-    //OWN TOOLTIP, look for bookmark and d3.mouse()
 
     function getDataCountry(dataset,country_code){
         var result =[];
@@ -456,13 +425,16 @@ div.tooltip {
 
     function smallMultiplesChart(dataset,world_series_data,region_series_data,container,color,alldata){
 
-        var all_data = getAllYears(alldata);
+        var all_country_data = getAllYears(alldata);
 
         var data = dataset.years;
         var world_data = world_series_data.years;
         
         if(region_series_data != null){
             var region_data = region_series_data.years;
+            var allData = all_country_data.concat(region_data,world_data)
+        }else{
+            var allData = data.concat(world_data)
         }
 
         var formatTime = d3.time.format("%Y");
@@ -475,21 +447,37 @@ div.tooltip {
             .domain(d3.extent(data,function(d){ return d.year;}))
             .range([margin.left, width-margin.right]);
 
-        var y = d3.scale.linear()
-            .domain(d3.extent(all_data,function(d){ return d.value;}))
-            .range([height-margin.bottom, margin.top]);
+        if(dataset.series_code=="SP.POP.TOTL"){
+            var y = d3.scale.log()
+                .domain([1,d3.max(allData,function(d){return d.value;})])
+                .base(10)
+                .range([height-margin.bottom, margin.top]);
+
+            var yAxis = d3.svg.axis()
+            .scale(y)
+            .orient("left")
+            .tickFormat(function (d) {
+                return y.tickFormat(4,d3.format("s"))(d);
+            });
+            
+
+        }else{
+            var y = d3.scale.linear()
+                .domain(d3.extent(allData,function(d){ return d.value;}))
+                .range([height-margin.bottom, margin.top]);
+
+            var yAxis = d3.svg.axis()
+            .scale(y)
+            .orient("left");
+        }
 
         var xAxis = d3.svg.axis()
             .scale(x)
             .orient("bottom");
 
-         var yAxis = d3.svg.axis()
-            .scale(y)
-            .orient("left");
-
         var line = d3.svg.line()
             .x(function(d) {return x(d.year); })
-            .y(function(d) {return (isNaN(d.value)?y(0):y(d.value)); });
+            .y(function(d) {return (isNaN(d.value)||d.value=="")?(dataset.series_code=="SP.POP.TOTL"?y(1):y(0)):y(d.value); });  
 
         var svg = d3.select(container).select("#vis").append("svg")
             .attr("id", dataset.country_code)
@@ -497,6 +485,7 @@ div.tooltip {
             .attr("height", height + margin.top + margin.bottom)
             .on("click", function(){
                 sessionStorage.setItem("country_code",dataset.country_code);
+                sessionStorage.setItem("compare_code","None")
                 window.location="country_overview.html";
                 })
             .style("cursor","pointer")
@@ -530,13 +519,13 @@ div.tooltip {
 
         svg.append("g")
             .attr("class", "x axis")
-            .attr("transform", "translate(0,"+ y(0) +")")
+            .attr("transform", "translate(0,"+ (dataset.series_code=="SP.POP.TOTL"?y(1):y(0)) +")")
             .call(xAxis)
             .selectAll("text")  
                 .style("text-anchor", "end")
                 .attr("dx", "-.8em")
                 .attr("dy", ".15em")
-                .attr("transform", "translate(0,"+((height-margin.bottom)-y(0)) +")rotate(-65)");
+                .attr("transform", "translate(0,"+((height-margin.bottom)-(dataset.series_code=="SP.POP.TOTL"?y(1):y(0))) +")rotate(-65)");
 
         svg.append("g")
             .attr("class", "y axis")
@@ -553,7 +542,7 @@ div.tooltip {
             .enter().append("circle")                               
             .attr("r", 3)       
             .attr("cx", function(d) { return x(d.year); })       
-            .attr("cy", function(d) { return(isNaN(d.value)?y(0):y(d.value)); })
+            .attr("cy", function(d) { return (isNaN(d.value)||d.value=="")?(dataset.series_code=="SP.POP.TOTL"?y(1):y(0)):y(d.value); })
             .style("fill", function(d){ return (isNaN(d.value)||d.value=="")? "grey":"crimson";})
             .on("mouseover", function(d) {      
                 div.transition()        
@@ -576,7 +565,7 @@ div.tooltip {
                 .enter().append("circle")                               
                 .attr("r", 3)       
                 .attr("cx", function(d) { return x(d.year); })       
-                .attr("cy", function(d) { return(isNaN(d.value)?y(0):y(d.value)); })
+                .attr("cy", function(d) { return (isNaN(d.value)||d.value=="")?(dataset.series_code=="SP.POP.TOTL"?y(1):y(0)):y(d.value); })
                 .style("fill", function(d){ return (isNaN(d.value)||d.value=="")? "grey":"orange";})
                 .on("mouseover", function(d) {      
                     div.transition()        
@@ -599,7 +588,7 @@ div.tooltip {
             .enter().append("circle")                               
             .attr("r", 3)       
             .attr("cx", function(d) { return x(d.year); })       
-            .attr("cy", function(d) { return (isNaN(d.value)?y(0):y(d.value)); })
+            .attr("cy", function(d) { return (isNaN(d.value)||d.value=="")?(dataset.series_code=="SP.POP.TOTL"?y(1):y(0)):y(d.value); })
             .style("fill", function(d){ return (isNaN(d.value)||d.value=="")? "grey":"steelblue";})
             .on("mouseover", function(d) {      
                 div.transition()        

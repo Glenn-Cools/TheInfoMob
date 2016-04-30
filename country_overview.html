@@ -231,42 +231,14 @@ div.tooltip {
                     }
                 },function(data){
 
-                    //fix total pop for countries
-                    for(var i=0;i<data.length;i++){
-                        if(data[i].series_code=="SP.POP.TOTL"){
-                            data[i].series_name = data[i].series_name +" (In thousands)";
-                            var years = data[i].years;
-                            for(var j=0;j<years.length;j++){
-                                if(years[j].value != ""){
-                                    years[j].value = years[j].value/1000;
-                                }
-                            }
-                        }
-                    }
-
-                    //fix total pop for aggregates
-                    for(var i=0;i<Aggregate_Data.length;i++){
-                        if(Aggregate_Data[i].series_code=="SP.POP.TOTL"){
-                            Aggregate_Data[i].series_name = Aggregate_Data[i].series_name +" (In thousands)";
-                            var years = Aggregate_Data[i].years;
-                            for(var j=0;j<years.length;j++){
-                                if(years[j].value != ""){
-                                    years[j].value = years[j].value/1000;
-                                }
-                            }
-                        }
-                    }
-
                     document.getElementById("defaultText").innerHTML = "";
                     // ALL CODE INVOLVING THIS DATA COMES HERE
                     createVisualisation(data,Country_Metadata,Aggregate_Data,"#countryOverview1");
-                    //createVisualisation(data,"#smallMultiples2");
             
             })
         })
     })
 
-    //OWN TOOLTIP, look for bookmark and d3.mouse()
 
     function getDataCountry(dataset,country_code){
         var result =[];
@@ -293,7 +265,7 @@ div.tooltip {
         var result = [];
         for(var i=0; i<(dataset.length);i++){
             if(dataset[i].series_code=="SP.POP.GROW"){
-                result.push({country_name : dataset[i].country_name, country_code: dataset[i].country_code});
+                result.push({country_name : dataset[i].country_name, country_code : dataset[i].country_code});
             }
         }
         return result;
@@ -309,43 +281,73 @@ div.tooltip {
 
     function createVisualisation(dataset,country_metadata,aggregate_data,container){
 
-        default_code = sessionStorage.getItem("country_code");
+        var default_code = sessionStorage.getItem("country_code");
+        var compare_code = sessionStorage.getItem("compare_code");
 
         if(default_code === null){
             default_code ="BEL";
             sessionStorage.setItem("country_code","BEL");
         }
 
+        if(compare_code === null){
+            compare_code ="None";
+            sessionStorage.setItem("compare_code","None");
+        }
+
         //default vis
-        CountryOverviewKey(dataset,country_metadata,aggregate_data,default_code,container); // 2015 always NA, mss vermelden of niet visualiseren
+        CountryOverviewKey(dataset,country_metadata,aggregate_data,default_code,compare_code,container); // 2015 always NA, mss vermelden of niet visualiseren
 
-        keys = getAllCountries(dataset);
+        var keys = getAllCountries(dataset);
+        var keys_extra = [{country_name : "None", country_code : "None"}].concat(keys);
 
-        var dropdown = d3.select(container).select("#countrySelector").append("select")
+        var dropdown_country1 = d3.select(container).select("#countrySelector").append("select")
                             .attr("name", "key_list")
                             .on("change", function(){   sessionStorage.setItem("country_code",this.value);
                                                         d3.select(container).select("#vis").selectAll("svg").remove();
                                                         d3.select(container).select("#legend").selectAll("text").remove();
                                                         d3.select(container).select("#legend").selectAll("svg").remove();
-                                                        CountryOverviewKey(dataset,country_metadata,aggregate_data,this.value,container); });
+                                                        CountryOverviewKey(dataset,country_metadata,aggregate_data,this.value,sessionStorage.getItem("compare_code"),container); });
 
-        var options = dropdown.selectAll("option")
+        var options_country1 = dropdown_country1.selectAll("option")
                         .data(keys)
                         .enter()
                         .append("option")
                         .property("selected",function(d){ return ((d.country_code === default_code) ? "selected" : "");});
 
-        options.text(function(d){ return d.country_name; })
-                .attr("value", function (d){ return d.country_code; });    
+        options_country1.text(function(d){ return d.country_name; })
+                .attr("value", function (d){ return d.country_code; }); 
+
+        
+        var dropdown_country2 = d3.select(container).select("#countrySelector").append("select")
+                            .attr("name", "key_list")
+                            .on("change", function(){   sessionStorage.setItem("compare_code",this.value);
+                                                        d3.select(container).select("#vis").selectAll("svg").remove();
+                                                        d3.select(container).select("#legend").selectAll("text").remove();
+                                                        d3.select(container).select("#legend").selectAll("svg").remove();
+                                                        CountryOverviewKey(dataset,country_metadata,aggregate_data,sessionStorage.getItem("country_code"),this.value,container); });
+
+        var options_country2 = dropdown_country2.selectAll("option")
+                        .data(keys_extra)
+                        .enter()
+                        .append("option")
+                        .property("selected",function(d){ return ((d.country_code === compare_code) ? "selected" : "");});
+
+        options_country2.text(function(d){ return d.country_name; })
+                .attr("value", function (d){ return d.country_code; });
+          
     }
 
-    function CountryOverviewKey(data,country_metadata,aggregate_data,key,container){
+    function CountryOverviewKey(data,country_metadata,aggregate_data,key,compare_key,container){
 
         //key is landscode
 
         var color = d3.scale.category10();
 
         var dataset = getDataCountry(data,key);
+        if(compare_key != "None"){
+            var compare_data= getDataCountry(data,compare_key);
+            var region_compare = getRegionCode(country_metadata,compare_key)
+        }
 
         var world_data = getDataCountry(aggregate_data,"WLD");
 
@@ -356,8 +358,19 @@ div.tooltip {
         for(var i=0;i<dataset.length;i++){
             var region_series_data = getDataSeries(region_data,dataset[i].series_code);
             var world_series_data = getDataSeries(world_data,dataset[i].series_code);
+            if(compare_key != "None"){
+                var compare_series_data = getDataSeries(compare_data,dataset[i].series_code);
+            }
 
-            CountryOverviewChart(dataset[i],world_series_data[0],region_series_data[0],container,color(i%10));
+            if(compare_key != "None"){  
+                if(region==region_compare){
+                    CountryOverviewChart(dataset[i],compare_series_data[0],world_series_data[0],region_series_data[0],container,color(i%10));
+                }else{
+                    CountryOverviewChart(dataset[i],compare_series_data[0],world_series_data[0],null,container,color(i%10));
+                }
+            }else{
+                CountryOverviewChart(dataset[i],null,world_series_data[0],region_series_data[0],container,color(i%10));
+            }
         }
 
         drawLegend(container);
@@ -389,12 +402,27 @@ div.tooltip {
         }
     }
 
-    function CountryOverviewChart(dataset,world_series_data,region_series_data,container,color){
+    function CountryOverviewChart(dataset,compare_series_data,world_series_data,region_series_data,container,color){
 
         var data = dataset.years;
-        var region_data = region_series_data.years;
         var world_data = world_series_data.years;
-        var allData = data.concat(region_data,world_data)
+            
+        if(compare_series_data != null){
+            var compare_data = compare_series_data.years;
+            if(region_series_data != null){
+                var region_data = region_series_data.years;
+                var allData = data.concat(region_data,world_data,compare_data)
+            }else{
+            var allData = data.concat(world_data,compare_data)
+            }
+        }else{
+            if(region_series_data != null){
+                var region_data = region_series_data.years;
+                var allData = data.concat(region_data,world_data)
+            }else{
+            var allData = data.concat(world_data)
+            }
+        }
 
         var formatTime = d3.time.format("%Y");
 
@@ -406,22 +434,38 @@ div.tooltip {
             .domain(d3.extent(allData,function(d){ return d.year;}))
             .range([margin.left, width-margin.right]);
 
-        var y = d3.scale.linear()
-            .domain(d3.extent(allData,function(d){ return d.value;}))
-            .range([height-margin.bottom, margin.top]);
+        if(dataset.series_code=="SP.POP.TOTL"){
+            var y = d3.scale.log()
+                .domain([1,d3.max(allData,function(d){return d.value;})])
+                .base(10)
+                .range([height-margin.bottom, margin.top]);
+
+            var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left")
+                .tickFormat(function (d) {
+                    return y.tickFormat(4,d3.format("s"))(d);
+                });
+
+        }else{
+            var y = d3.scale.linear()
+                .domain(d3.extent(allData,function(d){ return d.value;}))
+                .range([height-margin.bottom, margin.top]);
+
+            var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left");
+        }
 
         var xAxis = d3.svg.axis()
             .scale(x)
             .tickFormat(formatTime)
             .orient("bottom");
 
-        var yAxis = d3.svg.axis()
-            .scale(y)
-            .orient("left");
-
+        
         var line = d3.svg.line()
             .x(function(d) {return x(d.year); })
-            .y(function(d) {return (isNaN(d.value)?y(0):y(d.value)); });  
+            .y(function(d) {return (isNaN(d.value)||d.value=="")?(dataset.series_code=="SP.POP.TOTL"?y(1):y(0)):y(d.value); });  
 
         var svg = d3.select(container).select("#vis").append("svg")
             .attr("id", dataset.series_code)
@@ -446,11 +490,21 @@ div.tooltip {
             .attr("d", line)
             .style("stroke","crimson");
 
-        svg.append("path")
-            .datum(region_data)
-            .attr("class", "line")
-            .attr("d", line)
-            .style("stroke","orange");
+        if(region_series_data != null){
+            svg.append("path")
+                .datum(region_data)
+                .attr("class", "line")
+                .attr("d", line)
+                .style("stroke","orange");
+        }
+
+        if(compare_series_data != null){
+            svg.append("path")
+                .datum(compare_data)
+                .attr("class", "line")
+                .attr("d", line)
+                .style("stroke","lightsteelblue");
+        }
 
         svg.append("path")
             .datum(data)
@@ -460,13 +514,13 @@ div.tooltip {
 
         svg.append("g")
             .attr("class", "x axis")
-            .attr("transform", "translate(0,"+ y(0) +")")
+            .attr("transform", "translate(0,"+ (dataset.series_code=="SP.POP.TOTL"?y(1):y(0)) +")")
             .call(xAxis)
             .selectAll("text")  
                 .style("text-anchor", "end")
                 .attr("dx", "-.8em")
                 .attr("dy", ".15em")
-                .attr("transform", "translate(0,"+((height-margin.bottom)-y(0)) +")rotate(-65)");
+                .attr("transform", "translate(0,"+((height-margin.bottom)-(dataset.series_code=="SP.POP.TOTL"?y(1):y(0))) +")rotate(-65)");
 
         svg.append("g")
             .attr("class", "y axis")
@@ -483,8 +537,9 @@ div.tooltip {
             .enter().append("circle")                               
             .attr("r", 3)       
             .attr("cx", function(d) { return x(d.year); })       
-            .attr("cy", function(d) { return(isNaN(d.value)?y(0):y(d.value)); })
+            .attr("cy", function(d) { return (isNaN(d.value)||d.value=="")?(dataset.series_code=="SP.POP.TOTL"?y(1):y(0)):y(d.value); })
             .style("fill", function(d){ return (isNaN(d.value)||d.value=="")? "grey":"crimson";})
+            .style("opacity",.9)
             .on("mouseover", function(d) {      
                 div.transition()        
                     .duration(200)      
@@ -500,35 +555,64 @@ div.tooltip {
                     .style("opacity", 0);
             });
 
-        svg.selectAll("dot")    
-            .data(region_data)         
-            .enter().append("circle")                               
-            .attr("r", 3)       
-            .attr("cx", function(d) { return x(d.year); })       
-            .attr("cy", function(d) { return(isNaN(d.value)?y(0):y(d.value)); })
-            .style("fill", function(d){ return (isNaN(d.value)||d.value=="")? "grey":"orange";})
-            .on("mouseover", function(d) {      
-                div.transition()        
-                    .duration(200)      
-                    .style("opacity", .9)
-                    .style("background","#CC8433");      
-                div.html(function(){return ((isNaN(d.value)||d.value=="")?("Year: " + formatTime(d.year) + "<br/>"  + "NO DATA"):("Year: " + formatTime(d.year) + "<br/>"  + "Value: " + d.value));})
-                    .style("left", (d3.event.pageX) + "px")     
-                    .style("top", (d3.event.pageY - 28) + "px");
-            })                  
-            .on("mouseout", function(d) {       
-                div.transition()        
-                    .duration(500)      
-                    .style("opacity", 0);
-            });
+        if(region_series_data != null){
+            svg.selectAll("dot")    
+                .data(region_data)         
+                .enter().append("circle")                               
+                .attr("r", 3)       
+                .attr("cx", function(d) { return x(d.year); })       
+                .attr("cy", function(d) { return (isNaN(d.value)||d.value=="")?(dataset.series_code=="SP.POP.TOTL"?y(1):y(0)):y(d.value); })
+                .style("fill", function(d){ return (isNaN(d.value)||d.value=="")? "grey":"orange";})
+                .style("opacity",.9)
+                .on("mouseover", function(d) {      
+                    div.transition()        
+                        .duration(200)      
+                        .style("opacity", .9)
+                        .style("background","#CC8433");      
+                    div.html(function(){return ((isNaN(d.value)||d.value=="")?("Year: " + formatTime(d.year) + "<br/>"  + "NO DATA"):("Year: " + formatTime(d.year) + "<br/>"  + "Value: " + d.value));})
+                        .style("left", (d3.event.pageX) + "px")     
+                        .style("top", (d3.event.pageY - 28) + "px");
+                })                  
+                .on("mouseout", function(d) {       
+                    div.transition()        
+                        .duration(500)      
+                        .style("opacity", 0);
+                });
+            }
+
+        if(compare_series_data != null){
+            svg.selectAll("dot")    
+                .data(compare_data)         
+                .enter().append("circle")                               
+                .attr("r", 3)       
+                .attr("cx", function(d) { return x(d.year); })       
+                .attr("cy", function(d) { return(isNaN(d.value)||d.value=="")?(dataset.series_code=="SP.POP.TOTL"?y(1):y(0)):y(d.value); })
+                .style("fill", function(d){ return (isNaN(d.value)||d.value=="")? "grey":"lightsteelblue";})
+                .style("opacity",.9)
+                .on("mouseover", function(d) {      
+                    div.transition()        
+                        .duration(200)      
+                        .style("opacity", .9)
+                        .style("background","steelblue");      
+                    div.html(function(){return ((isNaN(d.value)||d.value=="")?("Year: " + formatTime(d.year) + "<br/>"  + "NO DATA"):("Year: " + formatTime(d.year) + "<br/>"  + "Value: " + d.value));})
+                        .style("left", (d3.event.pageX) + "px")     
+                        .style("top", (d3.event.pageY - 28) + "px");
+                })                  
+                .on("mouseout", function(d) {       
+                    div.transition()        
+                        .duration(500)      
+                        .style("opacity", 0);
+                });
+            }
 
         svg.selectAll("dot")    
             .data(data)         
             .enter().append("circle")                               
             .attr("r", 3)       
             .attr("cx", function(d) { return x(d.year); })       
-            .attr("cy", function(d) { return (isNaN(d.value)?y(0):y(d.value)); })
+            .attr("cy", function(d) { return (isNaN(d.value)||d.value=="")?(dataset.series_code=="SP.POP.TOTL"?y(1):y(0)):y(d.value); })
             .style("fill", function(d){ return (isNaN(d.value)||d.value=="")? "grey":"steelblue";})
+            .style("opacity", .9)
             .on("mouseover", function(d) {      
                 div.transition()        
                     .duration(200)      
