@@ -53,12 +53,26 @@ div.tooltip {
     position: absolute;         
     text-align: center;
     color: white;
-    height: 32px;                
+    height: auto;
+    width: auto;                
     padding: 2px;               
     font: 12px sans-serif;
     border: 0px;        
     border-radius: 8px;         
     pointer-events: none;           
+}
+
+div.infotip {   
+    position: absolute;         
+    text-align: center;
+    color: white;
+    width: 570px;                
+    padding: 2px;               
+    font: 12px sans-serif;
+    border: 0px;        
+    border-radius: 8px;         
+    pointer-events: none;
+    z-index:2;           
 }
 
 .line {
@@ -471,9 +485,9 @@ div.tooltip {
 
         var formatTime = d3.time.format("%Y");
 
-        var margin = {top: 15, right: 15, bottom: 20, left: 30},
-            width = 450 - margin.left - margin.right,
-            height = 180 - margin.top - margin.bottom;
+        var margin = {top: 20, right: 15, bottom: 20, left: 30},
+            width = 600 - margin.left - margin.right,
+            height = 300 - margin.top - margin.bottom;
 
         var x = d3.time.scale()
             .domain(d3.extent(allData,function(d){ return d.year;}))
@@ -492,6 +506,8 @@ div.tooltip {
                     return y.tickFormat(4,d3.format("s"))(d);
                 });
 
+                var value_format = d3.format(".4s");
+
         }else{
             var y = d3.scale.linear()
                 .domain(d3.extent(allData,function(d){ return d.value;}))
@@ -500,6 +516,12 @@ div.tooltip {
             var yAxis = d3.svg.axis()
                 .scale(y)
                 .orient("left");
+
+                if(dataset.series_name.indexOf("%") != (-1)){
+                    var value_format = function(d){return d3.format(".2%")(d/100);};
+                }else{
+                    var value_format = d3.format(".2f");
+            }
         }
 
         var xAxis = d3.svg.axis()
@@ -527,6 +549,10 @@ div.tooltip {
         // Define the div for the tooltip
         var div = d3.select(container).append("div")   
             .attr("class", "tooltip")               
+            .style("opacity", 0);
+
+        var info = d3.select(container).append("div")   
+            .attr("class", "infotip")               
             .style("opacity", 0);
 
         svg.append("path")
@@ -574,31 +600,31 @@ div.tooltip {
     
         svg.append("text")
             .style("text-anchor", "middle")
-            .attr("transform", "translate(" + (width/2) + ",0)")
+            .attr("transform", "translate(" + (width/2) + "," + 5 + ")")
             .text(dataset.series_name);
 
         var node = svg.append("g")
         .on("mouseover", function (){
-                div.transition()
+                info.transition()
                     .duration(200)
                     .style("opacity", 0.9)
                     .style("background", "gray");
-                div.html(function () { return series_metadata[0].Long_Definition})
+                info.html(function () { return series_metadata[0].Long_Definition})
                     .style("left", (d3.event.pageX) + "px")     
-                    .style("top", (d3.event.pageY - 28) + "px");
+                    .style("top", (d3.event.pageY + 10) + "px");
             })
             .on("mouseout", function(d) {       
-                div.transition()        
+                info.transition()        
                     .duration(500)      
                     .style("opacity", 0);
             });
         node.append("circle")
             .attr("r",10)
-            .attr("cx", 400)
+            .attr("cx", margin.left)
             .attr("cy", 0)
             .style("fill", "white")
             .style("stroke", "#b6b6b6");          
-       node.append("text").attr("x", 396).attr("y", 5).style("fill", "#b6b6b6").text("?");        
+       node.append("text").attr("x", margin.left-4).attr("y", 5).style("fill", "#b6b6b6").text("?");        
         
         svg.selectAll("dot")    
             .data(world_data)         
@@ -613,7 +639,7 @@ div.tooltip {
                     .duration(200)      
                     .style("opacity", .9)
                     .style("background","#B7384F");      
-                div.html(function(){return ((isNaN(d.value)||d.value=="")?("Year: " + formatTime(d.year) + "<br/>"  + "NO DATA"):("Year: " + formatTime(d.year) + "<br/>"  + "Value: " + d.value));})
+                div.html(function(){return ((isNaN(d.value)||d.value=="")?("Year: " + formatTime(d.year) + "<br/>"  + "NO DATA"):("Year: " + formatTime(d.year) + "<br/>"  + "Value: " + value_format(d.value)));})
                     .style("left", (d3.event.pageX) + "px")     
                     .style("top", (d3.event.pageY - 28) + "px");
             })                  
@@ -637,7 +663,7 @@ div.tooltip {
                         .duration(200)      
                         .style("opacity", .9)
                         .style("background","#CC8433");      
-                    div.html(function(){return ((isNaN(d.value)||d.value=="")?("Year: " + formatTime(d.year) + "<br/>"  + "NO DATA"):("Year: " + formatTime(d.year) + "<br/>"  + "Value: " + d.value));})
+                    div.html(function(){return ((isNaN(d.value)||d.value=="")?("Year: " + formatTime(d.year) + "<br/>"  + "NO DATA"):("Year: " + formatTime(d.year) + "<br/>"  + "Value: " + value_format(d.value)));})
                         .style("left", (d3.event.pageX) + "px")     
                         .style("top", (d3.event.pageY - 28) + "px");
                 })                  
@@ -662,7 +688,7 @@ div.tooltip {
                         .duration(200)      
                         .style("opacity", .9)
                         .style("background","steelblue");      
-                    div.html(function(){return ((isNaN(d.value)||d.value=="")?("Year: " + formatTime(d.year) + "<br/>"  + "NO DATA"):("Year: " + formatTime(d.year) + "<br/>"  + "Value: " + d.value));})
+                    div.html(function(){return ((isNaN(d.value)||d.value=="")?("Year: " + formatTime(d.year) + "<br/>"  + "NO DATA"):("Year: " + formatTime(d.year) + "<br/>"  + "Value: " + value_format(d.value)));})
                         .style("left", (d3.event.pageX) + "px")     
                         .style("top", (d3.event.pageY - 28) + "px");
                 })                  
@@ -686,7 +712,7 @@ div.tooltip {
                     .duration(200)      
                     .style("opacity", .9)
                     .style("background","#335E82");      
-                div.html(function(){return ((isNaN(d.value)||d.value=="")?("Year: " + formatTime(d.year) + "<br/>"  + "NO DATA"):("Year: " + formatTime(d.year) + "<br/>"  + "Value: " + d.value));})
+                div.html(function(){return ((isNaN(d.value)||d.value=="")?("Year: " + formatTime(d.year) + "<br/>"  + "NO DATA"):("Year: " + formatTime(d.year) + "<br/>"  + "Value: " + value_format(d.value)));})
                     .style("left", (d3.event.pageX) + "px")     
                     .style("top", (d3.event.pageY - 28) + "px");
             })                  

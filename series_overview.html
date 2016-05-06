@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-  <title>Small multiples</title>
+  <title>Series Overview</title>
 <style>
 
 #defaultText{
@@ -60,12 +60,26 @@ div.tooltip {
     position: absolute;         
     text-align: center;
     color: white;
-    height: 32px;                
+    height: auto;
+    width: auto;                
     padding: 2px;               
     font: 12px sans-serif;
     border: 0px;        
     border-radius: 8px;         
     pointer-events: none;           
+}
+
+div.infotip {   
+    position: absolute;         
+    text-align: center;
+    color: white;
+    width: 570px;                
+    padding: 2px;               
+    font: 12px sans-serif;
+    border: 0px;        
+    border-radius: 8px;         
+    pointer-events: none;
+    z-index:2;           
 }
 
 .line {
@@ -263,6 +277,20 @@ div.tooltip {
         return result;
     }
 
+    function filterDataSeriesRegion(dataset,country_metadata,series_code,region_code){
+        if(region_code == "WLD"){
+            return dataset;
+        }else{
+            var result = [];
+            for(var i=0;i<dataset.length;i++){
+                if(getRegionCode(country_metadata,dataset[i].country_code)==region_code){
+                    result.push(dataset[i])
+                }
+            }
+            return result;
+        }
+    }
+
     function getLongDefinition(dataset,series_code){
         var result =[];
         for(var i=0; i<dataset.length;i++){
@@ -382,7 +410,7 @@ div.tooltip {
     function smallMultiplesKey(data,country_metadata,aggregate_data,series,region,series_metadata,container){
         var color = d3.scale.category10();
 
-        var dataset = getDataSeries(data,series);
+        var dataset = filterDataSeriesRegion(getDataSeries(data,series),country_metadata,series,region);
 
         var world_data = getDataCountry(getDataSeries(aggregate_data,series),"WLD");
 
@@ -390,9 +418,7 @@ div.tooltip {
         var region_series_data = ((region == "WLD")? [null] : getDataSeries(region_data,series));
 
         for(var i=0;i<dataset.length;i++){
-                if(getRegionCode(country_metadata,dataset[i].country_code)==region || region =="WLD"){
-                    smallMultiplesChart(dataset[i],world_data[0],region_series_data[0],container,color(i%10),dataset);
-                }
+            smallMultiplesChart(dataset[i],world_data[0],region_series_data[0],container,color(i%10),dataset);
         }
 
         drawLegend(region, container);
@@ -404,7 +430,7 @@ div.tooltip {
         var series_metadata_data = getLongDefinition(series_metadata, series);
 
         var div = d3.select(container).append("div")   
-            .attr("class", "tooltip")               
+            .attr("class", "infotip")               
             .style("opacity", 0);
 
         var svg = d3.select(container).select("#info").append("svg")
@@ -487,7 +513,7 @@ div.tooltip {
             var region_data = region_series_data.years;
             var allData = all_country_data.concat(region_data,world_data)
         }else{
-            var allData = data.concat(world_data)
+            var allData = all_country_data.concat(world_data)
         }
 
         var formatTime = d3.time.format("%Y");
@@ -512,16 +538,26 @@ div.tooltip {
             .tickFormat(function (d) {
                 return y.tickFormat(4,d3.format("s"))(d);
             });
+
+            var value_format = d3.format(".4s");
             
 
         }else{
             var y = d3.scale.linear()
-                .domain(d3.extent(allData,function(d){ return d.value;}))
+                .domain(d3.extent(allData,function(d){ return (isNaN(d.value)||d.value=="")?0:d.value;}))
                 .range([height-margin.bottom, margin.top]);
 
             var yAxis = d3.svg.axis()
             .scale(y)
             .orient("left");
+
+            if(dataset.series_name.indexOf("%") != (-1)){
+                var value_format = function(d){return d3.format(".2%")(d/100);};
+            }else{
+                var value_format = d3.format(".2f");
+            }
+
+
         }
 
         var xAxis = d3.svg.axis()
@@ -587,7 +623,7 @@ div.tooltip {
 
         svg.append("text")
             .style("text-anchor", "middle")
-            .attr("transform", "translate(" + (width/2) + ",0)")
+            .attr("transform", "translate(" + (width/2) + ",5)")
             .text(dataset.country_name);
 
         svg.selectAll("dot")    
@@ -602,7 +638,7 @@ div.tooltip {
                     .duration(200)      
                     .style("opacity", .9)
                     .style("background","#B7384F");      
-                div.html(function(){return ((isNaN(d.value)||d.value=="")?("Year: " + formatTime(d.year) + "<br/>"  + "NO DATA"):("Year: " + formatTime(d.year) + "<br/>"  + "Value: " + d.value));})
+                div.html(function(){return ((isNaN(d.value)||d.value=="")?("Year: " + formatTime(d.year) + "<br/>"  + "NO DATA"):("Year: " + formatTime(d.year) + "<br/>"  + "Value: " + value_format(d.value)));})
                     .style("left", (d3.event.pageX) + "px")     
                     .style("top", (d3.event.pageY - 28) + "px");
             })                  
@@ -625,7 +661,7 @@ div.tooltip {
                         .duration(200)      
                         .style("opacity", .9)
                         .style("background","#CC8433");      
-                    div.html(function(){return ((isNaN(d.value)||d.value=="")?("Year: " + formatTime(d.year) + "<br/>"  + "NO DATA"):("Year: " + formatTime(d.year) + "<br/>"  + "Value: " + d.value));})
+                    div.html(function(){return ((isNaN(d.value)||d.value=="")?("Year: " + formatTime(d.year) + "<br/>"  + "NO DATA"):("Year: " + formatTime(d.year) + "<br/>"  + "Value: " +value_format(d.value)));})
                         .style("left", (d3.event.pageX) + "px")     
                         .style("top", (d3.event.pageY - 28) + "px");
                 })                  
@@ -648,7 +684,7 @@ div.tooltip {
                     .duration(200)      
                     .style("opacity", .9)
                     .style("background","#335E82");      
-                div.html(function(){return ((isNaN(d.value)||d.value=="")?("Year: " + formatTime(d.year) + "<br/>"  + "NO DATA"):("Year: " + formatTime(d.year) + "<br/>"  + "Value: " + d.value));})
+                div.html(function(){return ((isNaN(d.value)||d.value=="")?("Year: " + formatTime(d.year) + "<br/>"  + "NO DATA"):("Year: " + formatTime(d.year) + "<br/>"  + "Value: " + value_format(d.value)));})
                     .style("left", (d3.event.pageX) + "px")     
                     .style("top", (d3.event.pageY - 28) + "px");
                     
