@@ -241,7 +241,6 @@ div.infotip {
                         }
                     },function(data){
 
-                        console.log(data)
 
                         document.getElementById("defaultText").innerHTML = "";
                         // ALL CODE INVOLVING THIS DATA COMES HERE
@@ -372,7 +371,6 @@ div.infotip {
         }
 
         var world_data = getDataCountry(aggregate_data,"WLD");
-        console.log(world_data)
 
         var region = getRegionCode(country_metadata,key)
 
@@ -466,9 +464,6 @@ div.infotip {
 
     function CountryOverviewChart(dataset,compare_series_data,world_series_data,region_series_data,series_metadata,container,color){
 
-        console.log(world_series_data)
-        console.log(dataset)
-
         var data = dataset.years;
         var world_data = world_series_data.years;
             
@@ -499,7 +494,7 @@ div.infotip {
             .domain(d3.extent(allData,function(d){ return d.year;}))
             .range([margin.left, width-margin.right]);
 
-        if(dataset.series_code=="SP.POP.TOTL"){
+        if(dataset.series_code=="SP.POP.TOTL"||dataset.series_code=="NY.GNP.MKTP.KD"||dataset.series_code=="NY.GDP.MKTP.KD"){
             var y = d3.scale.log()
                 .domain([1,d3.max(allData,function(d){return (isNaN(d.value)||d.value=="")?1:d.value;})])
                 .base(10)
@@ -538,7 +533,7 @@ div.infotip {
         
         var line = d3.svg.line()
             .x(function(d) {return x(d.year); })
-            .y(function(d) {return (isNaN(d.value)||d.value=="")?(dataset.series_code=="SP.POP.TOTL"?y(1):y(0)):y(d.value); });  
+            .y(function(d) {return (isNaN(d.value)||d.value=="")?((dataset.series_code=="SP.POP.TOTL"||dataset.series_code=="NY.GNP.MKTP.KD"||dataset.series_code=="NY.GDP.MKTP.KD")?y(1):y(0)):y(d.value); });  
 
         var svg = d3.select(container).select("#vis").append("svg")
             .attr("id", dataset.series_code)
@@ -591,13 +586,13 @@ div.infotip {
 
         svg.append("g")
             .attr("class", "x axis")
-            .attr("transform", "translate(0,"+ (dataset.series_code=="SP.POP.TOTL"?y(1):y(0)) +")")
+            .attr("transform", "translate(0,"+ ((dataset.series_code=="SP.POP.TOTL"||dataset.series_code=="NY.GNP.MKTP.KD"||dataset.series_code=="NY.GDP.MKTP.KD")?y(1):y(0)) +")")
             .call(xAxis)
             .selectAll("text")  
                 .style("text-anchor", "end")
                 .attr("dx", "-.8em")
                 .attr("dy", ".15em")
-                .attr("transform", "translate(0,"+((height-margin.bottom)-(dataset.series_code=="SP.POP.TOTL"?y(1):y(0))) +")rotate(-65)");
+                .attr("transform", "translate(0,"+((height-margin.bottom)-((dataset.series_code=="SP.POP.TOTL"||dataset.series_code=="NY.GNP.MKTP.KD"||dataset.series_code=="NY.GDP.MKTP.KD")?y(1):y(0))) +")rotate(-65)");
 
         svg.append("g")
             .attr("class", "y axis")
@@ -637,7 +632,7 @@ div.infotip {
             .enter().append("circle")                               
             .attr("r", 3)       
             .attr("cx", function(d) { return x(d.year); })       
-            .attr("cy", function(d) { return (isNaN(d.value)||d.value=="")?(dataset.series_code=="SP.POP.TOTL"?y(1):y(0)):y(d.value); })
+            .attr("cy", function(d) { return (isNaN(d.value)||d.value=="")?((dataset.series_code=="SP.POP.TOTL"||dataset.series_code=="NY.GNP.MKTP.KD"||dataset.series_code=="NY.GDP.MKTP.KD")?y(1):y(0)):y(d.value); })
             .style("fill", function(d){ return (isNaN(d.value)||d.value=="")? "grey":"crimson";})
             .style("opacity",.9)
             .on("mouseover", function(d) {      
@@ -661,7 +656,7 @@ div.infotip {
                 .enter().append("circle")                               
                 .attr("r", 3)       
                 .attr("cx", function(d) { return x(d.year); })       
-                .attr("cy", function(d) { return (isNaN(d.value)||d.value=="")?(dataset.series_code=="SP.POP.TOTL"?y(1):y(0)):y(d.value); })
+                .attr("cy", function(d) { return (isNaN(d.value)||d.value=="")?((dataset.series_code=="SP.POP.TOTL"||dataset.series_code=="NY.GNP.MKTP.KD"||dataset.series_code=="NY.GDP.MKTP.KD")?y(1):y(0)):y(d.value); })
                 .style("fill", function(d){ return (isNaN(d.value)||d.value=="")? "grey":"orange";})
                 .style("opacity",.9)
                 .on("mouseover", function(d) {      
@@ -686,7 +681,7 @@ div.infotip {
                 .enter().append("circle")                               
                 .attr("r", 3)       
                 .attr("cx", function(d) { return x(d.year); })       
-                .attr("cy", function(d) { return(isNaN(d.value)||d.value=="")?(dataset.series_code=="SP.POP.TOTL"?y(1):y(0)):y(d.value); })
+                .attr("cy", function(d) { return(isNaN(d.value)||d.value=="")?((dataset.series_code=="SP.POP.TOTL"||dataset.series_code=="NY.GNP.MKTP.KD"||dataset.series_code=="NY.GDP.MKTP.KD")?y(1):y(0)):y(d.value); })
                 .style("fill", function(d){ return (isNaN(d.value)||d.value=="")? "grey":"lightsteelblue";})
                 .style("opacity",.9)
                 .on("mouseover", function(d) {      
@@ -710,7 +705,7 @@ div.infotip {
             .enter().append("circle")                               
             .attr("r", 3)       
             .attr("cx", function(d) { return x(d.year); })       
-            .attr("cy", function(d) { return (isNaN(d.value)||d.value=="")?(dataset.series_code=="SP.POP.TOTL"?y(1):y(0)):y(d.value); })
+            .attr("cy", function(d) { return (isNaN(d.value)||d.value=="")?((dataset.series_code=="SP.POP.TOTL"||dataset.series_code=="NY.GNP.MKTP.KD"||dataset.series_code=="NY.GDP.MKTP.KD")?y(1):y(0)):y(d.value); })
             .style("fill", function(d){ return (isNaN(d.value)||d.value=="")? "grey":"steelblue";})
             .style("opacity", .9)
             .on("mouseover", function(d) {      
