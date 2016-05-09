@@ -241,6 +241,8 @@ div.infotip {
                         }
                     },function(data){
 
+                        console.log(data)
+
                         document.getElementById("defaultText").innerHTML = "";
                         // ALL CODE INVOLVING THIS DATA COMES HERE
                         createVisualisation(data,Country_Metadata,Aggregate_Data,Series_Metadata,"#countryOverview1");
@@ -370,6 +372,7 @@ div.infotip {
         }
 
         var world_data = getDataCountry(aggregate_data,"WLD");
+        console.log(world_data)
 
         var region = getRegionCode(country_metadata,key)
 
@@ -463,6 +466,9 @@ div.infotip {
 
     function CountryOverviewChart(dataset,compare_series_data,world_series_data,region_series_data,series_metadata,container,color){
 
+        console.log(world_series_data)
+        console.log(dataset)
+
         var data = dataset.years;
         var world_data = world_series_data.years;
             
@@ -495,7 +501,7 @@ div.infotip {
 
         if(dataset.series_code=="SP.POP.TOTL"){
             var y = d3.scale.log()
-                .domain([1,d3.max(allData,function(d){return d.value;})])
+                .domain([1,d3.max(allData,function(d){return (isNaN(d.value)||d.value=="")?1:d.value;})])
                 .base(10)
                 .range([height-margin.bottom, margin.top]);
 
@@ -510,7 +516,7 @@ div.infotip {
 
         }else{
             var y = d3.scale.linear()
-                .domain(d3.extent(allData,function(d){ return d.value;}))
+                .domain(d3.extent(allData,function(d){ return (isNaN(d.value)||d.value=="")?0:d.value;}))
                 .range([height-margin.bottom, margin.top]);
 
             var yAxis = d3.svg.axis()
